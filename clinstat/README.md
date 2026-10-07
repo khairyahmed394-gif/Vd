@@ -1,7 +1,8 @@
-# ClinStat Research – video pipeline
+# ClinStat Research – motion graphics
 
-- `brand.json` – everything extracted from the supplied images/videos (palette, messaging, charts, style, storyboard). The renderer reads the palette from it.
-- `assets/` – logo mark, logo lockup, charts/map/phase diagram cropped from the supplied videos, icons cropped from the supplied posts.
-- `pipeline/tts.py` – Egyptian Arabic narration (Edge TTS `ar-EG-ShakirNeural`) + subtitle text.
-- `pipeline/presenter.py` – shaded illustrated presenter with audio-driven lip sync.
-- `pipeline/render.py` – composes 1080x1920 video (ffmpeg), mixes the brand-video music under the narration.
+- `clinstat_motion.mp4` – 14.2 s, 1080x1920, 30 fps, motion graphics only (no characters), brand music + transition whooshes.
+- `brand.json` – everything extracted from the supplied images/videos (palette, messaging, charts, style, storyboard).
+- `assets/` – logo mark, lockup, charts/map/diagram crops from the supplied videos, icons from the posts.
+- `motion/template.html` – the whole animation as one deterministic SVG/JS timeline (`render(t)`); `__SEA__` is replaced by the traced Gulf map from `map_paths.json`.
+- `motion/trace.py` – vectorises the Gulf sea shapes from the supplied map frame (OpenCV).
+- `motion/capture.py` – Playwright/Chromium frame capture -> ffmpeg (`python capture.py full out.mp4 audio.wav`; fonts: Be Vietnam Pro Bold/Medium next to the html).
