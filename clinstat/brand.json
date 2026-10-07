@@ -1,0 +1,148 @@
+{
+  "_source": "Extracted from 3 images (logo + 2 social posts) and 2 Gemini-generated vertical videos (720x1280, 10s + 20s, music only, no speech).",
+  "brand": {
+    "name": "ClinStat Research",
+    "wordmark": "ClinStat",
+    "sub_wordmark": "RESEARCH",
+    "industry": "Clinical research & biostatistics consultancy (CRO-style analytics services)",
+    "region_focus": "Gulf / Middle East (map with city pins across KSA, UAE, Qatar, Kuwait, Oman, Yemen; chart label 'Medical Insights in Gulf')",
+    "audience": [
+      "clinicians",
+      "academic researchers",
+      "pharma / device sponsors",
+      "journal authors"
+    ],
+    "tone": "authoritative, calm, educational, premium; plain-English explainers; no hype",
+    "taglines_seen": [
+      "Data Integrity - Accelerated Trials",
+      "Accelerated Researchs"
+    ],
+    "logo": "Three stacked chevrons (gold top, mid green, dark green) with three gold dots rising above (data points); 'ClinStat' in rounded geometric bold sans + spaced 'RESEARCH' in gold with thin vertical divider"
+  },
+  "palette": {
+    "dark_green": "#003522",
+    "logo_dark_green": "#023821",
+    "forest_green": "#055F39",
+    "chart_green": "#1E5239",
+    "chart_mid_green": "#507C64",
+    "map_green": "#123B2B",
+    "gold": "#B69668",
+    "gold_post": "#B18D60",
+    "sand": "#BFA983",
+    "cream_post_bg": "#F7F2EC",
+    "cream_video_bg": "#E6E2D8",
+    "white": "#FFFFFF",
+    "usage": "cream backgrounds, dark-green headline text & full-bleed dark panels, gold for accents/emphasis words/thin rules/icons, footer = dark green band with gold curved swoosh"
+  },
+  "typography": {
+    "headline": "rounded geometric bold sans (Be Vietnam Pro Bold is the closest bundled font)",
+    "body": "same family, regular; gold for secondary lines",
+    "arabic": "DejaVu Sans (bundled, shapes via raqm)"
+  },
+  "visual_language": [
+    "flat vector icons in thin dark-green line inside gold ring",
+    "subtle grid-paper + topographic contour background",
+    "gold particle dots / sparkles / plus signs",
+    "dark-green panels with gold ECG line + stopwatch",
+    "layered-chevron 'Phase 1 / Phase 2' diagram",
+    "Gulf map in dark green with gold pins and glowing gold route lines"
+  ],
+  "content_extracted": {
+    "post_1": {
+      "headline": "Before a manuscript even reaches peer review, editors screen it in minutes",
+      "sub": "Here's what gets it desk-rejected before anyone reads your results",
+      "points": [
+        "Statistical reporting gaps",
+        "Incomplete ethics documentation",
+        "Scope mismatch"
+      ],
+      "cta": "All three are avoidable with one review before submission - not after rejection."
+    },
+    "post_2": {
+      "hook": "Ever wonder how researchers predict outcomes over time?",
+      "body": "It's called survival analysis and it's not just about life and death. It models the time until any event happens: relapse, discharge, device failure. Standard statistics can't handle this property. This is exactly where we specialise.",
+      "footer": "One of many advanced methods our team worked with daily."
+    },
+    "video_1_20s": {
+      "scenes": [
+        "logo lockup top-right throughout",
+        "donut chart 4 segments (dark green, mid green, sand; callouts 'Medical Insights in Gulf' x2, 'Technical Researches Insights' x2) over faint map",
+        "bar+line combo chart (Mar-Aug style x-axis, bars alternate green/sand, smooth overlay lines, 0-500 axis) beside area chart",
+        "concentric radial bars exploding into gold/green particles",
+        "logo reveal and dissolve to dots"
+      ]
+    },
+    "video_2_10s": {
+      "scenes": [
+        "kinetic text 'DATA INTEGRITY / ACCELERATED TRIALS' (green + gold)",
+        "zoom into Gulf map, pins + gold network lines",
+        "chevron split into 'PHASE 1' / 'PHASE 2' labels",
+        "logo end card"
+      ]
+    },
+    "services_inferred": [
+      "Biostatistics & clinical trial data analysis",
+      "Survival / time-to-event analysis",
+      "Pre-submission manuscript statistical & ethics review",
+      "Data integrity & trial acceleration (Phase 1-2)",
+      "Regional (Gulf) medical insights"
+    ]
+  },
+  "charts": {
+    "chart_donut": {
+      "file": "assets/chart_donut.png",
+      "type": "donut",
+      "segments_clockwise_from_top": [
+        {
+          "color": "#1E5239",
+          "share_approx": 0.25
+        },
+        {
+          "color": "#507C64",
+          "share_approx": 0.25
+        },
+        {
+          "color": "#BFA983",
+          "share_approx": 0.25
+        }
+      ],
+      "labels": [
+        "Medical Insights in Gulf",
+        "Technical Researches Insights"
+      ]
+    },
+    "chart_bars_lines": {
+      "file": "assets/chart_bars_lines.png",
+      "type": "bar+line+area",
+      "note": "axis text is AI-garbled (Man/For/Det...) - treat as decorative, relabel if used for data"
+    },
+    "map_gulf": {
+      "file": "assets/map_gulf.png",
+      "type": "pin network map"
+    },
+    "phases": {
+      "file": "assets/phases.png",
+      "type": "layered chevron diagram"
+    },
+    "icons": [
+      "assets/icon_stats.png",
+      "assets/icon_ethics.png",
+      "assets/icon_scope.png",
+      "assets/icon_stopwatch.png"
+    ]
+  },
+  "audio": {
+    "video_audio": "background music/sfx only (Whisper detects no speech)",
+    "narration_for_new_videos": {
+      "language": "Egyptian Arabic",
+      "engine": "Edge TTS",
+      "voice": "ar-EG-ShakirNeural"
+    }
+  },
+  "presenter": {
+    "name_on_screen": "Ahmed Khairi",
+    "role": "Research Developer, ClinStat Research",
+    "look": "human-style illustrated presenter: Egyptian, trimmed beard, dark-green blazer (#003522), cream shirt, gold pocket square",
+    "note": "illustrated, not photoreal - no image/video generation available in this environment"
+  }
+}
