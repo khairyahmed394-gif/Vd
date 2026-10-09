@@ -1,6 +1,6 @@
 import sys, os, subprocess, time
 from playwright.sync_api import sync_playwright
-HERE = os.path.dirname(os.path.abspath(__file__)); FPS = 30; SUB = 4; SHUTTER = 0.5
+HERE = os.path.dirname(os.path.abspath(__file__)); FPS = 30; SUB = 8; SHUTTER = 0.5
 out, audio = sys.argv[1], sys.argv[2]
 with sync_playwright() as p:
     b = p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome", args=["--no-sandbox", "--disable-gpu", "--font-render-hinting=none", "--allow-file-access-from-files"])

@@ -1,5 +1,5 @@
 import numpy as np, json, wave, subprocess
-SR = 44100; DUR = 15.0; rng = np.random.RandomState(4)
+SR = 44100; DUR = 22.0; rng = np.random.RandomState(4)
 def tt(d): return np.arange(int(d*SR))/SR
 def env(n, a=.005, d=.2, curve=3.0): t = np.arange(n)/SR; return np.minimum(t/a, 1)*np.exp(-t*curve/d)
 def lp(x, f):  # one-pole lowpass
