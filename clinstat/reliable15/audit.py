@@ -8,7 +8,7 @@ EXTRA={7:["SENSITIVITY & ROBUSTNESS ANALYSES"],9:["MULTIPLE TESTING CORRECTION",
 CLOSE=["RELIABLE RESEARCH STARTS WITH RIGOR.","CLINSTAT RESEARCH","EVIDENCE. INSIGHT. IMPACT."]
 import json,sys
 TT=json.load(open("times.json"))
-CHECKS=[(2.4,[HEAD]),(29.8,CLOSE)]
+CHECKS=[(2.4,[HEAD]),(51.5,CLOSE)]
 for n,t0,d in TT: CHECKS.append((round(t0+d-.3,2),[HEAD,str(n),CAP[n]]+EXTRA.get(n,[])))
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",args=["--no-sandbox","--allow-file-access-from-files"]); pg=b.new_page(viewport={"width":1080,"height":1920})
@@ -25,5 +25,5 @@ with sync_playwright() as p:
                 a,c=items[i],items[j]; ox=min(a["x1"],c["x1"])-max(a["x0"],c["x0"]); oy=min(a["y1"],c["y1"])-max(a["y0"],c["y0"])
                 if ox>8 and oy>8: bad+=1; print(f"[t={t}] OVERLAP: '{a['s'][:28]}' x '{c['s'][:28]}' ({ox:.0f}x{oy:.0f})")
         print(f"[t={t}] {len(items)} text items checked")
-    for k in range(0,901,3): pg.evaluate(f"render({k/30})")
+    for k in range(0,1561,4): pg.evaluate(f"render({k/30})")
     print("sweep done (301 frames); page errors:",errs[:3],"| problems:",bad); b.close()

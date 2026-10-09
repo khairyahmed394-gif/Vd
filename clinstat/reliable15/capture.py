@@ -15,12 +15,12 @@ with sync_playwright() as p:
     else:
         out,audio=sys.argv[2],sys.argv[3]; n=int(round(pg.evaluate("TOTAL")*FPS))
         ff=subprocess.Popen(["ffmpeg","-loglevel","error","-y","-f","image2pipe","-framerate",str(FPS*SUB),"-c:v","mjpeg","-i","-","-i",audio,
-            "-vf",f"tmix=frames={SUB},select='eq(mod(n\\,{SUB})\\,{SUB-1})',setpts=N/({FPS}*TB)","-r",str(FPS),"-frames:v",str(n),"-t","30",
+            "-vf",f"tmix=frames={SUB},select='eq(mod(n\\,{SUB})\\,{SUB-1})',setpts=N/({FPS}*TB)","-r",str(FPS),"-frames:v",str(n),"-t","52",
             "-c:v","libx264","-preset","slow","-crf","14","-pix_fmt","yuv420p","-c:a","aac","-b:a","192k","-movflags","+faststart",out],stdin=subprocess.PIPE)
         t0=time.time()
         for i in range(n):
             for k in range(SUB):
-                t=min(TOTAL:=30.0, max(0.0, i/FPS+(k-(SUB-1)/2)*(SHUTTER/FPS)/(SUB-1)))
+                t=min(TOTAL:=52.0, max(0.0, i/FPS+(k-(SUB-1)/2)*(SHUTTER/FPS)/(SUB-1)))
                 pg.evaluate(f"render({t})"); ff.stdin.write(pg.screenshot(type="jpeg",quality=96))
             if i%60==0: print(i,n,round(time.time()-t0),flush=True)
         ff.stdin.close(); ff.wait(); print("done",n,"errs",errs[:3])

@@ -1,5 +1,5 @@
 // ================================================================ 6 · effect sizes & confidence intervals
-PRIN.push({n:6,sz:1.08,w:1.7,ts:1.15,cap:["Report effect sizes and","confidence intervals,","not only p-values"],build(sc,st){
+PRIN.push({n:6,sz:1.08,w:1.7,ts:1,cap:["Report effect sizes and","confidence intervals,","not only p-values"],build(sc,st){
  const PY=-120;
  // reference line + CI + marker
  const ref=D(sc,st,"line",{x1:-20,x2:-20,y1:PY-48,y2:PY+48,stroke:C.forest,"stroke-width":3.5,"stroke-dasharray":"8 8"},.1,.4);ref.removeAttribute("pathLength");ref.setAttribute("stroke-dashoffset",0);
@@ -20,7 +20,7 @@ PRIN.push({n:6,sz:1.08,w:1.7,ts:1.15,cap:["Report effect sizes and","confidence 
  evs(sc,.3,"pulse",.4,5);evs(sc,.7,"confirm",.5);evs(sc,1.0,"tick",.5);
 }});
 // ================================================================ 7 · sensitivity & robustness
-PRIN.push({n:7,sz:1.0,w:2.4,ts:1.05,cap:["Perform sensitivity and","robustness analyses"],build(sc,st){
+PRIN.push({n:7,sz:1.0,w:2.4,ts:1,cap:["Perform sensitivity and","robustness analyses"],build(sc,st){
  const CX=0,CY=-10,RR=190,ang=k=>(-90+72*k)*Math.PI/180,pt=(k,r=RR)=>[CX+r*Math.cos(ang(k)),CY+r*Math.sin(ang(k))];
  // five workflow nodes (mini icons + labels)
  const labs=[["Exclude influential","observations"],["Use alternative","statistical models"],["Change assumptions","regarding missing data"],["Leave one out","analyses"],["Test stability","of results"]];
@@ -49,7 +49,7 @@ PRIN.push({n:7,sz:1.0,w:2.4,ts:1.05,cap:["Perform sensitivity and","robustness a
  evs(sc,.3,"pulse",.4,0);[0,1,2,3,4].forEach(k=>evs(sc,.4+k*.17,"tick",.4));evs(sc,.9,"draw",.5);evs(sc,1.4,"check",.9);
 }});
 // ================================================================ 8 · missing data
-PRIN.push({n:8,sz:1.1,w:2.0,ts:1.3,cap:["Address missing","data appropriately"],build(sc,st){
+PRIN.push({n:8,sz:1.1,w:2.0,ts:1,cap:["Address missing","data appropriately"],build(sc,st){
  const tx=-220,ty=-260,cw=95,rh=62,cols=4,rows=3;
  D(sc,st,"rect",{x:tx,y:ty,width:cw*cols,height:rh*rows,rx:8,stroke:C.forest,"stroke-width":5},.05,.45);
  for(let r=1;r<rows;r++)D(sc,st,"line",{x1:tx,x2:tx+cw*cols,y1:ty+rh*r,y2:ty+rh*r,stroke:C.forest,"stroke-width":4},.12+r*.04,.3);
@@ -73,7 +73,7 @@ PRIN.push({n:8,sz:1.1,w:2.0,ts:1.3,cap:["Address missing","data appropriately"],
  evs(sc,.3,"pulse",.4,3);evs(sc,.7,"draw",.4);evs(sc,1.1,"check",.8);evs(sc,1.3,"soft",.4);
 }});
 // ================================================================ 9 · multiple testing correction
-PRIN.push({n:9,sz:1.0,w:2.0,ts:1.4,cap:["Correct for multiple","testing when necessary"],build(sc,st){
+PRIN.push({n:9,sz:1.0,w:2.0,ts:1,cap:["Correct for multiple","testing when necessary"],build(sc,st){
  const DX=[-300,-110,230];
  DX.forEach((x,i)=>{doc(sc,st,x-52,-292,104,128,.05+i*.1,.35,{lines:2});const g=TX(sc,st,"H",x-6,-226,34,700,C.ink,"middle",.2+i*.1);const sub=el("tspan",{"font-size":22,dy:8},g);sub.textContent=["1","2","n"][i];});
  [50,80,110].forEach((x,i)=>{const d=PO(sc,st,x,-228,.4+i*.06,.2);el("circle",{cx:x,cy:-228,r:6,fill:C.gold},d);});
@@ -92,7 +92,7 @@ PRIN.push({n:9,sz:1.0,w:2.0,ts:1.4,cap:["Correct for multiple","testing when nec
  evs(sc,.3,"pulse",.4,4);evs(sc,.8,"draw",.4);evs(sc,1.2,"tick",.5);evs(sc,1.45,"confirm",.7);
 }});
 // ================================================================ 10 · meta-analysis
-PRIN.push({n:10,sz:1.0,w:2.5,ts:1.25,cap:["Use meta-analysis when appropriate","to evaluate the consistency of","evidence across studies"],cs:36,build(sc,st){
+PRIN.push({n:10,sz:1.0,w:2.5,ts:1,cap:["Use meta-analysis when appropriate","to evaluate the consistency of","evidence across studies"],cs:36,build(sc,st){
  const DX=[-290,-60,260],DT=-300,FY=-110;
  DX.forEach((x,i)=>{doc(sc,st,x-52,DT,104,128,.05+i*.12,.4,{lines:0});
   // forest-plot glyph inside each study document

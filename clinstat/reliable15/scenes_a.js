@@ -1,5 +1,5 @@
 // ================================================================ 1 · data quality
-PRIN.push({n:1,sz:1.12,w:1.8,ts:1.1,cap:["Ensure high-quality","and accurate data."],build(sc,st){
+PRIN.push({n:1,sz:1.12,w:1.8,ts:1,cap:["Ensure high-quality","and accurate data."],build(sc,st){
  const X0=-250,HH=56,RH=63,CW=115;
  // flagged inputs (left) – dotted links into the table
  [["×",-150],["!",-60],["?",30]].forEach(([s,y],i)=>{const t0=.12+i*.1,g=PO(sc,st,-405,y,t0);el("circle",{cx:-405,cy:y,r:30,fill:C.ivory,stroke:C.gold,"stroke-width":4},g);text(g,s,-405,y+13,38,600,C.gold,{"text-anchor":"middle"});
@@ -22,7 +22,7 @@ PRIN.push({n:1,sz:1.12,w:1.8,ts:1.1,cap:["Ensure high-quality","and accurate dat
  evs(sc,.25,"pulse",.4,0);evs(sc,.7,"tick",.5);evs(sc,1.1,"check",.9);
 }});
 // ================================================================ 2 · study design & sample size
-PRIN.push({n:2,sz:1.18,w:1.7,ts:1.0,cap:["Use an appropriate","study design and","adequate sample size"],build(sc,st){
+PRIN.push({n:2,sz:1.18,w:1.7,ts:1,cap:["Use an appropriate","study design and","adequate sample size"],build(sc,st){
  D(sc,st,"rect",{x:-330,y:-270,width:310,height:320,rx:18,stroke:C.forest,"stroke-width":6},.05,.5);
  const tab=G(sc,st,.2,.3,-6);el("rect",{x:-235,y:-296,width:120,height:40,rx:12,fill:C.forest},tab);
  // pie + lines
@@ -38,7 +38,7 @@ PRIN.push({n:2,sz:1.18,w:1.7,ts:1.0,cap:["Use an appropriate","study design and"
  evs(sc,.3,"pulse",.4,1);evs(sc,.7,"tick",.5);evs(sc,.78,"tick",.5);evs(sc,.9,"soft",.5);
 }});
 // ================================================================ 3 · appropriate statistical analysis
-PRIN.push({n:3,sz:1.12,w:1.7,ts:1.1,cap:["Use the appropriate","statistical analysis."],build(sc,st){
+PRIN.push({n:3,sz:1.12,w:1.7,ts:1,cap:["Use the appropriate","statistical analysis."],build(sc,st){
  D(sc,st,"rect",{x:-340,y:-270,width:470,height:340,rx:22,stroke:C.forest,"stroke-width":12},.05,.55);
  D(sc,st,"path",{d:"M-110,70 V140 M-200,142 H-20",stroke:C.gold,"stroke-width":12},.3,.35);
  // bar chart
@@ -58,7 +58,7 @@ PRIN.push({n:3,sz:1.12,w:1.7,ts:1.1,cap:["Use the appropriate","statistical anal
  evs(sc,.3,"pulse",.4,2);evs(sc,.6,"draw",.5);evs(sc,1.15,"check",.7);
 }});
 // ================================================================ 4 · test the assumptions
-PRIN.push({n:4,sz:1.1,w:2.0,ts:1.2,cap:["Test the assumptions of","the statistical methods"],build(sc,st){
+PRIN.push({n:4,sz:1.1,w:2.0,ts:1,cap:["Test the assumptions of","the statistical methods"],build(sc,st){
  const cx=-70,cy=-10,r=232;
  const cp=el("clipPath",{id:"c4"},defs);el("circle",{cx,cy,r:r-10},cp);
  D(sc,st,"circle",{cx,cy,r,stroke:C.forest,"stroke-width":18},.05,.55);
@@ -85,7 +85,7 @@ PRIN.push({n:4,sz:1.1,w:2.0,ts:1.2,cap:["Test the assumptions of","the statistic
  evs(sc,.3,"pulse",.4,3);evs(sc,.6,"draw",.5);
 }});
 // ================================================================ 5 · confounding factors
-PRIN.push({n:5,sz:1.0,w:1.9,ts:1.35,cap:["Control for potential","confounding factors"],build(sc,st){
+PRIN.push({n:5,sz:1.0,w:1.9,ts:1,cap:["Control for potential","confounding factors"],build(sc,st){
  const nodes=[[-290,-170],[-390,10],[-190,10]];
  // scattered participants
  [[-440,-200],[-410,-130],[-190,-210],[-130,-150],[-110,-60],[-470,-40],[-300,100],[-210,110],[-420,110],[-120,60],[-330,-250]].forEach(([x,y],i)=>{const g=PO(sc,st,x,y,.05+i*.025,.25);el("circle",{cx:x,cy:y,r:i%3==0?10:8,fill:i%3==0?C.forest:C.ivory,stroke:C.gold,"stroke-width":3.5},g);});

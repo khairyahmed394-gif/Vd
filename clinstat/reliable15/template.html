@@ -7,7 +7,7 @@ svg{display:block} text{font-family:LX,sans-serif}
 <svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
 <script>
 const LG=__LOGO__;
-const W=1080,H=1920,NS="http://www.w3.org/2000/svg",TOTAL=30.0;
+const W=1080,H=1920,NS="http://www.w3.org/2000/svg",TOTAL=52.0;
 const C={ivory:"#F9F5EF",ink:"#003520",forest:"#025130",gold:"#B19063",tan:"#D4BD9E"};   // sampled from the official logo
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,x)=>a+(b-a)*x,P=(t,a,b)=>clamp((t-a)/(b-a));
 const E={out:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2};
@@ -52,7 +52,7 @@ const smallLabel=(sc,par,s,x,y,size,anchor,t0,col=C.ink,max)=>{const t=TX(sc,par
 const SC=[];const PRIN=[];const evs=(sc,x,k,v,n)=>ev(sc.t0+x/sc.ts,k,v,n);
 __SCENES__
 // ---------------------------------------------------------------- schedule
-const T={logo:.12,foot:.35,hl:[.95,1.15,1.35],hi:1.85,move:2.05,mvd:.65,wipe:2.5,start:3.1,end:28.2};
+const T={logo:.12,foot:.35,hl:[.95,1.15,1.35],hi:1.85,move:2.05,mvd:.65,wipe:2.5,start:3.1,end:48.2};
 (function plan(){const sum=PRIN.reduce((a,p)=>a+p.w,0),k=(T.end-T.start)/sum;let t=T.start;PRIN.forEach((p,i)=>{p.t0=t;p.dur=p.w*k;t+=p.dur;});})();
 // ---------------------------------------------------------------- build
 function build(){
@@ -98,10 +98,10 @@ function build(){
  R.c3=el("g",{},R.cl);text(R.c3,"EVIDENCE. INSIGHT. IMPACT.",540,1160,32,500,C.forest,{"text-anchor":"middle","letter-spacing":3});
 }
 // close timings
-T.cl={logo:28.15,c1:[28.55,28.7],cr:28.85,c2:28.95,c3:29.1};
+T.cl={logo:48.15,c1:[48.55,48.7],cr:48.85,c2:48.95,c3:49.1};
 ev(.14,"swell",.4);LG.dots.forEach((d,i)=>ev(.3+i*.12,"tick",.5));ev(.75,"pulse",.5,0);ev(.9,"pulse",.5,2);ev(1.0,"chime",.7,0);ev(1.12,"chime",.5,2);
 T.hl.forEach((t,i)=>ev(t,"tick",.55));ev(T.hi,"soft",.6);ev(2.0,"swell",.4);ev(T.wipe,"swell",.55);
-PRIN.forEach(p=>{});ev(28.0,"swell",.4);ev(28.2,"chime",.8,5);ev(28.4,"chime",.6,2);ev(28.55,"tick",.5);ev(28.7,"tick",.5);ev(29.1,"chime",.5,3);ev(29.12,"shimmer",.5);
+PRIN.forEach(p=>{});ev(48.0,"swell",.4);ev(48.2,"chime",.8,5);ev(48.4,"chime",.6,2);ev(48.55,"tick",.5);ev(48.7,"tick",.5);ev(49.1,"chime",.5,3);ev(49.12,"shimmer",.5);
 function render(t){if(!window.READY)return;
  // ---- header & logo: intro (centred, large) -> glide to the top
  const mv=E.io(P(t,T.move,T.move+T.mvd)),cl=E.io(P(t,T.cl.logo,T.cl.logo+.8));

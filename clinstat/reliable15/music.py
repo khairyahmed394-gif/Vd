@@ -1,10 +1,10 @@
 """Original ambient score + restrained sound design for the 3-Factors ad. Pure numpy, no samples, no voice."""
 import numpy as np, json, wave
-SR = 44100; D = 30.0; N = int(SR*D); t = np.arange(N)/SR; rs = np.random.RandomState(11)
+SR = 44100; D = 52.0; N = int(SR*D); t = np.arange(N)/SR; rs = np.random.RandomState(11)
 mid = lambda m: 440.0*2**((m-69)/12)
 def ss(x): x = np.clip(x, 0, 1); return x*x*(3-2*x)
 # ---------------------------------------------------------------- harmony (changes land on the scene cuts 0/3/8/12/17)
-CH = [(0, 3.1, [48, 52, 55, 59, 62], 36), (3.1, 7.8, [45, 48, 52, 55, 59], 33), (7.8, 12.9, [41, 45, 48, 52, 59], 29), (12.9, 18.6, [50, 53, 57, 60, 64], 38), (18.6, 23.8, [43, 47, 50, 52, 57], 31), (23.8, 28.2, [52, 55, 57, 59, 62], 40), (28.2, 29.4, [53, 57, 60, 64, 67], 29), (29.4, 30.6, [48, 55, 59, 62, 64], 36)]
+CH = [(0, 3.2, [48, 52, 55, 59, 62], 36), (3.2, 13, [45, 48, 52, 55, 59], 33), (13, 23, [41, 45, 48, 52, 59], 29), (23, 33, [50, 53, 57, 60, 64], 38), (33, 43, [43, 47, 50, 52, 57], 31), (43, 48.2, [52, 55, 57, 59, 62], 40), (48.2, 50, [53, 57, 60, 64, 67], 29), (50, 53, [48, 55, 59, 62, 64], 36)]
 L = np.zeros(N); R = np.zeros(N)
 for ci, (a, b, notes, bass) in enumerate(CH):
     fi = ss((t-(a-.9 if ci else -1.0))/(1.8 if ci else 1.6)); fo = 1-ss((t-(b-.9))/1.8) if ci < len(CH)-1 else 1.0
@@ -67,6 +67,6 @@ for i, e in enumerate(json.load(open("events.json"))):
 sl, sr = reverb(SL, SR_, .45); SL = SL*.8+sl; SR_ = SR_*.8+sr
 # ---------------------------------------------------------------- final resolution + fade, normalise
 mixL = L+SL; mixR = R+SR_
-g = 1.0*np.minimum(1, ss(t/.4))*(1-ss((t-29.2)/.8)); mixL *= g; mixR *= g
+g = 1.0*np.minimum(1, ss(t/.4))*(1-ss((t-51.2)/.8)); mixL *= g; mixR *= g
 pk = max(np.abs(mixL).max(), np.abs(mixR).max()); out = np.stack([mixL, mixR], 1)/pk*.85
 w = wave.open("score_raw.wav", "wb"); w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR); w.writeframes((out*32767).astype(np.int16).tobytes()); w.close(); print("score ok", out.shape, "peak", round(float(np.abs(out).max()), 3))

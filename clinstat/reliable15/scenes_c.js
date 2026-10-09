@@ -1,5 +1,5 @@
 // ================================================================ 11 · risk of bias & methodological quality
-PRIN.push({n:11,sz:1.06,w:1.6,ts:1.1,cap:["Assess the risk of bias","and methodological quality"],build(sc,st){
+PRIN.push({n:11,sz:1.06,w:1.6,ts:1,cap:["Assess the risk of bias","and methodological quality"],build(sc,st){
  [[-440,-250],[-256,-250],[-440,-106],[-256,-106],[-440,38],[-256,38]].forEach(([x,y],i)=>{
   D(sc,st,"rect",{x,y,width:172,height:134,rx:12,stroke:C.forest,"stroke-width":5},.05+i*.05,.35);
   const g=PO(sc,st,x+86,y+67,.2+i*.05,.25);person(g,x+86,y+66,64,i%2?C.gold:C.forest);
@@ -12,7 +12,7 @@ PRIN.push({n:11,sz:1.06,w:1.6,ts:1.1,cap:["Assess the risk of bias","and methodo
  evs(sc,.3,"pulse",.4,2);evs(sc,1.15,"check",.8);
 }});
 // ================================================================ 12 · independent check
-PRIN.push({n:12,sz:1.0,w:1.6,ts:1.2,cap:["Have the analysis","independently checked"],build(sc,st){
+PRIN.push({n:12,sz:1.0,w:1.6,ts:1,cap:["Have the analysis","independently checked"],build(sc,st){
  D(sc,st,"rect",{x:-225,y:-280,width:450,height:350,rx:20,stroke:C.forest,"stroke-width":11},.05,.5);
  D(sc,st,"path",{d:"M0,70 V125 M-90,127 H90",stroke:C.gold,"stroke-width":11},.25,.3);
  [30,62,48,88].forEach((h,i)=>{const g=el("g",{},st),r=el("rect",{x:-190+i*30,y:20,width:20,height:0,fill:C.forest},g);sc.a.push(u=>{const p=E.out(P(u,.3+i*.05,.6+i*.05));r.setAttribute("height",(h*p).toFixed(1));r.setAttribute("y",(20-h*p).toFixed(1));});});
@@ -28,7 +28,7 @@ PRIN.push({n:12,sz:1.0,w:1.6,ts:1.2,cap:["Have the analysis","independently chec
  evs(sc,.3,"pulse",.4,3);
 }});
 // ================================================================ 13 · reproducibility
-PRIN.push({n:13,sz:1.0,w:1.6,ts:1.1,cap:["Ensure reproducibility","of the analysis"],build(sc,st){
+PRIN.push({n:13,sz:1.0,w:1.6,ts:1,cap:["Ensure reproducibility","of the analysis"],build(sc,st){
  const loop="M-300,-170 H260 A150,150 0 0 1 260,130 H-300 A150,150 0 0 1 -300,-170 Z";
  const lp=D(sc,st,"path",{d:loop,stroke:C.forest,"stroke-width":9},.05,.8);
  head(st,100,-170,0,C.forest,1.6,9).setAttribute("opacity",0);
@@ -47,7 +47,7 @@ PRIN.push({n:13,sz:1.0,w:1.6,ts:1.1,cap:["Ensure reproducibility","of the analys
  evs(sc,.3,"pulse",.4,5);evs(sc,.8,"tick",.5);evs(sc,1.0,"check",.8);
 }});
 // ================================================================ 14 · compare with previous evidence
-PRIN.push({n:14,sz:1.06,w:1.6,ts:1.25,cap:["Compare the findings","with previous evidence"],build(sc,st){
+PRIN.push({n:14,sz:1.06,w:1.6,ts:1,cap:["Compare the findings","with previous evidence"],build(sc,st){
  [[-420,"PREVIOUS EVIDENCE",-200],[40,"NEW FINDINGS",200]].forEach(([x,lab,dx],i)=>{
   const g=G(sc,st,.05+i*.1,.45,0,dx);const col=i?C.gold:C.forest;
   el("rect",{x,y:-290,width:380,height:460,rx:16,fill:C.ivory,stroke:C.forest,"stroke-width":5},g);el("rect",{x,y:-290,width:380,height:52,rx:12,fill:C.forest},g);
@@ -68,7 +68,7 @@ PRIN.push({n:14,sz:1.06,w:1.6,ts:1.25,cap:["Compare the findings","with previous
  evs(sc,.3,"pulse",.4,1);evs(sc,.75,"tick",.5);evs(sc,1.05,"confirm",.7);
 }});
 // ================================================================ 15 · selective reporting & data-driven conclusions
-PRIN.push({n:15,sz:1.06,w:1.7,ts:1.3,cap:["Avoid selective reporting","and data-driven conclusions"],build(sc,st){
+PRIN.push({n:15,sz:1.06,w:1.7,ts:1,cap:["Avoid selective reporting","and data-driven conclusions"],build(sc,st){
  [[-430,-150],[-390,-110],[-350,-70]].forEach(([x,y],i)=>doc(sc,st,x,y,140,180,.05+i*.08,.35,{lines:i==2?0:3,sw:5}));
  const gl=G(sc,st,.4,.3,0);el("path",{d:"M-335,-10 L-300,-40 L-270,-20 L-235,-60",fill:"none",stroke:C.gold,"stroke-width":5,"stroke-linecap":"round","stroke-linejoin":"round"},gl);[[-30,-60],[-22,-8]].forEach(()=>{});[[-335,-10],[-300,-40],[-270,-20],[-235,-60]].forEach(([x,y])=>el("circle",{cx:x,cy:y,r:5,fill:C.gold},gl));[0,1,2].forEach(k=>el("rect",{x:-335+k*26,y:30-[24,40,30][k],width:16,height:[24,40,30][k],fill:C.forest},gl));
  const m=mag(sc,st,82,.4,.35,13),lens=el("circle",{r:72,fill:C.ivory,opacity:.35},m);m.insertBefore(lens,m.firstChild);
