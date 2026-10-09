@@ -6,3 +6,5 @@
 - `template.html` -> `build.py` -> `index.html`; `capture.py test|events|full`; `music.py` (score + SFX from `events.json`); `audit.py` (exact copy / safe zone / overlap / page-error check).
 - True colours (sampled from pixel cores): deep forest `#003520` (text, "Clin", bottom chevron, "5"), forest `#025130` ("Stat", middle chevron, divider, footer curve), muted gold `#B19063` (top chevron, RESEARCH, badge, circles, icon, footer), tan `#D4BD9E` (three dots), ivory `#F9F5EF`.
 - Schedule: 0-3 opening, 3-6 Q1, 6-9 Q2, 9-12 Q3 (two timed lines), 12-16 Q4 + Q5, 16-20 statement then the logo glides to centre for the final hold.
+
+- `cover_1080x1920.png` / `cover_2160x3840.png` – still cover image for the reel (same design language; `cover_template.html` + `logo_vec.json`).
