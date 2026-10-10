@@ -32,7 +32,7 @@
 | C. Sponsors | Pharma, device, CRO decision-makers | Trial analysis, data integrity | LinkedIn |
 | D. Journal authors | People with a rejection or revision in hand | Rescue / revision support | Facebook, Instagram, X |
 
-**Geography [CONFIRM]:** Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain, Egypt. Run **English and Arabic** variants. Exclude locations you cannot serve.
+**Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. Start with Saudi Arabia, UAE and Qatar, where budget concentration matters most **[CONFIRM priority countries]**. Run **English and Arabic** variants. Exclude locations you cannot serve.
 
 ---
 
@@ -44,23 +44,26 @@
 | Consideration (30%) | Educate and capture interest | Carousels, explainers, survival-analysis post, desk-rejection post | CTR, engaged visits, followers |
 | Conversion (40%) | Get enquiries | Lead form: free 15-minute consult or study checklist | Cost per lead, qualified leads |
 
-**Primary conversion [CONFIRM]:** book a free 15-minute consultation.
+**Primary goal: client acquisition.** Conversion = a qualified enquiry that books a free 15-minute consultation.
 **Lead magnet idea:** "Pre-submission statistics checklist" (PDF, 1 page), based on the three desk-rejection reasons.
 
 ---
 
-## 4. Budget
+## 4. Budget (50,000 EGP **[CONFIRM: per month, or total?]**)
 
-Budget not provided. **[CONFIRM monthly budget and currency.]** Suggested split:
+50,000 EGP is roughly USD 1,000 at recent rates **[CONFIRM current rate and that ads are billed in EGP or USD]**. That is a small budget for four platforms, so spreading it thin would leave every platform below the data needed to optimise. Recommendation: **concentrate on LinkedIn and Meta, and use X organically** (post the same content unpaid). Add paid X later if the first two work.
 
-| Platform | Share | Role |
-| --- | --- | --- |
-| LinkedIn | 40% | Highest-intent B2B and academic audience (highest CPC) |
-| Facebook + Instagram (Meta) | 35% | Reach and lead forms for clinicians and authors |
-| X | 15% | Researcher conversation, thought leadership |
-| Testing reserve | 10% | Shift to whichever wins after week 2 |
+| Platform | EGP / month | Approx. share | Role |
+| --- | --- | --- | --- |
+| LinkedIn | 22,000 | 44% | Sponsors and academics; Lead Gen Forms for client acquisition |
+| Facebook + Instagram | 22,000 | 44% | Clinicians and authors; Reels reach + instant forms |
+| Testing reserve | 6,000 | 12% | Move to the winner after week 2, or trial paid X |
+| X (paid) | 0 | n/a | Organic only for now |
 
-Rule of thumb: don't judge any ad set before it has about 50 link clicks or about 7 days. Don't make large budget changes more often than every 3 to 4 days.
+Notes:
+- LinkedIn clicks cost much more than Meta's, so expect fewer clicks there but higher-quality leads. Check LinkedIn's current minimum daily budget when setting up.
+- Judge ad sets only after about 7 days or about 50 clicks. Change budgets in small steps every 3 to 4 days.
+- Set a weekly cap, and keep a tracked cost per qualified lead from week 1.
 
 ---
 
@@ -177,8 +180,8 @@ Rule of thumb: don't judge any ad set before it has about 50 link clicks or abou
 ---
 
 ## 11. Open questions for ClinStat
-1. Monthly budget and currency?
-2. Main goal: consultations, quotes, or followers?
+1. Is 50,000 EGP monthly or total, and in which currency are ads billed?
+2. Which GCC countries first?
 3. Exact services and any pricing to mention?
 4. Target countries, and Arabic dialect?
 5. Landing page URL, privacy policy, and a form/CRM to receive leads?
