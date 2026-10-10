@@ -32,7 +32,7 @@
 | C. Sponsors | Pharma, device, CRO decision-makers | Trial analysis, data integrity | LinkedIn |
 | D. Journal authors | People with a rejection or revision in hand | Rescue / revision support | Facebook, Instagram, X |
 
-**Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. Start with Saudi Arabia, UAE and Qatar, where budget concentration matters most **[CONFIRM priority countries]**. Run **English and Arabic** variants. Exclude locations you cannot serve.
+**Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. **Confirmed first markets: Saudi Arabia, UAE, Qatar.** Kuwait, Oman and Bahrain are excluded until these three show a workable cost per lead. Use separate ad sets per country so each can be judged on its own. Run **English and Arabic** variants. Exclude locations you cannot serve.
 
 ---
 
@@ -59,6 +59,10 @@
 | Facebook + Instagram | 22,000 | 44% | Clinicians and authors; Reels reach + instant forms |
 | Testing reserve | 6,000 | 12% | Move to the winner after week 2, or trial paid X |
 | X (paid) | 0 | n/a | Organic only for now |
+
+**Country split inside each platform (starting guess, no data yet):** Saudi Arabia 45%, UAE 35%, Qatar 20%. Qatar's audience is small, so it will saturate quickly; keep it capped. Rebalance by cost per qualified lead after week 2.
+
+**Language by market (starting guess):** Saudi Arabia: Arabic first, English second. UAE: English first, Arabic second. Qatar: Arabic and English in equal measure. Test this rather than assuming it.
 
 Notes:
 - LinkedIn clicks cost much more than Meta's, so expect fewer clicks there but higher-quality leads. Check LinkedIn's current minimum daily budget when setting up.
@@ -181,7 +185,7 @@ Notes:
 
 ## 11. Open questions for ClinStat
 1. Is 50,000 EGP monthly or total, and in which currency are ads billed?
-2. Which GCC countries first?
+2. ~~Which GCC countries first?~~ Answered: Saudi Arabia, UAE, Qatar.
 3. Exact services and any pricing to mention?
 4. Target countries, and Arabic dialect?
 5. Landing page URL, privacy policy, and a form/CRM to receive leads?
