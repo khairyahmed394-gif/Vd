@@ -40,3 +40,12 @@ customer journey, AI agents, n8n automation, onboarding, financial impact, final
 2. Switch canonical/sitemap/OG to the production domain.
 3. Add analytics + conversion events.
 4. Add Arabic/RTL variant and run `ads-landing` audit.
+
+## Update: n8n lead intake + site form
+- n8n workflow "AI Marketing - Lead Intake & Qualification" (id `Lr7aeySFwwT1nfmx`) is published.
+  Production webhook: `POST https://akcegy.app.n8n.cloud/webhook/ai-marketing-lead`
+  (JSON: name, email, phone, company, message, source). Stores rows in data table `ai_marketing_leads`,
+  classifies hot/warm/cold with Claude, replies `{status, tier, next}`.
+- `src/components/LeadForm.tsx` posts to it from the final CTA section. Override with `VITE_LEAD_WEBHOOK_URL`.
+- Known gaps: tier is not written back to the table; no notification channel; webhook is unauthenticated
+  (the form has only a honeypot field).

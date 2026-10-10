@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Rocket } from "lucide-react";
+import LeadForm from "@/components/LeadForm";
 
 const FinalCTA = () => {
   return (
@@ -35,6 +36,10 @@ const FinalCTA = () => {
           </p>
         </motion.div>
 
+        <div className="mb-10">
+          <LeadForm />
+        </div>
+
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -48,7 +53,7 @@ const FinalCTA = () => {
             className="cta-button text-xl inline-flex items-center gap-3"
           >
             <Rocket className="w-6 h-6" />
-            Start Your AI Growth Plan Now
+            Or chat with us on WhatsApp
           </a>
         </motion.div>
       </div>
