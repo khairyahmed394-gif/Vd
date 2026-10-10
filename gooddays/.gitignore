@@ -1,0 +1,6 @@
+reel/clean/
+reel/test_*.png
+reel/score_raw.wav
+reel/render.log
+reel/__pycache__/
+reel/master/
