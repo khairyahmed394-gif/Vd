@@ -57,7 +57,7 @@ body{{font-family:PX,sans-serif;direction:rtl;color:{NAVY}}}
 .foot .cta{{font-size:28px;font-weight:500;opacity:.78}}
 .rule{{width:132px;height:7px;background:{GOLD};border-radius:4px}}
 h1,h2{{font-weight:700;line-height:1.22}}
-bdi{{unicode-bidi:isolate}}
+bdi{{unicode-bidi:isolate;white-space:nowrap}}
 .rows{{position:absolute;right:88px;left:88px}}
 .row{{display:flex;gap:34px;align-items:flex-start;padding:40px 0;border-top:2px solid rgba(11,31,51,.12)}}
 .row:first-child{{border-top:0}}
@@ -95,7 +95,7 @@ def tpl_points(c):
     rows = "".join(f'<div class="row"><div class="num{" gold" if c.get("gold") else ""}">{n}</div><div><h3>{t(h)}</h3>{f"<p>{t(p)}</p>" if p else ""}</div></div>' for n, h, p in c["rows"])
     return shell(c.get("bg", "sand"), f"""{head(c["tag"], c["cnt"])}
 <div style="margin-top:56px"><h2 style="font-size:78px">{t(c["title"])}</h2><div class="rule" style="margin-top:26px"></div></div>
-<div class="rows" style="top:{c.get("top", 372)}px">{rows}</div>
+<div class="rows" style="top:340px;bottom:178px;display:flex;flex-direction:column;justify-content:center">{rows}</div>
 {foot(c["foot"])}""")
 
 def tpl_closing(c):
@@ -130,7 +130,7 @@ def tpl_quote(c):
 
 def tpl_case(c):
     return shell("navy", f"""{head(c["tag"], None)}
-<div style="position:absolute;right:88px;left:88px;top:230px">
+<div style="position:absolute;right:88px;left:88px;top:320px">
   <div style="display:flex;align-items:flex-end;gap:36px;justify-content:space-between" dir="rtl">
     <div><div class="bignum" dir="ltr" style="font-size:300px;font-weight:700;line-height:.95;color:rgba(247,244,237,.55)">{c["n1"]}</div><div style="font-size:44px;font-weight:600;opacity:.8;margin-top:6px">{t(c["l1"])}</div></div>
     <div style="font-size:120px;color:{GOLD};padding-bottom:70px" dir="ltr">←</div>
