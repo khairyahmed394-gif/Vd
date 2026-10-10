@@ -1,6 +1,8 @@
 # ClinStat reels (20 s, 1080x1920, 30 fps, Arabic, burned-in captions, original sound)
 
-Built from the "ClinStat 3-Month Content Calendar (AR)" reel rows (spec: hook 0-3 s, three beats, CTA frame with the keyword, on-screen keywords not full sentences, burned-in captions, slow reveals, navy / green / gold / sand).
+Palette: original brand colours (ivory #F9F5EF, deep forest #003520, forest #025130, gold #B19063; logo in its own colours). The earlier navy version is in `out/navy_version/`.
+
+Built from the "ClinStat 3-Month Content Calendar (AR)" reel rows (spec: hook 0-3 s, three beats, CTA frame with the keyword, on-screen keywords not full sentences, burned-in captions, slow reveals).
 
 | File | Calendar slot | Hook | CTA keyword |
 | --- | --- | --- | --- |

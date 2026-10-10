@@ -4,7 +4,7 @@
 @font-face{font-family:PX;src:url(PlexAr-Medium.ttf);font-weight:500}
 @font-face{font-family:PX;src:url(PlexAr-SemiBold.ttf);font-weight:600}
 @font-face{font-family:PX;src:url(PlexAr-Bold.ttf);font-weight:700}
-html,body{margin:0;padding:0;background:#0B1F33;width:1080px;height:1920px;overflow:hidden}
+html,body{margin:0;padding:0;background:#F9F5EF;width:1080px;height:1920px;overflow:hidden}
 svg{display:block} text{font-family:PX,sans-serif}
 </style></head><body>
 <svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
@@ -12,7 +12,7 @@ svg{display:block} text{font-family:PX,sans-serif}
 const LG=__LOGO__;
 const REEL=new URLSearchParams(location.search).get("reel")||"r01";
 const W=1080,H=1920,NS="http://www.w3.org/2000/svg",TOTAL=20.0;
-const C={navy:"#0B1F33",deep:"#081827",green:"#103D2E",gold:"#A8854E",goldL:"#D2B278",sand:"#F7F4ED",red:"#D9634F",redD:"#6E2B26",ok:"#62B58F",card:"rgba(247,244,237,.07)",line:"rgba(210,178,120,.38)"};
+const C={navy:"#F9F5EF",deep:"#F1ECE2",green:"#025130",gold:"#B19063",goldL:"#9A7A49",sand:"#003520",ink:"#003520",ivory:"#F9F5EF",red:"#B4402E",redD:"#F2D6CF",ok:"#1F7A4F",card:"rgba(0,53,32,.05)",line:"rgba(177,144,99,.65)"};
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,x)=>a+(b-a)*x,P=(t,a,b)=>clamp((t-a)/(b-a));
 const E={out:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,back:x=>{const c=1.6,d=c+1;return 1+d*Math.pow(x-1,3)+c*Math.pow(x-1,2);}};
 function el(tag,at,par){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
@@ -28,8 +28,8 @@ function draw(s,p){s.setAttribute("stroke-dashoffset",(1-clamp(p)).toFixed(4));}
 const win=(t,a,b,c,d)=>E.io(P(t,a,b))*(1-E.io(P(t,c,d)));
 const G=(par,at={})=>el("g",at,par);
 // filters / gradients
-const f1=el("filter",{id:"sh",x:"-30%",y:"-30%",width:"160%",height:"170%"},defs);el("feDropShadow",{dx:0,dy:8,stdDeviation:10,"flood-color":"#000","flood-opacity":.35},f1);
-const rg=el("radialGradient",{id:"bg",cx:"50%",cy:"38%",r:"75%"},defs);el("stop",{offset:0,"stop-color":"#16385A"},rg);el("stop",{offset:1,"stop-color":C.navy},rg);
+const f1=el("filter",{id:"sh",x:"-30%",y:"-30%",width:"160%",height:"170%"},defs);el("feDropShadow",{dx:0,dy:8,stdDeviation:10,"flood-color":"#003520","flood-opacity":.16},f1);
+const rg=el("radialGradient",{id:"bg",cx:"50%",cy:"38%",r:"75%"},defs);el("stop",{offset:0,"stop-color":"#FFFFFF"},rg);el("stop",{offset:1,"stop-color":C.navy},rg);
 const gg=el("linearGradient",{id:"glow",x1:0,y1:0,x2:1,y2:0},defs);el("stop",{offset:0,"stop-color":C.gold,"stop-opacity":0},gg);el("stop",{offset:.5,"stop-color":C.goldL,"stop-opacity":.9},gg);el("stop",{offset:1,"stop-color":C.gold,"stop-opacity":0},gg);
 // ---------------------------------------------------------------- logo (traced vector; light variant for the dark background)
 function lockup(parent,light=true){const g=G(parent),inner=G(g);
@@ -52,7 +52,7 @@ function header(par,kicker,l1,l2){const g=G(par);T(g,kicker,540,372,40,600,C.gol
  el("rect",{x:486,y:l2?616:526,width:108,height:7,rx:3,fill:C.gold},g);return g;}
 function xmark(par,cx,cy,s=16,c=C.red,w=9){return el("path",{d:`M${cx-s},${cy-s} L${cx+s},${cy+s} M${cx+s},${cy-s} L${cx-s},${cy+s}`,stroke:c,"stroke-width":w,"stroke-linecap":"round",fill:"none"},par);}
 // caption (burned-in)
-function captions(list){R.caps=list.map(([s,a,b])=>{const g=G(svg);const t=T(g,s,540,1530,AR(s)?50:46,600,C.sand);fit(t,880);const bb=t.getBBox();el("rect",{x:540-bb.width/2-34,y:1530-62,width:bb.width+68,height:100,rx:26,fill:"rgba(8,24,39,.82)",stroke:C.line,"stroke-width":2},g);g.appendChild(t);return{g,a,b};});}
+function captions(list){R.caps=list.map(([s,a,b])=>{const g=G(svg);const t=T(g,s,540,1530,AR(s)?50:46,600,C.ivory);fit(t,880);const bb=t.getBBox();el("rect",{x:540-bb.width/2-34,y:1530-62,width:bb.width+68,height:100,rx:26,fill:"rgba(2,81,48,.95)",stroke:C.gold,"stroke-width":2},g);g.appendChild(t);return{g,a,b};});}
 // ---------------------------------------------------------------- hook + CTA scenes
 function hookScene(lines,t0=0){const g=G(svg);const ys=[0,0,0];const n=lines.length;const y0=n==3?700:780;
  const items=lines.map((l,i)=>{const gi=G(g);const t=fit(T(gi,l[0],540,y0+i*150,l[1]||94,700,l[2]||C.sand),940);return gi;});
@@ -61,10 +61,10 @@ function hookScene(lines,t0=0){const g=G(svg);const ys=[0,0,0];const n=lines.len
 function ctaScene(o,a){const g=G(svg);const k=[];
  const pre=G(g);fit(T(pre,o.pre,540,700,o.preSize||78,600,C.sand),900);
  const pill=G(g);const pw=o.kwLtr?Math.max(560,o.kw.length*84+120):760;el("rect",{x:540-pw/2,y:790,width:pw,height:176,rx:88,fill:C.gold,filter:"url(#sh)"},pill);
- fit(T(pill,o.kw,540,o.kwLtr?912:908,o.kwLtr?112:92,700,C.navy,{"letter-spacing":o.kwLtr?6:0}),pw-90);
+ fit(T(pill,o.kw,540,o.kwLtr?912:908,o.kwLtr?112:92,700,C.ink,{"letter-spacing":o.kwLtr?6:0}),pw-90);
  const mid=G(g);if(o.mid)fit(T(mid,o.mid,540,1070,54,500,C.sand),900);
  const off=o.offer.map((s,i)=>{const gi=G(g);fit(T(gi,s,540,1170+i*100,68,700,i?C.goldL:C.sand),940);return gi;});
- const lg=lockup(g,true);place(lg,540,1450,1.12);
+ const lg=lockup(g,false);place(lg,540,1450,1.12);
  return{g,upd(t){const l=t-a;setIn(pre,P(l,.15,.7),20);const pp=E.back(P(l,.55,1.15));pill.setAttribute("opacity",P(l,.55,.8).toFixed(3));pill.setAttribute("transform",`translate(540,878) scale(${pp.toFixed(3)}) translate(-540,-878)`);
   setIn(mid,P(l,1.0,1.5),14);off.forEach((gi,i)=>setIn(gi,P(l,1.4+i*.35,1.9+i*.35),16));lg.setAttribute("opacity",E.out(P(l,2.2,2.9)).toFixed(3));}};}
 // ================================================================ REELS
@@ -73,7 +73,7 @@ function scene(a,b,o){o.a=a;o.b=b;SC.push(o);return o;}
 function buildReel(){
  el("rect",{width:W,height:H,fill:"url(#bg)"},svg);
  {const wm=G(svg,{opacity:.045,transform:"translate(520,1010) scale(2.7)"});LG.chev.forEach(c=>el("path",{d:c.d,fill:C.sand,"fill-rule":"evenodd",transform:`translate(${-LG.mark.x0},${-LG.mark.y0})`},wm));}
- R.logo=lockup(svg,true);place(R.logo,540,150,.62);
+ R.logo=lockup(svg,false);place(R.logo,540,150,.62);
  const fn={r01:r01,r02:r02,r03:r03,r04:r04}[REEL];fn();
 }
 // ---------------------------------------------------------------- r01: assumptions first (wk1 Tue)
@@ -124,7 +124,7 @@ function r02(){
   const names=["السؤال","التصميم","جمع الداتا","التحليل","النشر"];const xs=[910,720,530,340,150],y=1010;
   const ln=el("line",{x1:950,x2:110,y1:y,y2:y,stroke:C.sand,"stroke-width":6,"stroke-linecap":"round",opacity:.35},g);
   const nodes=names.map((n,i)=>{const gi=G(g);const des=i==1;const c=el("circle",{cx:xs[i],cy:y,r:des?58:46,fill:des?C.gold:C.navy,stroke:des?C.goldL:C.sand,"stroke-width":des?6:5},gi);
-   T(gi,String(i+1),xs[i],y+16,des?52:44,700,des?C.navy:C.sand);const lb=fit(T(gi,n,xs[i],y+120,des?44:38,des?700:500,des?C.goldL:C.sand),170);return{gi,c,des};});
+   T(gi,String(i+1),xs[i],y+16,des?52:44,700,des?C.ink:C.sand);const lb=fit(T(gi,n,xs[i],y+120,des?44:38,des?700:500,des?C.goldL:C.sand),170);return{gi,c,des};});
   const here=G(g);T(here,"هنا",720,y-120,52,700,C.goldL);el("path",{d:`M706,${y-98} L720,${y-76} L734,${y-98}`,fill:C.goldL},here);
   // crack propagating from the design node
   const zz=[];let x=720;zz.push(`M${x},${y}`);const seg=[[690,-26],[655,24],[615,-28],[575,26],[535,-24],[495,24],[455,-26],[410,24],[370,-22],[330,24],[290,-22],[250,22],[205,-20],[165,20],[130,-10]];seg.forEach(([xx,dy])=>zz.push(`L${xx},${y+dy}`));
