@@ -6,7 +6,7 @@ with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",args=["--no-sandbox","--disable-gpu","--font-render-hinting=none","--allow-file-access-from-files"])
     pg=b.new_page(viewport={"width":1080,"height":1920},device_scale_factor=1)
     errs=[]; pg.on("pageerror",lambda e:errs.append(str(e))); pg.on("console",lambda m:errs.append(m.text) if m.type=="error" else None)
-    pg.goto(f"file://{HERE}/index.html?reel={reel}"); pg.wait_for_function("window.READY===true",timeout=30000); pg.wait_for_timeout(300)
+    pg.goto(f"file://{HERE}/index.html?reel={reel}&lang="+os.environ.get("LANG_Q","ar")); pg.wait_for_function("window.READY===true",timeout=30000); pg.wait_for_timeout(300)
     if mode=="test":
         os.makedirs(f"{HERE}/frames",exist_ok=True)
         for t in [float(x) for x in sys.argv[3].split(",")]:

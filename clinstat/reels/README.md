@@ -23,3 +23,6 @@ Timeline of each reel: hook 0-3.5 s | beat 1 3.2-7.6 | beat 2 7.4-11.6 | beat 3 
 - Wire each keyword to an auto-DM with its own UTM link (`clinstat_ig_reel_wk[#]_[keyword]`). The offers (free 15-minute reviews) need to be deliverable.
 - Native Arabic review (colloquial copy follows the calendar; Gulf audience may prefer lighter wording).
 - 14 more reel hooks are in the calendar and 14 in the reserve bank; add a function in `reel.html` for each.
+
+## English version
+`out/en/*_EN.mp4` are the same four reels in English (`?lang=en`: all copy translated, layouts mirrored for left-to-right reading, same timing and sound). Render with `LANG_Q=en python3 capture.py full <reel> out.mp4 audio_<reel>.wav`; `audit.py`, `bands.py` and `spacing.py` read the same `LANG_Q` variable. English copy: hooks "Your p-value means nothing if you skip this step", "The costliest mistake in research happens before the first patient", "Don't pick the test just because it gives a smaller p", "15 variables in the model and only 30 events"; CTA keywords DESIGN, TEST and MODEL are unchanged.

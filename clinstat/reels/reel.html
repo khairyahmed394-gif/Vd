@@ -18,10 +18,13 @@ const E={out:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,back
 function el(tag,at,par){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
 const EVENTS=[];const ev=(t,k,v=1,n=0)=>EVENTS.push({t,k,v,n});window.EVENTS=EVENTS;
 const svg=document.getElementById("s"),defs=el("defs",{},svg);
+const EN=new URLSearchParams(location.search).get("lang")==="en";const L=(x,y)=>EN?y:x;
 const AR=s=>/[؀-ۿ]/.test(s);
 function T(par,str,x,y,size,weight,fill,ex={}){const at=Object.assign({x,y,"font-size":size,"font-weight":weight,fill,"text-anchor":"middle"},ex);if(AR(str))at.direction="rtl";else{at.direction="ltr";}const t=el("text",at,par);t.textContent=str;return t;}
 function fit(t,max){const w=t.getBBox().width;if(w>max)t.setAttribute("font-size",parseFloat(t.getAttribute("font-size"))*max/w);return t;}
 function right(t,xr){const b=t.getBBox();t.setAttribute("transform",`translate(${(xr-(b.x+b.width)).toFixed(2)},0)`);return t;}   // right-align a measured text
+function left(t,xl){const b=t.getBBox();t.setAttribute("transform",`translate(${(xl-b.x).toFixed(2)},0)`);return t;}
+const mx=x=>EN?1080-x:x;
 function setIn(g,p,dy=16,dx=0){const e=E.out(clamp(p));g.setAttribute("opacity",clamp(p).toFixed(3));g.setAttribute("transform",`translate(${((1-e)*dx).toFixed(2)},${((1-e)*dy).toFixed(2)})`);}
 function pl(s){s.setAttribute("pathLength","1");s.setAttribute("stroke-dasharray","1");s.setAttribute("stroke-dashoffset","1");return s;}
 function draw(s,p){s.setAttribute("stroke-dashoffset",(1-clamp(p)).toFixed(4));}
@@ -41,14 +44,14 @@ function place(g,cx,cy,k){g.firstChild.setAttribute("transform",`translate(${cx}
 // ---------------------------------------------------------------- shared pieces
 const R={};
 function chipRow(par,str,y,{h=150,x0=110,x1=970,box=true}={}){const g=G(par);el("rect",{x:x0,y:y-h/2,width:x1-x0,height:h,rx:32,fill:C.card,stroke:C.line,"stroke-width":3},g);
- const b=G(g);let sq=null,ck=null,xr=x1-34;
- if(box){const cx=x1-34-34;sq=el("rect",{x:cx-34,y:y-34,width:68,height:68,rx:16,fill:"none",stroke:C.goldL,"stroke-width":5},b);
+ const b=G(g);let sq=null,ck=null,xr=x1-34,xl=x0+34;
+ if(box){const cx=EN?x0+34+34:x1-34-34;sq=el("rect",{x:cx-34,y:y-34,width:68,height:68,rx:16,fill:"none",stroke:C.goldL,"stroke-width":5},b);
   ck=pl(el("path",{d:`M${cx-18},${y+2} L${cx-5},${y+17} L${cx+20},${y-16}`,fill:"none",stroke:C.ok,"stroke-width":10,"stroke-linecap":"round","stroke-linejoin":"round"},b));
-  xr=cx-34-30;}
- const t=T(g,str,0,y+18,AR(str)?56:52,600,C.sand);fit(t,xr-x0-30);right(t,xr);
+  xr=cx-34-30;xl=cx+34+30;}
+ const t=T(g,str,0,y+18,AR(str)?56:52,600,C.sand);if(EN){fit(t,x1-xl-30);left(t,xl);}else{fit(t,xr-x0-30);right(t,xr);}
  return{g,sq,ck,t,cx:x1-68,cy:y};}
 function header(par,kicker,l1,l2){const g=G(par);T(g,kicker,540,372,40,600,C.goldL,{"letter-spacing":AR(kicker)?0:4});
- const a=fit(T(g,l1,540,480,l2?76:88,700,C.sand),940);if(l2)fit(T(g,l2,540,566,76,700,C.goldL),940);
+ const a=fit(T(g,l1,540,480,l2?76:(EN?72:88),700,C.sand),940);if(l2)fit(T(g,l2,540,566,76,700,C.goldL),940);
  el("rect",{x:486,y:l2?616:526,width:108,height:7,rx:3,fill:C.gold},g);return g;}
 function xmark(par,cx,cy,s=16,c=C.red,w=9){return el("path",{d:`M${cx-s},${cy-s} L${cx+s},${cy+s} M${cx+s},${cy-s} L${cx-s},${cy+s}`,stroke:c,"stroke-width":w,"stroke-linecap":"round",fill:"none"},par);}
 // caption (burned-in)
@@ -78,58 +81,58 @@ function buildReel(){
 }
 // ---------------------------------------------------------------- r01: assumptions first (wk1 Tue)
 function r01(){
- const hk=hookScene([["الـp-value بتاعك",92],["ملهوش قيمة",100,C.goldL],["لو تخطيت الخطوة دي.",78,C.sand,-14]]);
+ const hk=hookScene([[L("الـp-value بتاعك","Your p-value"),92],[L("ملهوش قيمة","means nothing"),100,C.goldL],[L("لو تخطيت الخطوة دي.","if you skip this step."),78,C.sand,-14]]);
  // motif: p badge
- const pb=G(hk.g,{});const bx=540,by=1262;el("rect",{x:bx-250,y:by-90,width:500,height:180,rx:36,fill:C.card,stroke:C.line,"stroke-width":3},pb);T(pb,"p = 0.03",bx,by+30,92,700,C.sand,{"letter-spacing":0});const q=T(pb,"؟",bx+222,by+28,64,700,C.red);
+ const pb=G(hk.g,{});const bx=540,by=1262;el("rect",{x:bx-250,y:by-90,width:500,height:180,rx:36,fill:C.card,stroke:C.line,"stroke-width":3},pb);T(pb,"p = 0.03",bx,by+30,92,700,C.sand,{"letter-spacing":0});const q=T(pb,L("؟","?"),bx+222,by+28,64,700,C.red);
  const hu=hk.upd;hk.upd=t=>{hu(t);setIn(pb,P(t,2.0,2.6),20);q.setAttribute("opacity",(.4+.6*Math.abs(Math.sin(t*5))).toFixed(3));};
  scene(0,3.5,hk);ev(.4,"hit",.7);ev(1.0,"hit",.7);ev(1.6,"hit",.8);ev(2.1,"pop",.5);ev(.05,"swell",.35);
  // beat 1: three assumptions
- {const g=G(svg);const h=header(g,"الخطوة المنسية","افتراضات الاختبار");const rows=["توزيع البيانات","تساوي التباين","استقلال الملاحظات"].map((s,i)=>chipRow(g,s,792+i*205));
+ {const g=G(svg);const h=header(g,L("الخطوة المنسية","The forgotten step"),L("افتراضات الاختبار","Test assumptions"));const rows=[L("توزيع البيانات","Data distribution"),L("تساوي التباين","Equal variances"),L("استقلال الملاحظات","Independent observations")].map((s,i)=>chipRow(g,s,792+i*205));
   scene(3.2,7.6,{g,upd(t){const l=t-3.2;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>setIn(r.g,P(l,.8+i*.6,1.3+i*.6),24,60));}});
   [4.0,4.6,5.2].forEach((t,i)=>ev(t,"pop",.55,i));ev(3.15,"whoosh",.6);R.r1rows=rows;}
  // beat 2: check the distribution
- {const g=G(svg);const h=header(g,"قبل ما تشغّل أي اختبار","افحص التوزيع الأول");const ch=G(g);
+ {const g=G(svg);const h=header(g,L("قبل ما تشغّل أي اختبار","Before you run any test"),L("افحص التوزيع الأول","Check the distribution first"));const ch=G(g);
   const x0=122,bw=50,gap=8,base=1340;const hs=[40,140,310,480,540,415,280,175,120,82,56,40,28].map(v=>Math.round(v*.926));const bars=hs.map((v,i)=>el("rect",{x:x0+i*(bw+gap),y:base-v,width:bw,height:v,rx:6,fill:C.goldL,opacity:.85},ch));
   const ox=x0+13*(bw+gap)+26;const out=el("rect",{x:ox,y:base-40,width:bw,height:40,rx:6,fill:C.red},ch);
   el("line",{x1:100,x2:980,y1:base,y2:base,stroke:C.sand,"stroke-width":3,opacity:.6},ch);
   // normal curve for comparison (symmetric around the mean of the bars)
   const cx=x0+4.2*(bw+gap),pts=[];for(let i=0;i<=60;i++){const x=100+i*(880/60);const y=base-500*Math.exp(-Math.pow((x-cx)/175,2)/2)*1.0;pts.push((i?"L":"M")+x.toFixed(1)+","+y.toFixed(1));}
   const curve=pl(el("path",{d:pts.join(" "),fill:"none",stroke:C.sand,"stroke-width":6,"stroke-dasharray":"1","stroke-linecap":"round",opacity:.9},ch));
-  const lab=G(g);fit(T(lab,"توزيع مائل + قيمة متطرفة",540,1410,46,600,C.sand),900);
-  const flag=G(g);el("rect",{x:150,y:690,width:780,height:96,rx:28,fill:C.card,stroke:C.red,"stroke-width":3},flag);xmark(flag,880,738,15,C.red,9);right(T(flag,"افتراض التوزيع اتكسر",0,754,44,600,C.sand),830);
+  const lab=G(g);fit(T(lab,L("توزيع مائل + قيمة متطرفة","Skewed data + an outlier"),540,1410,46,600,C.sand),900);
+  const flag=G(g);el("rect",{x:150,y:690,width:780,height:96,rx:28,fill:C.card,stroke:C.red,"stroke-width":3},flag);if(EN){xmark(flag,200,738,15,C.red,9);left(T(flag,L("افتراض التوزيع اتكسر","Distribution assumption broken"),0,754,44,600,C.sand),250);}else{xmark(flag,880,738,15,C.red,9);right(T(flag,L("افتراض التوزيع اتكسر","Distribution assumption broken"),0,754,44,600,C.sand),830);}
   scene(7.4,11.6,{g,upd(t){const l=t-7.4;setIn(h,P(l,.25,.75),16);bars.forEach((b,i)=>{const p=E.out(P(l,.7+i*.05,1.2+i*.05));b.setAttribute("transform",`translate(0,${(base)*(1-p)*0})`);b.setAttribute("opacity",(.85*p).toFixed(3));b.setAttribute("height",hs[i]*p);b.setAttribute("y",base-hs[i]*p);});
     const op=E.out(P(l,1.7,2.2));out.setAttribute("height",40*op);out.setAttribute("y",base-40*op);draw(curve,E.io(P(l,2.0,3.0)));setIn(lab,P(l,2.9,3.4),12);setIn(flag,P(l,3.3,3.8),16);}});
   ev(7.4,"whoosh",.5);ev(8.6,"tick",.5);ev(9.4,"cross",.9);ev(10.5,"cross",.7);}
  // beat 3: broken assumption -> different result
- {const g=G(svg);const h=header(g,"افتراض اتكسر","نتيجة مش موثوقة");
+ {const g=G(svg);const h=header(g,L("افتراض اتكسر","Assumption broken"),L("نتيجة مش موثوقة","Unreliable result"));
   const mk=(x,label,pv,wrong)=>{const c=G(g);el("rect",{x:x,y:710,width:390,height:520,rx:36,fill:C.card,stroke:wrong?C.red:C.ok,"stroke-width":5},c);
    const lb=fit(T(c,label,x+195,796,44,600,C.sand),330);fit(T(c,pv,x+195,980,84,700,wrong?C.red:C.ok,{"letter-spacing":0}),320);
-   const st=G(c);if(wrong){xmark(st,x+195-138,1100,14,C.red,8);right(T(st,"افتراضه اتكسر",0,1116,38,500,C.sand),x+195+118);}else{el("path",{d:`M${x+195-152},1100 L${x+195-138},1114 L${x+195-112},1084`,fill:"none",stroke:C.ok,"stroke-width":8,"stroke-linecap":"round","stroke-linejoin":"round"},st);right(T(st,"مناسب للبيانات",0,1116,38,500,C.sand),x+195+118);}
+   const st=G(c);const ix=EN?x+60:x+195-138,place_=(t,)=>EN?left(t,x+100):right(t,x+195+118);if(wrong){xmark(st,ix,1100,14,C.red,8);place_(T(st,L("افتراضه اتكسر","Assumption broken"),0,1116,38,500,C.sand));}else{el("path",{d:`M${ix-14},1100 L${ix},1114 L${ix+26},1084`,fill:"none",stroke:C.ok,"stroke-width":8,"stroke-linecap":"round","stroke-linejoin":"round"},st);place_(T(st,L("مناسب للبيانات","Fits the data"),0,1116,38,500,C.sand));}
    return c;};
-  const cr=mk(580,"t-test","p = 0.03",true),cl=mk(110,"اختبار مناسب","p = 0.11",false);
-  const arrow=T(g,"←",540,982,54,700,C.goldL);const note=fit(T(g,"مثال توضيحي لفكرة التأثير، مش بيانات حقيقية",540,1335,30,400,C.sand,{opacity:.65}),900);
-  scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);setIn(cr,P(l,.9,1.5),24,50);arrow.setAttribute("opacity",E.io(P(l,2.0,2.5)).toFixed(3));setIn(cl,P(l,2.3,2.9),24,-50);note.setAttribute("opacity",(.65*P(l,2.9,3.4)).toFixed(3));}});
+  const cr=mk(EN?110:580,"t-test","p = 0.03",true),cl=mk(EN?580:110,L("اختبار مناسب","Appropriate test"),"p = 0.11",false);
+  const arrow=T(g,EN?"→":"←",540,982,54,700,C.goldL);const note=fit(T(g,L("مثال توضيحي لفكرة التأثير، مش بيانات حقيقية","Illustrative example of the effect, not real data"),540,1335,30,400,C.sand,{opacity:.65}),900);
+  scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);setIn(cr,P(l,.9,1.5),24,EN?-50:50);arrow.setAttribute("opacity",E.io(P(l,2.0,2.5)).toFixed(3));setIn(cl,P(l,2.3,2.9),24,EN?50:-50);note.setAttribute("opacity",(.65*P(l,2.9,3.4)).toFixed(3));}});
   ev(11.4,"whoosh",.5);ev(12.3,"pop",.7);ev(13.7,"pop",.7);ev(14.2,"check",.8);}
- const cta=ctaScene({pre:"تابعنا",kw:"كل أسبوع",kwLtr:false,mid:"",offer:["لنصيحة منهجية","في البحث الطبي"],preSize:96},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("تابعنا","Follow us"),kw:L("كل أسبوع","Every week"),kwLtr:false,mid:"",offer:[L("لنصيحة منهجية","for a methods tip"),L("في البحث الطبي","in medical research")],preSize:96},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
- captions([["الخطوة المنسية قبل أي اختبار",3.8,7.2],["افحص شكل البيانات الأول",8.6,11.2],["نفس الداتا، اختبار مختلف، نتيجة مختلفة",12.0,15.3]]);
+ captions([[L("الخطوة المنسية قبل أي اختبار","The forgotten step before any test"),3.8,7.2],[L("افحص شكل البيانات الأول","Check the shape of your data first"),8.6,11.2],[L("نفس الداتا، اختبار مختلف، نتيجة مختلفة","Different test, different result"),12.0,15.3]]);
 }
 // ---------------------------------------------------------------- r02: design mistakes (wk2 Tue)
 function r02(){
- const hk=hookScene([["أغلى غلطة في البحث",88],["بتحصل",100,C.goldL],["قبل أول مريض.",96]]);{const m=G(hk.g);[910,720,530,340,150].forEach((x,i)=>{const d=i==1;el("circle",{cx:x,cy:1250,r:d?44:34,fill:d?C.gold:"none",stroke:d?C.goldL:C.sand,"stroke-width":4,opacity:d?1:.35},m);});el("line",{x1:870,x2:190,y1:1250,y2:1250,stroke:C.sand,"stroke-width":4,opacity:.25},m);
+ const hk=hookScene(EN?[["The costliest mistake",90],["in research happens",96,C.goldL],["before the first patient.",84]]:[["أغلى غلطة في البحث",88],["بتحصل",100,C.goldL],["قبل أول مريض.",96]]);{const m=G(hk.g);[910,720,530,340,150].forEach((x,i)=>{const d=i==1;el("circle",{cx:mx(x),cy:1250,r:d?44:34,fill:d?C.gold:"none",stroke:d?C.goldL:C.sand,"stroke-width":4,opacity:d?1:.35},m);});el("line",{x1:870,x2:190,y1:1250,y2:1250,stroke:C.sand,"stroke-width":4,opacity:.25},m);
    const hu=hk.upd;hk.upd=t=>{hu(t);setIn(m,P(t,2.0,2.6),20);};}
  scene(0,3.5,hk);ev(.4,"hit",.7);ev(1.0,"hit",.7);ev(1.6,"hit",.9);ev(.05,"swell",.35);
  // timeline (beats 1+2 share it)
- {const g=G(svg);const h1=header(g,"مراحل أي دراسة","رحلة الدراسة");const h2=header(g,"غلطة هنا","كل اللي بعدها بيتأثر");
-  const names=["السؤال","التصميم","جمع الداتا","التحليل","النشر"];const xs=[910,720,530,340,150],y=1010;const tl=G(g);
+ {const g=G(svg);const h1=header(g,L("مراحل أي دراسة","Stages of any study"),L("رحلة الدراسة","The study journey"));const h2=header(g,L("غلطة هنا","A mistake here"),L("كل اللي بعدها بيتأثر","hurts everything after it"));
+  const names=[L("السؤال","Question"),L("التصميم","Design"),L("جمع الداتا","Data"),L("التحليل","Analysis"),L("النشر","Paper")];const xs=[910,720,530,340,150].map(mx),y=1010;const tl=G(g);
   const ln=el("line",{x1:950,x2:110,y1:y,y2:y,stroke:C.sand,"stroke-width":7,"stroke-linecap":"round",opacity:.35},tl);
   const nodes=names.map((n,i)=>{const gi=G(tl);const des=i==1;const c=el("circle",{cx:xs[i],cy:y,r:des?70:54,fill:des?C.gold:C.navy,stroke:des?C.goldL:C.sand,"stroke-width":des?7:6},gi);
    T(gi,String(i+1),xs[i],y+(des?20:17),des?62:50,700,des?C.ink:C.sand);const lb=fit(T(gi,n,xs[i],y+(des?136:124),des?52:44,des?700:500,des?C.goldL:C.sand),176);return{gi,c,des};});
-  const here=G(tl);T(here,"هنا",720,y-138,56,700,C.goldL);el("path",{d:`M705,${y-112} L720,${y-90} L735,${y-112}`,fill:C.goldL},here);
+  const here=G(tl);T(here,L("هنا","Here"),mx(720),y-138,56,700,C.goldL);el("path",{d:`M${mx(720)-15},${y-112} L${mx(720)},${y-90} L${mx(720)+15},${y-112}`,fill:C.goldL},here);
   // crack propagating from the design node
-  const zz=[];let x=720;zz.push(`M${x},${y}`);const seg=[[690,-26],[655,24],[615,-28],[575,26],[535,-24],[495,24],[455,-26],[410,24],[370,-22],[330,24],[290,-22],[250,22],[205,-20],[165,20],[130,-10]];seg.forEach(([xx,dy])=>zz.push(`L${xx},${y+dy}`));
+  const zz=[];let x=mx(720);zz.push(`M${x},${y}`);const seg=[[690,-26],[655,24],[615,-28],[575,26],[535,-24],[495,24],[455,-26],[410,24],[370,-22],[330,24],[290,-22],[250,22],[205,-20],[165,20],[130,-10]];seg.forEach(([xx,dy])=>zz.push(`L${mx(xx)},${y+dy}`));
   const crack=pl(el("path",{d:zz.join(" "),fill:"none",stroke:C.red,"stroke-width":10,"stroke-linecap":"round","stroke-linejoin":"round"},tl));
-  const lab=G(tl);fit(T(lab,"التحليل مش هيصلّح غلطة التصميم",540,1330,50,600,C.sand),900);
+  const lab=G(tl);fit(T(lab,L("التحليل مش هيصلّح غلطة التصميم","Analysis can't fix a design mistake"),540,1330,50,600,C.sand),900);
   scene(3.2,11.6,{g,upd(t){const l=t-3.2;
     setIn(h1,Math.min(P(l,.3,.8),1-P(l,3.7,4.0)),16);setIn(h2,P(l,4.2,4.8),16);
     ln.setAttribute("opacity",(.35*P(l,.5,1.0)).toFixed(3));tl.setAttribute("transform",`translate(0,${(-140*E.io(P(l,4.3,5.3))).toFixed(1)})`);
@@ -138,25 +141,25 @@ function r02(){
     setIn(here,Math.min(P(l,2.8,3.3),1-P(l,3.7,4.0)),10);draw(crack,E.io(P(l,4.6,7.0)));setIn(lab,P(l,6.9,7.5),12);}});
   ev(3.2,"whoosh",.5);[4.0,4.5,5.0,5.5,6.0].forEach((t,i)=>ev(t,"pop",.5,i));ev(7.8,"crack",.9);ev(8.4,"cross",.6);ev(9.2,"cross",.6);ev(10.0,"cross",.6);}
  // beat 3: checklist
- {const g=G(svg);const h=header(g,"الحل","راجع التصميم الأول");const items=["سؤال بحثي واضح","primary outcome واحد","حجم عينة محسوب","مجموعة مقارنة مناسبة"];const rows=items.map((s,i)=>chipRow(g,s,770+i*165,{h:132}));
+ {const g=G(svg);const h=header(g,L("الحل","The fix"),L("راجع التصميم الأول","Review the design first"));const items=[L("سؤال بحثي واضح","A clear research question"),L("primary outcome واحد","One primary outcome"),L("حجم عينة محسوب","A calculated sample size"),L("مجموعة مقارنة مناسبة","A suitable comparison group")];const rows=items.map((s,i)=>chipRow(g,s,770+i*165,{h:132}));
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.55,1.3+i*.55),22,50);draw(r.ck,E.out(P(l,1.2+i*.55,1.6+i*.55)));});}});
   ev(11.4,"whoosh",.5);[12.4,12.95,13.5,14.05].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});}
- const cta=ctaScene({pre:"اكتب",kw:"DESIGN",kwLtr:true,mid:"في الكومنتات",offer:["لمراجعة تصميم مجانية","15 دقيقة"]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"DESIGN",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة تصميم مجانية","for a free design review"),L("15 دقيقة","15 minutes")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
- captions([["التصميم بيحدد إيه اللي تقدر تجاوب عليه",4.2,7.4],["الغلطة بتتنقل لكل المراحل",8.2,11.2],["قبل ما تبدأ جمع الداتا",12.2,15.3]]);
+ captions([[L("التصميم بيحدد إيه اللي تقدر تجاوب عليه","Design decides what you can answer"),4.2,7.4],[L("الغلطة بتتنقل لكل المراحل","The mistake spreads to every stage"),8.2,11.2],[L("قبل ما تبدأ جمع الداتا","Before you start collecting data"),12.2,15.3]]);
 }
 // ---------------------------------------------------------------- r03: choosing the test (wk2 Thu)
 function r03(){
- const hk=hookScene([["متختارش الـtest",92],["على أساس إنه",76,C.sand,-8],["بيدّي p أقل.",100,C.goldL]]);
+ const hk=hookScene([[L("متختارش الـtest","Don't pick the test"),92],[L("على أساس إنه","just because"),76,C.sand,-8],[L("بيدّي p أقل.","it gives a smaller p."),100,C.goldL]]);
  {const m=G(hk.g);const qs=[0,1,2].map(i=>{const gi=G(m);el("rect",{x:230,y:1170+i*118,width:620,height:96,rx:26,fill:C.card,stroke:C.line,"stroke-width":3},gi);const q=T(gi,"p = ?",540,1238+i*118,56,700,C.sand,{"letter-spacing":0});return q;});
   const hu=hk.upd;hk.upd=t=>{hu(t);setIn(m,P(t,2.0,2.6),20);qs.forEach((q,i)=>q.textContent="p = "+(((Math.floor(t*14)+i*5)%90)/1000+.01).toFixed(2));};}
  scene(0,3.5,hk);ev(.4,"hit",.7);ev(1.0,"hit",.7);ev(1.6,"hit",.9);ev(.05,"swell",.35);
- {const g=G(svg);const h1=header(g,"نفس الداتا","3 اختبارات. 3 نتايج.");const h2=header(g,"اختيار على أساس النتيجة","ده p-hacking");
+ {const g=G(svg);const h1=header(g,L("نفس الداتا","Same data"),L("3 اختبارات. 3 نتايج.","3 tests. 3 results."));const h2=header(g,L("اختيار على أساس النتيجة","Choosing by the result"),L("ده p-hacking","That's p-hacking"));
   const names=["Test A","Test B","Test C"],pv=[0.07,0.04,0.03],ys=[780,980,1180];
   const cards=names.map((n,i)=>{const c=G(g);const r=el("rect",{x:110,y:ys[i]-82,width:860,height:164,rx:34,fill:C.card,stroke:C.line,"stroke-width":3},c);
-   T(c,n,0,ys[i]+22,58,700,C.sand,{"text-anchor":"start",x:0});const nt=c.lastChild;right(nt,930);
-   const v=T(c,"p = 0.00",300,ys[i]+30,84,700,C.sand,{"letter-spacing":0});return{c,r,v,i};});
-  const note=fit(T(g,"أرقام توضيحية، مش بيانات حقيقية",540,1332,30,400,C.sand,{opacity:.65}),900);
+   T(c,n,0,ys[i]+22,58,700,C.sand,{"text-anchor":"start",x:0});const nt=c.lastChild;if(EN)left(nt,150);else right(nt,930);
+   const v=T(c,"p = 0.00",EN?780:300,ys[i]+30,84,700,C.sand,{"letter-spacing":0});return{c,r,v,i};});
+  const note=fit(T(g,L("أرقام توضيحية، مش بيانات حقيقية","Illustrative numbers, not real data"),540,1332,30,400,C.sand,{opacity:.65}),900);
   const cur=G(g);el("path",{d:"M0,0 L0,70 L18,54 L32,86 L46,80 L32,48 L56,48 Z",fill:C.sand,stroke:C.navy,"stroke-width":4,"stroke-linejoin":"round"},cur);
   const rip=el("circle",{r:10,fill:"none",stroke:C.goldL,"stroke-width":6},g);
   scene(3.2,11.6,{g,upd(t){const l=t-3.2;
@@ -166,41 +169,41 @@ function r03(){
       k.r.setAttribute("stroke",(k.i==2&&l>5.6)?C.goldL:C.line);k.r.setAttribute("stroke-width",(k.i==2&&l>5.6)?7:3);});
     note.setAttribute("opacity",(.65*P(l,3,3.5)).toFixed(3));
     // cursor moves to Test C and clicks
-    const cp=E.io(P(l,4.6,5.5));cur.setAttribute("opacity",P(l,4.4,4.7).toFixed(3));cur.setAttribute("transform",`translate(${lerp(820,860,cp)},${lerp(940,1210,cp)})`);
-    const rp=P(l,5.6,6.2);rip.setAttribute("cx",868);rip.setAttribute("cy",1216);rip.setAttribute("r",10+rp*70);rip.setAttribute("opacity",(rp>0?(1-rp)*.9:0).toFixed(3));}});
+    const cp=E.io(P(l,4.6,5.5));cur.setAttribute("opacity",P(l,4.4,4.7).toFixed(3));cur.setAttribute("transform",`translate(${lerp(EN?300:820,EN?250:860,cp)},${lerp(940,1210,cp)})`);
+    const rp=P(l,5.6,6.2);rip.setAttribute("cx",EN?258:868);rip.setAttribute("cy",1216);rip.setAttribute("r",10+rp*70);rip.setAttribute("opacity",(rp>0?(1-rp)*.9:0).toFixed(3));}});
   ev(3.2,"whoosh",.5);[4.0,4.7,5.4].forEach((t,i)=>{ev(t,"spin",.5,i);ev(t+.9,"pop",.7,i);});ev(8.7,"tick",.6);ev(8.95,"click",.9);ev(9.5,"cross",.7);}
- {const g=G(svg);const h=header(g,"اختاره من","قبل ما تشوف الداتا");const rows=["تصميم الدراسة","نوع المتغيرات","افتراضات الاختبار"].map((s,i)=>chipRow(g,s,780+i*170,{h:140}));
+ {const g=G(svg);const h=header(g,L("اختاره من","Choose it from"),L("قبل ما تشوف الداتا","before you see the data"));const rows=[L("تصميم الدراسة","Study design"),L("نوع المتغيرات","Variable types"),L("افتراضات الاختبار","Test assumptions")].map((s,i)=>chipRow(g,s,780+i*170,{h:140}));
   const lk=G(g);el("rect",{x:110,y:1250,width:860,height:130,rx:32,fill:"none",stroke:C.goldL,"stroke-width":4,"stroke-dasharray":"14 10"},lk);
-  el("rect",{x:848,y:1297,width:56,height:42,rx:8,fill:C.goldL},lk);el("path",{d:"M860,1297 v-14 a16,16 0 0 1 32,0 v14",fill:"none",stroke:C.goldL,"stroke-width":7},lk);right(fit(T(lk,"واكتبه في خطة التحليل الأول",0,1332,44,600,C.sand),680),820);
+  el("rect",{x:EN?136:848,y:1297,width:56,height:42,rx:8,fill:C.goldL},lk);el("path",{d:`M${EN?148:860},1297 v-14 a16,16 0 0 1 32,0 v14`,fill:"none",stroke:C.goldL,"stroke-width":7},lk);if(EN)left(fit(T(lk,L("واكتبه في خطة التحليل الأول","Write it in the analysis plan first"),0,1332,44,600,C.sand),680),220);else right(fit(T(lk,L("واكتبه في خطة التحليل الأول","Write it in the analysis plan first"),0,1332,44,600,C.sand),680),820);
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.55,1.3+i*.55),22,50);draw(r.ck,E.out(P(l,1.2+i*.55,1.6+i*.55)));});setIn(lk,P(l,2.7,3.3),18);}});
   ev(11.4,"whoosh",.5);[12.4,12.95,13.5].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});ev(14.2,"lock",.8);}
- const cta=ctaScene({pre:"اكتب",kw:"TEST",kwLtr:true,mid:"في الكومنتات",offer:["لمراجعة خطة التحليل","مجانًا"]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"TEST",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة خطة التحليل","for a free analysis"),L("مجانًا","plan review")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
- captions([["نفس الداتا. اختبارات مختلفة.",4.8,8.0],["التجربة لحد ما تطلع p صغيرة = نتيجة مصنوعة",8.8,11.2],["اختار الاختبار قبل ما تشوف النتيجة",12.2,15.3]]);
+ captions([[L("نفس الداتا. اختبارات مختلفة.","Same data. Different tests."),4.8,8.0],[L("التجربة لحد ما تطلع p صغيرة = نتيجة مصنوعة","Trying until p is small = a made-up result"),8.8,11.2],[L("اختار الاختبار قبل ما تشوف النتيجة","Pick the test before you see the result"),12.2,15.3]]);
 }
 // ---------------------------------------------------------------- r04: overfitting (wk12 Tue)
 function r04(){
- const hk=hookScene([["15 متغير في الـmodel.",84],["و30 حدث بس.",100,C.goldL],["ده مش model. ده صدفة.",70,C.sand,-14]]);
+ const hk=hookScene([[L("15 متغير في الـmodel.","15 variables in the model."),84],[L("و30 حدث بس.","and only 30 events."),100,C.goldL],[L("ده مش model. ده صدفة.","That's not a model. It's chance."),70,C.sand,-14]]);
  {const m=G(hk.g);for(let i=0;i<15;i++){const x=140+i*(800/14);el("rect",{x:x-18,y:1170,width:36,height:48,rx:10,fill:C.card,stroke:C.goldL,"stroke-width":3},m);el("circle",{cx:x,cy:1270,r:15,fill:C.goldL},m);el("circle",{cx:x,cy:1316,r:15,fill:C.goldL},m);}
   const hu=hk.upd;hk.upd=t=>{hu(t);setIn(m,P(t,2.0,2.6),20);};}
  scene(0,3.5,hk);ev(.4,"hit",.7);ev(1.0,"hit",.7);ev(1.6,"hit",.9);ev(.05,"swell",.35);
- {const g=G(svg);const h1=header(g,"عدّ الأحداث","15 متغير × حدثين");const h2=header(g,"القاعدة التقريبية","10 أحداث لكل متغير");
+ {const g=G(svg);const h1=header(g,L("عدّ الأحداث","Count the events"),L("15 متغير × حدثين","15 variables × 2 events"));const h2=header(g,L("القاعدة التقريبية","The rule of thumb"),L("10 أحداث لكل متغير","10 events per variable"));
   const NV=15,x0=140,dx=(940-140)/(NV-1),yv=800;
   const cols=[];for(let i=0;i<NV;i++){const x=x0+i*dx;const cg=G(g);el("rect",{x:x-22,y:yv-30,width:44,height:60,rx:12,fill:C.card,stroke:C.goldL,"stroke-width":3},cg);T(cg,"X"+(i+1),x,yv+8,22,600,C.sand);
     const dots=[];for(let r=0;r<10;r++){dots.push(el("circle",{cx:x,cy:yv+88+r*54,r:19,fill:r<2?C.goldL:C.ok,opacity:0},cg));}cols.push({cg,dots,x});}
-  const cnt=G(g);const ctxt=T(cnt,"30 حدث",540,712,66,700,C.goldL);const sub=G(g);const need=G(g);const nt=T(need,"150 حدث",540,712,66,700,C.ok);
+  const cnt=G(g);const ctxt=T(cnt,L("30 حدث","30 events"),540,712,66,700,C.goldL);const sub=G(g);const need=G(g);const nt=T(need,L("150 حدث","150 events"),540,712,66,700,C.ok);
   scene(3.2,11.6,{g,upd(t){const l=t-3.2;
     setIn(h1,Math.min(P(l,.3,.8),1-P(l,4.0,4.3)),16);setIn(h2,P(l,4.5,5.0),16);
     cols.forEach((c,i)=>{const a=.8+i*.06;c.cg.setAttribute("opacity",P(l,a,a+.25).toFixed(3));
       c.dots.forEach((d,r)=>{let o=0;if(r<2)o=P(l,1.2+i*.05,1.5+i*.05);else o=P(l,5.4+r*.11+i*.012,5.7+r*.11+i*.012);d.setAttribute("opacity",o.toFixed(3));d.setAttribute("r",(20*E.back(clamp(o))).toFixed(1));});});
-    ctxt.setAttribute("opacity",(P(l,2.3,2.8)).toFixed(3));ctxt.textContent=l<7.0?"30 حدث":"";nt.setAttribute("opacity",P(l,7.4,8.0).toFixed(3));}});
+    ctxt.setAttribute("opacity",(P(l,2.3,2.8)).toFixed(3));ctxt.textContent=l<7.0?L("30 حدث","30 events"):"";nt.setAttribute("opacity",P(l,7.4,8.0).toFixed(3));}});
   ev(3.2,"whoosh",.5);ev(4.1,"tick",.5);ev(4.4,"tick",.5);ev(5.6,"swell",.6);for(let k=0;k<8;k++)ev(8.4+k*.15,"tick",.4,k);ev(10.3,"check",.8);}
- {const g=G(svg);const h=header(g,"إزاي تتجنبه","قلّل واحسب");const rows=["قلّل عدد المتغيرات","حدّدها قبل التحليل","اعمل validation للـmodel"].map((s,i)=>chipRow(g,s,830+i*190,{h:150}));
+ {const g=G(svg);const h=header(g,L("إزاي تتجنبه","How to avoid it"),L("قلّل واحسب","Reduce and count"));const rows=[L("قلّل عدد المتغيرات","Reduce the number of variables"),L("حدّدها قبل التحليل","Define them before the analysis"),L("اعمل validation للـmodel","Validate the model")].map((s,i)=>chipRow(g,s,830+i*190,{h:150}));
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.6,1.3+i*.6),22,50);draw(r.ck,E.out(P(l,1.2+i*.6,1.6+i*.6)));});}});
   ev(11.4,"whoosh",.5);[12.4,13.0,13.6].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});}
- const cta=ctaScene({pre:"اكتب",kw:"MODEL",kwLtr:true,mid:"في الكومنتات",offer:["لمراجعة مجانية","لحجم الـmodel"]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review"),L("لحجم الـmodel","of your model size")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
- captions([["لكل متغير في الـmodel لازم أحداث كفاية",1.0,3.3],["عدد الأحداث بيحدد عدد المتغيرات",8.0,11.2],["الحل بيبدأ قبل التحليل",12.2,15.3]]);
+ captions([[L("لكل متغير في الـmodel لازم أحداث كفاية","Every variable needs enough events"),1.0,3.3],[L("عدد الأحداث بيحدد عدد المتغيرات","Events limit the number of variables"),8.0,11.2],[L("الحل بيبدأ قبل التحليل","The fix starts before the analysis"),12.2,15.3]]);
 }
 // ================================================================ timeline
 function render(t){if(!window.READY)return;

@@ -11,7 +11,7 @@ CASES={"r01":[3.0,7.0,11.0,15.0,19.5],"r02":[3.0,6.9,10.8,15.2,19.5],"r03":[3.0,
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",args=["--no-sandbox","--allow-file-access-from-files"])
     for reel,ts in CASES.items():
-        pg=b.new_page(viewport={"width":1080,"height":1920}); pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}"); pg.wait_for_function("window.READY===true")
+        pg=b.new_page(viewport={"width":1080,"height":1920}); pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}&lang="+os.environ.get("LANG_Q","ar")); pg.wait_for_function("window.READY===true")
         for t in ts:
             pg.evaluate(f"render({t})"); it=pg.evaluate(JS)
             # drop elements fully contained in another (text inside its card) when computing vertical rhythm

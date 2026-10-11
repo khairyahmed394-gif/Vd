@@ -20,7 +20,7 @@ def bands(img):
 with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",args=["--no-sandbox","--allow-file-access-from-files"])
     for reel,ts in CASES.items():
-        pg=b.new_page(viewport={"width":1080,"height":1920}); pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}"); pg.wait_for_function("window.READY===true")
+        pg=b.new_page(viewport={"width":1080,"height":1920}); pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}&lang="+os.environ.get("LANG_Q","ar")); pg.wait_for_function("window.READY===true")
         for t in ts:
             pg.evaluate(f"render({t})"); pg.screenshot(path="/tmp/claude-0/_b.png"); bs=bands(Image.open("/tmp/claude-0/_b.png"))
             gaps=[bs[i+1][0]-bs[i][1] for i in range(len(bs)-1)]

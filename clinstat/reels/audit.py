@@ -7,7 +7,7 @@ with sync_playwright() as p:
     b=p.chromium.launch(executable_path="/opt/pw-browsers/chromium-1194/chrome-linux/chrome",args=["--no-sandbox","--allow-file-access-from-files"]);tot=0
     for reel in sys.argv[1:]:
         pg=b.new_page(viewport={"width":1080,"height":1920}); errs=[]; pg.on("pageerror",lambda e:errs.append(str(e))); pg.on("console",lambda m:errs.append(m.text) if m.type=="error" else None)
-        pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}"); pg.wait_for_function("window.READY===true"); bad=0
+        pg.goto("file://"+os.getcwd()+f"/index.html?reel={reel}&lang="+os.environ.get("LANG_Q","ar")); pg.wait_for_function("window.READY===true"); bad=0
         for t in TIMES:
             pg.evaluate(f"render({t})"); items=pg.evaluate(JS)
             for it in items:
