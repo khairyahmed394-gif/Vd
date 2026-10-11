@@ -1,7 +1,7 @@
 """Original score + sound design for the ClinStat reels (20 s). Pure numpy, no samples, no voice. usage: python3 audio.py r01"""
 import numpy as np, json, wave, sys
-reel=sys.argv[1]; SR=44100; D=20.0; N=int(SR*D); t=np.arange(N)/SR; rs=np.random.RandomState({"r01":3,"r02":5,"r03":9,"r04":13}[reel])
-SH={"r01":0,"r02":-7,"r03":-5,"r04":-2}[reel]          # transposition per reel so the four reels do not sound identical
+reel=sys.argv[1]; SR=44100; D=20.0; N=int(SR*D); t=np.arange(N)/SR; NUM=int(reel[1:]); rs=np.random.RandomState(NUM*7+3)
+SH=[0,-7,-5,-2,2,-9,3,-4,5,-6,1,-3,4,-8,-1,-10,6,-11][(NUM-1)%18]          # transposition per reel so the four reels do not sound identical
 mid=lambda m:440.0*2**((m+SH-69)/12)
 def ss(x): x=np.clip(x,0,1); return x*x*(3-2*x)
 def noise(d,lo,hi):

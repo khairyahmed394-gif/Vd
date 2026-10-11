@@ -1,0 +1,14 @@
+r05 wk03_tue_rejected
+r06 wk04_tue_outcome
+r07 wk04_thu_missing
+r08 wk05_tue_reviewers
+r09 wk06_tue_triage
+r10 wk06_thu_methods
+r11 wk07_tue_desk_rejection
+r12 wk08_tue_predatory
+r13 wk08_thu_ethics
+r14 wk09_tue_fixed_random
+r15 wk10_tue_sensitivity
+r16 wk10_thu_i2
+r17 wk11_tue_three_results
+r18 wk12_thu_last_batch
