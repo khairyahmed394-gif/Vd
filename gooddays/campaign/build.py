@@ -1,4 +1,4 @@
-"""GOOD DAYS 12-week content calendar: 24 tweets + 18 static posts + 8 reels. python3 build.py -> calendar.csv, calendar.xlsx, calendar.md"""
+"""GOOD DAYS 12-week content calendar: 24 short text/poll posts + 18 static posts + 8 reels. python3 build.py -> calendar.csv, calendar.xlsx, calendar.md"""
 import csv, datetime, openpyxl
 from openpyxl.styles import Font, PatternFill, Alignment
 from openpyxl.utils import get_column_letter
@@ -8,8 +8,8 @@ WEEKS = {1: "افتتاح: جود دايز وصل", 2: "الركن الهادي"
          7: "سهرة لحد ١٢", 8: "يوم كامل في Trio Fitness Hub", 9: "الصحي جنب المعتاد", 10: "اللمّة", 11: "الروتين: كرّر", 12: "الختام: أنت تستاهل"}
 PHASE = lambda w: "RESET (اهدأ)" if w <= 4 else "RECHARGE (اشحن)" if w <= 8 else "REPEAT (كرّر)"
 # (week, day, format, platform, topic, hook, funnel, cta)
-T, P, R = "تويتة", "بوست ثابت", "ريل"
-X, IG, IGR = "X", "إنستجرام + فيسبوك", "ريلز إنستجرام + فيسبوك + تيك توك"
+T, P, R = "بوست نصي/تفاعلي", "بوست ثابت", "ريل"
+X, IG, IGR = "فيسبوك + ستوري إنستجرام", "إنستجرام + فيسبوك", "ريلز إنستجرام + ريلز فيسبوك"
 S = [
  (1,"الأحد",T,X,"إعلان الافتتاح","في مكان بيهدّيك، وفي قهوة تستاهله. جود دايز جوّه Trio Fitness Hub.","وعي","تابعنا"),
  (1,"الإثنين",P,IG,"صورة الهوية: Reset. Recharge. Repeat.","اهدا. اشحن. كرّر.","وعي","احفظ البوست"),
