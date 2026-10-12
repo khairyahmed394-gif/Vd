@@ -1,7 +1,7 @@
 """Reel timelines. shot = (photo, t0, t1, (s,vx,vy) start, (s,vx,vy) end, label_ar, label_en). Source photos are 1080x1440."""
 def cam(s0, x0, y0, s1, x1, y1): return ((s0, x0, y0), (s1, x1, y1))
 REELS = {
- "wk02_tue_listen": dict(D=15.0, shots=[("p5", 0, 3.8, cam(1.45, 560, 800, 1.75, 580, 760), None, None), ("p6", 3.8, 7.6, cam(1.5, 650, 600, 1.45, 700, 650), None, None), ("p2", 7.6, 11.4, cam(1.5, 700, 650, 1.45, 520, 700), None, None), ("p4", 11.4, 15.0, cam(1.4, 540, 700, 1.7, 480, 900), None, None)],
+ "wk02_tue_listen": dict(D=15.0, shots=[("p3", 0, 5.0, cam(1.45, 560, 700, 1.7, 500, 760), None, None), ("p2", 5.0, 10.0, cam(1.5, 700, 650, 1.45, 520, 700), None, None), ("p4", 10.0, 15.0, cam(1.4, 540, 700, 1.7, 480, 900), None, None)],
     end=dict(t=10.6, ar=["اسمع المكان", "قبل ما تشوفه."], en=["HEAR THE PLACE", "BEFORE YOU SEE IT."], sub_ar="جود دايز في Trio Fitness Hub", sub_en="GOOD DAYS at Trio Fitness Hub"), logo=12.8),
  "wk04_tue_sun": dict(D=15.0, shots=[("p5", 0, 5.0, cam(1.4, 540, 700, 1.7, 560, 830), None, None), ("p6", 5.0, 10.0, cam(1.45, 620, 520, 1.6, 700, 620), None, None), ("p7", 10.0, 15.0, cam(1.4, 540, 600, 1.65, 470, 700), None, None)],
     end=dict(t=10.4, ar=["مفيش وقت", "أحلى من دلوقتي."], en=["NO BETTER TIME", "THAN NOW."], sub_ar="من ١٠ ص لـ١٢ م", sub_en="10 AM TO 12 AM"), logo=12.8),
