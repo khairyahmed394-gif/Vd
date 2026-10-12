@@ -17,8 +17,11 @@ def css(lang):
 h1{{font-weight:{700 if ar else 800};line-height:{1.22 if ar else 1.04};letter-spacing:{0 if ar else '-.5px'};text-transform:uppercase;text-shadow:0 2px 22px rgba(0,0,0,.35)}}
 .sub{{font-weight:{500 if ar else 600};font-size:{36 if ar else 33}px;line-height:1.4;opacity:.95;text-shadow:0 2px 14px rgba(0,0,0,.5)}}
 """
+GEN = {"name": None}
 def photo(p, y, extra=""):
-    return f'<div class="ph" style="background-image:url(img/{p}.png);background-position:50% {y}%;{extra}"></div>'
+    g = f"img/gen/{GEN['name']}.jpg"
+    src = g if GEN["name"] and os.path.exists(os.path.join(HERE, g)) else f"img/{p}.png"
+    return f'<div class="ph" style="background-image:url({src});background-position:50% {y}%;{extra}"></div>'
 def lines(ls, size):
     return "".join(f'<h1 style="font-size:{size}px">{html.escape(l)}</h1>' for l in ls)
 def fit(ls, lang, base):
@@ -69,7 +72,7 @@ def render(langs, only=None):
             os.makedirs(f"{HERE}/out/{lang}", exist_ok=True)
             for name, c in C.items():
                 if only and name not in only: continue
-                f = f"{HERE}/_{name}.html"; open(f, "w").write(page(c, lang))
+                GEN["name"] = name; f = f"{HERE}/_{name}.html"; open(f, "w").write(page(c, lang))
                 pg = b.new_page(viewport={"width": 1080, "height": 1350}); pg.goto("file://" + f); pg.wait_for_timeout(300)
                 pg.screenshot(path=f"{HERE}/out/{lang}/{name}.png"); pg.close(); os.remove(f)
             print(lang, "done")

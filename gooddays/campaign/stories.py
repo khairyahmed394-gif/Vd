@@ -11,10 +11,11 @@ def base(ar, w, h): return f"""@font-face{{font-family:M;src:url(file://{FONTS}/
 h1{{font-weight:{700 if ar else 800};text-transform:uppercase;line-height:{1.28 if ar else 1.1};text-shadow:0 2px 22px rgba(0,0,0,.4)}}"""
 def txt(s): return "<br>".join(html.escape(x) for x in s.split("\n"))
 def story(i, ar_txt, en_txt, poll, lang, p):
+    g = f"{IMG}/gen/s{i+1:02d}.jpg"; GENP = g if os.path.exists(g) else None
     ar = lang == "ar"; text = ar_txt if ar else en_txt; opts = (poll[0] if ar else poll[1]) if poll else None
     parts = text.split("\n"); head = parts[0]; sub = " ".join(parts[1:]); side = "right" if ar else "left"
     hs = 80 if ar else 66; ss = 46 if ar else 38
-    body = f'<div class="ph" style="background-image:url({IMG}/{p}.png);background-position:50% 40%;filter:brightness({.45 if opts else .85}) {"blur(5px)" if opts else ""}"></div><div class="ph" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,0) 40%,rgba(0,0,0,.85))"></div>'
+    body = f'<div class="ph" style="background-image:url({GENP if GENP else IMG + '/' + p + '.png'});background-position:50% 40%;filter:brightness({.45 if opts else .85}) {"blur(5px)" if opts else ""}"></div><div class="ph" style="background:linear-gradient(180deg,rgba(0,0,0,.6),rgba(0,0,0,0) 40%,rgba(0,0,0,.85))"></div>'
     inner = f'<h1 style="font-size:{hs}px">{html.escape(head)}</h1>' + (f'<div style="margin-top:28px;font-size:{ss}px;font-weight:{600 if not ar else 700};line-height:1.4;opacity:.95;text-shadow:0 2px 14px rgba(0,0,0,.6)">{html.escape(sub)}</div>' if sub else "")
     pos = "top:230px" if opts else "bottom:330px"
     body += f'<div style="position:absolute;{pos};left:60px;right:60px;"><div style="position:absolute;{side}:0;top:0;bottom:0;width:22px;background:linear-gradient({RED},#6A0100)"></div><div style="padding-{side}:56px;">{inner}</div></div>'
