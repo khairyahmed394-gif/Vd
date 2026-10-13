@@ -1,0 +1,124 @@
+<!doctype html><meta charset="utf-8"><style>
+@font-face{font-family:A;src:url(../creative/fonts/Anton.ttf)}
+@font-face{font-family:C;src:url(../creative/fonts/Caveat.ttf);font-weight:400 700}
+@font-face{font-family:D;src:url(../creative/fonts/DMSans.ttf);font-weight:100 1000}
+@font-face{font-family:P;src:url(../campaign/posts/fonts/PlexAr-Bold.ttf);font-weight:700}
+*{margin:0;box-sizing:border-box}html,body{width:1080px;height:1920px;overflow:hidden;background:#F2EBDD}
+#stage{position:absolute;inset:0;transform-origin:540px 960px}svg{position:absolute;inset:0}
+.t{position:absolute;left:0;width:1080px;text-align:center;white-space:nowrap;will-change:transform}
+.a{font-family:A;text-transform:uppercase;line-height:1}.c{font-family:C;font-weight:700}.d{font-family:D;font-weight:700;letter-spacing:6px;text-transform:uppercase}
+body.ar .a,body.ar .c,body.ar .d{font-family:P;letter-spacing:0;text-transform:none;line-height:1.25}
+.ch{display:inline-block;will-change:transform,opacity}
+#logo{position:absolute;left:400px;top:1440px;width:280px;height:169px;-webkit-mask:url(../creative/img/logo.png) center/contain no-repeat;background:#F2EBDD;opacity:0}
+</style>
+<body><div id="stage"><svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920"></svg><div id="h"></div><div id="logo"></div></div>
+<script>
+const AR=location.hash.includes("ar"); if(AR)document.body.classList.add("ar");
+const G="#17251D",O="#747A50",CR="#F2EBDD",ES="#493020",CA="#B9835B",BL="#E8B9B5";
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),P=(t,a,b)=>cl((t-a)/(b-a)),sm=x=>x*x*(3-2*x),eo=x=>1-Math.pow(1-x,3),eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const back=x=>{const c1=1.9,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const bounce=x=>{const n=7.5625,d=2.75;if(x<1/d)return n*x*x;if(x<2/d)return n*(x-=1.5/d)*x+.75;if(x<2.5/d)return n*(x-=2.25/d)*x+.9375;return n*(x-=2.625/d)*x+.984375};
+const T={en:{reset:"RESET.",recharge:"RECHARGE.",repeat:"REPEAT.",s1:"a fresh start",s2:"good coffee, better days",l:["A GOOD","DAY STARTS","HERE"],hrs:"10 AM — 12 AM"},ar:{reset:"اهدا.",recharge:"اشحن.",repeat:"كرّر.",s1:"بداية جديدة",s2:"قهوة حلوة، أيام أحلى",l:["اليوم الحلو","بيبدأ","من هنا"],hrs:"١٠ ص — ١٢ م"}}[AR?"ar":"en"];
+const S=document.getElementById("s"),H=document.getElementById("h"),NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent=S){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);parent.appendChild(e);return e}
+// ---------- static scene graph
+const bg1=el("rect",{x:0,y:0,width:1080,height:1920,fill:CR});
+const bg2=el("circle",{cx:540,cy:1100,r:0,fill:G});
+const bg3=el("circle",{cx:540,cy:1100,r:0,fill:BL});
+const bg4=el("rect",{x:0,y:1920,width:1080,height:1920,fill:G});
+const cupG=el("g",{}),mini=[0,1,2].map(()=>el("g",{})),deco=el("g",{});
+// cup geometry (local coords, origin at cup top-centre)
+const CW=400,CH=640,BW=CW*.74;
+const cupPath=`M${-CW/2},0 L${CW/2},0 L${BW/2},${CH} L${-BW/2},${CH} Z`;
+function cupParts(g,uid){
+  const defs=el("defs",{},g),cp=el("clipPath",{id:"cp"+uid},defs);el("path",{d:cupPath},cp);
+  const glass=el("path",{d:cupPath,fill:"rgba(255,255,255,.18)"},g);
+  const liq=el("g",{"clip-path":`url(#cp${uid})`},g);
+  const ice=el("g",{},g);
+  const outline=el("path",{d:cupPath,fill:"none",stroke:"rgba(255,255,255,.7)","stroke-width":5,"stroke-linejoin":"round"},g);
+  const rim=el("rect",{x:-CW/2-10,y:-16,width:CW+20,height:18,rx:9,fill:"rgba(255,255,255,.75)"},g);
+  const straw=el("path",{d:`M${CW*.12},-8 L${CW*.3},-210`,stroke:CR,"stroke-width":18,"stroke-linecap":"round"},g);
+  return {liq,ice,straw,glass,outline,rim};
+}
+const main=cupParts(cupG,"m");
+const miniParts=mini.map((g,i)=>cupParts(g,"x"+i));
+const strawOutline=el("path",{d:`M${CW*.12},-8 L${CW*.3},-210`,stroke:"rgba(0,0,0,.25)","stroke-width":2,fill:"none"},cupG);
+// liquid layers for the main cup
+const milk=el("path",{fill:"#EBDCC3"},main.liq),esp=el("path",{fill:"#5a3a24"},main.liq),strands=[...Array(4)].map((_,i)=>el("path",{stroke:"#9a6c45","stroke-width":9+(i%3)*4,"stroke-linecap":"round",fill:"none",opacity:.7},main.liq));
+// ice cubes (local final positions)
+const CUBES=[[-95,540,0],[40,555,0],[-10,470,0],[85,415,0],[-70,360,0]].map((p,i)=>({x:p[0],y:p[1],t0:1.95+i*.28,r:(i*29)%40-20,s:120-i*6}));
+CUBES.forEach(c=>{c.e=el("rect",{x:-c.s/2,y:-c.s/2,width:c.s,height:c.s,rx:c.s*.2,fill:"rgba(255,255,255,.28)",stroke:"rgba(255,255,255,.85)","stroke-width":5},main.ice)});
+// mini cups: static liquids
+const MINI=[[["#5a3a24",.3],["#EBDCC3",.3],["#6b4a30",.4]],[["#8DA25B",.5],["#CFE0A0",.5]],[["#D9738E",.5],["#F2B8C6",.5]]];
+miniParts.forEach((m,i)=>{let y=60;MINI[i].forEach(([c,f])=>{const h=CH*.86*f;el("rect",{x:-CW/2-10,y:y,width:CW+20,height:h+2,fill:c},m.liq);y+=h});for(let k=0;k<4;k++)el("rect",{x:-100+k*55-((k*37)%50),y:120+k*120,width:96,height:96,rx:18,fill:"rgba(255,255,255,.22)",stroke:"rgba(255,255,255,.7)","stroke-width":4,transform:`rotate(${k*17-20} 0 0)`},m.ice)});
+const pour=el("path",{stroke:"#5a3a24","stroke-width":0,fill:"none","stroke-linecap":"round"},deco);
+// doodles
+const sm1=el("g",{stroke:CR,"stroke-width":8,fill:"none","stroke-linecap":"round"},deco);
+const smC=el("circle",{cx:540,cy:1320,r:70,"stroke-dasharray":440,"stroke-dashoffset":440},sm1),smE1=el("path",{d:"M515,1300v18",opacity:0},sm1),smE2=el("path",{d:"M565,1300v18",opacity:0},sm1),smM=el("path",{d:"M505,1335 Q540,1375 575,1335","stroke-dasharray":100,"stroke-dashoffset":100},sm1);
+const loop=el("g",{stroke:ES,"stroke-width":9,fill:"none","stroke-linecap":"round","stroke-linejoin":"round"},deco);
+el("path",{d:"M-60,-10 a60,60 0 0 1 100,-35"},loop);el("path",{d:"M44,-84 v40 h-40"},loop);el("path",{d:"M60,10 a60,60 0 0 1 -100,35"},loop);el("path",{d:"M-44,84 v-40 h40"},loop);
+const bolt=el("path",{d:"M10,-70 L-50,10 H-6 L-18,74 L48,-14 H4 Z",stroke:CR,"stroke-width":8,fill:"none","stroke-linejoin":"round"},deco);
+const stars=[[130,520],[950,640],[170,1480],[920,1420]].map(([x,y])=>{const g=el("g",{stroke:ES,"stroke-width":7,"stroke-linecap":"round"},deco);for(let a=0;a<8;a++){el("path",{d:`M0,0 L${34*Math.cos(a*Math.PI/4)},${34*Math.sin(a*Math.PI/4)}`},g)}return {g,x,y}});
+// ---------- text (HTML)
+function mk(txt,cls,size,top,color,extra=""){const d=document.createElement("div");d.className="t "+cls;d.style.cssText=`top:${top}px;font-size:${size}px;color:${color};${extra}`;
+  const chars=[...txt];d.innerHTML=chars.map(c=>c===" "?"<span class='ch'>&nbsp;</span>":`<span class='ch'>${c}</span>`).join("");if(AR)d.innerHTML=`<span class='ch'>${txt}</span>`;H.appendChild(d);return d}
+const sz=AR?{big:300,mid:230,line:190}:{big:340,mid:230,line:210};
+const tReset=mk(T.reset,"a",sz.big,AR?210:200,G),tRech=mk(T.recharge,"a",AR?260:215,AR?1480:1500,CR),tRep=mk(T.repeat,"a",AR?300:340,AR?170:200,ES);
+const sc1=mk(T.s1,"c",AR?78:110,AR?560:520,CA),sc2=mk(T.s2,"c",AR?70:96,AR?1760:1740,CA);
+const L=T.l.map((t,i)=>{const w=document.createElement("div");w.style.cssText=`position:absolute;left:0;width:1080px;top:${360+i*(AR?230:240)}px;height:${AR?230:240}px;overflow:hidden`;const d=document.createElement("div");d.className="t a";d.style.cssText=`top:0;font-size:${sz.line}px;color:${CR}`;d.textContent=t;w.appendChild(d);H.appendChild(w);return d});
+const hrs=mk(T.hrs,"d",AR?64:50,1650,CA);
+const logoE=document.getElementById("logo");
+function letters(div,t,t0,dur=.5,stag=.07,from=1.8){const sp=div.querySelectorAll(".ch");sp.forEach((s,i)=>{const p=P(t,t0+i*stag,t0+i*stag+dur),e=p<=0?0:back(p);s.style.opacity=p>0?1:0;s.style.transform=`translateY(${(1-e)*-160}px) scale(${1+(1-e)*(from-1)}) rotate(${(1-e)*(i%2?8:-8)}deg)`})}
+function fadeOut(div,t,a,b){div.style.opacity=1-sm(P(t,a,b));div.style.transform=`translateY(${-sm(P(t,a,b))*120}px)`}
+// ---------- per-frame
+function drawLiquid(fm,fe,t){ // fm: milk fill 0..1, fe: espresso depth 0..1
+  const inner=CH-30, top=CH-inner*fm; const w=(x)=>Math.sin(x*.016+t*5)*6;
+  let d=`M${-CW},${CH+10} L${-CW},${top}`;for(let x=-CW;x<=CW;x+=40)d+=` L${x},${top+w(x)}`;d+=` L${CW},${CH+10} Z`;milk.setAttribute("d",fm>0?d:"");
+  const ed=CH*.62*fe, y0=CH-inner*fm;let e=`M${-CW},${top-6} `;for(let x=-CW;x<=CW;x+=40)e+=`L${x},${top-6}`;
+  // espresso occupies the upper part of the liquid, wavy lower edge
+  const eTop=top, eBot=top+ed+ (fe>0?18*Math.sin(t*3):0);let p=`M${-CW},${eTop} L${CW},${eTop} `;for(let x=CW;x>=-CW;x-=40)p+=`L${x},${eBot+Math.sin(x*.02+t*3)*16} `;p+="Z";esp.setAttribute("d",fe>0?p:"");
+  strands.forEach((s,i)=>{const xx=-120+i*80,len=ed*(.9+(i%3)*.15)*P(fe,0,1),y1=top+10;s.setAttribute("d",`M${xx},${y1} C${xx-30},${y1+len*.3} ${xx+40},${y1+len*.6} ${xx-10},${y1+len}`);s.setAttribute("opacity",fe>0?(.5*Math.min(1,fe*3)):0)})}
+function tint(dark){const st=dark?"rgba(255,255,255,.75)":"rgba(23,37,29,.75)",fl=dark?"rgba(255,255,255,.14)":"rgba(23,37,29,.07)",sw=dark?CR:G;
+  [main,...miniParts].forEach(m=>{m.glass.setAttribute("fill",fl);m.outline.setAttribute("stroke",st);m.rim.setAttribute("fill",st);m.straw.setAttribute("stroke",sw)});
+  CUBES.forEach(c=>{c.e.setAttribute("stroke",dark?"rgba(255,255,255,.85)":"rgba(23,37,29,.55)");c.e.setAttribute("fill",dark?"rgba(255,255,255,.28)":"rgba(23,37,29,.08)")})}
+function render(t){tint((t>4.6&&t<9.3)||t>12.3);
+  const stg=document.getElementById("stage");stg.style.transform=`scale(${1+t*.004}) rotate(${Math.sin(t*.6)*.25}deg)`;
+  // backgrounds
+  bg2.setAttribute("r",eio(P(t,4.2,5.1))*1900);bg3.setAttribute("r",eio(P(t,9.0,9.9))*1900);bg4.setAttribute("y",1920-eio(P(t,11.8,12.6))*1920);
+  // beat 1 text
+  letters(tReset,t,.3,.55,.09);if(t>3.9)fadeOut(tReset,t,3.9,4.4);
+  const w1=P(t,2.2,3.4);sc1.style.clipPath=`inset(0 ${(1-eo(w1))*100}% 0 0)`;sc1.style.opacity=t<4.2?1:1-sm(P(t,4.2,4.6));
+  // main cup position
+  let cx=540,cy=780,sc=1;
+  const enter=P(t,.8,1.7);cy=780+(1-back(enter))*1000;
+  if(t>9.0){const k=eio(P(t,9.0,9.9));cx=540+(215-540)*k;cy=780+(1000-780)*k;sc=1-.26*k}
+  if(t>11.8){const k=eio(P(t,11.8,12.4));cy+=k*1400}
+  cupG.setAttribute("transform",`translate(${cx},${cy}) scale(${sc})`);cupG.setAttribute("opacity",t<.8?0:1);
+  // ice
+  CUBES.forEach(c=>{const p=P(t,c.t0,c.t0+.55);const drop=p<=0?-700:-700+(c.y+700)*bounce(p);const bob=t>c.t0+.6?Math.sin(t*2+c.x)*5:0;c.e.setAttribute("transform",`translate(${c.x},${drop+bob}) rotate(${c.r+(1-p)*40})`);c.e.setAttribute("opacity",p>0?1:0)});
+  // liquid
+  const fm=eio(P(t,5.0,5.9))*.62, fe=eio(P(t,5.8,7.6));drawLiquid(fm+ (fm>0?eio(P(t,5.9,7.6))*.2:0),fe,t);
+  // pour stream
+  const ps=P(t,4.9,5.2)*(1-P(t,7.4,7.7));const px=cx+0;const py=cy+(t<6?CH*.34:CH*.2);pour.setAttribute("d",`M${540+Math.sin(t*7)*5},120 C${540+Math.sin(t*9)*10},${py*.35} ${540-Math.sin(t*8)*10},${py*.7} 540,${py}`);pour.setAttribute("stroke-width",ps*20);pour.setAttribute("stroke",t<5.8?"#EBDCC3":"#5a3a24");
+  // beat 2 text
+  letters(tRech,t,4.85,.5,.055);if(t>8.6)fadeOut(tRech,t,8.6,9.1);
+  const w2=P(t,6.9,8.4);sc2.style.clipPath=`inset(0 ${(1-eo(w2))*100}% 0 0)`;sc2.style.opacity=t<8.9?1:1-sm(P(t,8.9,9.3));
+  // bolt
+  const bs=P(t,5.4,6.0);bolt.setAttribute("transform",`translate(880,1000) scale(${back(bs)*(1+.12*Math.sin(t*8))*1.2})`);bolt.setAttribute("opacity",bs>0&&t<8.9?1:0);
+  // beat 3
+  letters(tRep,t,9.3,.55,.09);if(t>11.4)fadeOut(tRep,t,11.4,11.9);
+  mini.forEach((g,i)=>{const p=P(t,9.8+i*.28,10.5+i*.28);const k=p<=0?0:back(p);const x=[540,830,830][i]; const xs=[540,830][i]||830;const pos=[[560,1100],[830,1100],[540,1500]][i];
+    const gx=[[540,1100],[830,1100]][i]; if(i<2){g.setAttribute("transform",`translate(${[540,865][i]},${1000+(1-k)*500}) scale(${.74*k})`)} else g.setAttribute("transform","scale(0)");g.setAttribute("opacity",(p>0&&t<12.2)?1:0);
+    if(t>11.8){const kk=eio(P(t,11.8,12.4));g.setAttribute("transform",`translate(${[540,865][i]||865},${1000+kk*1400}) scale(.74)`)}});
+  const ls=P(t,10.3,11.0);loop.setAttribute("transform",`translate(540,1620) rotate(${(t-10.3)*180}) scale(${back(ls)*1.1})`);loop.setAttribute("opacity",ls>0&&t<11.9?1:0);
+  stars.forEach((s,i)=>{const p=P(t,10.6+i*.18,11.1+i*.18);s.g.setAttribute("transform",`translate(${s.x},${s.y}) scale(${back(p)}) rotate(${(t-10.6)*60})`);s.g.setAttribute("opacity",p>0&&t<11.9?1:0)});
+  // end card
+  L.forEach((d,i)=>{const p=P(t,12.5+i*.22,13.1+i*.22);d.style.transform=`translateY(${(1-eo(p))*260}px)`});
+  const sp=P(t,13.4,14.0);smC.setAttribute("stroke-dashoffset",440*(1-sp));smE1.setAttribute("opacity",P(t,13.9,14.0));smE2.setAttribute("opacity",P(t,13.95,14.05));smM.setAttribute("stroke-dashoffset",100*(1-P(t,13.9,14.2)));sm1.setAttribute("opacity",t>13.3?1:0);
+  logoE.style.opacity=sm(P(t,13.5,14.0));hrs.style.opacity=sm(P(t,13.9,14.4));
+  const fin=1-sm(P(t,14.8,15.0));document.body.style.opacity=t<.05?sm(P(t,0,.05)):fin;
+  // stagger of pour drops decorative dash
+  return 1;
+}
+window.render=render;render(0);
+</script>

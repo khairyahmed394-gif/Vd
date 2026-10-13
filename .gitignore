@@ -5,3 +5,5 @@ gooddays/campaign/reels/layers/
 gooddays/campaign/reels/*.log
 gooddays/campaign/stories/out/
 gooddays/campaign/cards/out/
+gooddays/motion/out/
+gooddays/motion/*.log
