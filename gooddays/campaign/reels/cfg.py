@@ -1,0 +1,18 @@
+"""Reel timelines. shot = (photo, t0, t1, (s,vx,vy) start, (s,vx,vy) end, label_ar, label_en). Source photos are 1080x1440."""
+def cam(s0, x0, y0, s1, x1, y1): return ((s0, x0, y0), (s1, x1, y1))
+REELS = {
+ "wk02_tue_listen": dict(D=15.0, shots=[("p3", 0, 5.0, cam(1.45, 560, 700, 1.7, 500, 760), None, None), ("p2", 5.0, 10.0, cam(1.5, 700, 650, 1.45, 520, 700), None, None), ("p4", 10.0, 15.0, cam(1.4, 540, 700, 1.7, 480, 900), None, None)],
+    end=dict(t=10.6, ar=["اسمع المكان", "قبل ما تشوفه."], en=["HEAR THE PLACE", "BEFORE YOU SEE IT."], sub_ar="جود دايز في Trio Fitness Hub", sub_en="GOOD DAYS at Trio Fitness Hub"), logo=12.8),
+ "wk04_tue_sun": dict(D=15.0, shots=[("p5", 0, 5.0, cam(1.4, 540, 700, 1.7, 560, 830), None, None), ("p6", 5.0, 10.0, cam(1.45, 620, 520, 1.6, 700, 620), None, None), ("p7", 10.0, 15.0, cam(1.4, 540, 600, 1.65, 470, 700), None, None)],
+    end=dict(t=10.4, ar=["مفيش وقت", "أحلى من دلوقتي."], en=["NO BETTER TIME", "THAN NOW."], sub_ar="من ١٠ ص لـ١٢ م", sub_en="10 AM TO 12 AM"), logo=12.8),
+ "wk06_tue_first_hour": dict(D=15.0, shots=[("p2", 0, 4.5, cam(1.6, 540, 520, 1.45, 620, 640), None, None), ("p3", 4.5, 9.0, cam(1.45, 560, 700, 1.7, 480, 760), None, None), ("p6", 9.0, 15.0, cam(1.4, 600, 650, 1.7, 720, 600), None, None)],
+    end=dict(t=10.4, ar=["أول قهوة", "في يومك."], en=["FIRST COFFEE", "OF THE DAY."], sub_ar="بنفتح ١٠ الصبح", sub_en="WE OPEN AT 10 AM"), logo=12.8),
+ "wk08_tue_full_day": dict(D=20.0, shots=[("p1", 0, 2.6, cam(1.45, 540, 700, 1.7, 560, 640), "تمرين", "TRAIN"), ("p8", 2.6, 5.2, cam(1.5, 540, 760, 1.7, 520, 700), "تمرين", "TRAIN"), ("p3", 5.2, 7.8, cam(1.45, 560, 700, 1.7, 500, 760), "قهوة", "COFFEE"), ("p5", 7.8, 10.4, cam(1.45, 540, 800, 1.7, 560, 760), "استراحة", "BREAK"), ("p2", 10.4, 13.0, cam(1.5, 700, 650, 1.45, 540, 700), "شغل", "WORK"), ("p6", 13.0, 15.6, cam(1.45, 640, 600, 1.7, 700, 620), "قعدة", "CHILL"), ("p7", 15.6, 20.0, cam(1.4, 540, 600, 1.7, 540, 760), None, None)],
+    end=dict(t=16.2, ar=["يوم كامل في", "Trio Fitness Hub"], en=["A FULL DAY AT", "TRIO FITNESS HUB"], sub_ar="١٠ ص — ١٢ م", sub_en="10 AM — 12 AM"), logo=18.0),
+ "wk09_tue_pour": dict(D=15.0, shots=[("p1", 0, 5.0, cam(1.45, 560, 700, 1.75, 540, 640), "جرّب حاجة جديدة", "TRY SOMETHING NEW"), ("p3", 5.0, 10.0, cam(1.45, 560, 700, 1.75, 500, 780), "أو رجّع المعتاد", "OR YOUR USUAL"), ("p8", 10.0, 15.0, cam(1.5, 540, 760, 1.7, 540, 700), None, None)],
+    end=dict(t=10.4, ar=["من المنيو:", "مشروب النهارده."], en=["FROM THE MENU:", "TODAY'S DRINK."], sub_ar="المنيو بيتغيّر. اسأل علينا.", sub_en="THE MENU KEEPS CHANGING. ASK US."), logo=12.8),
+ "wk11_tue_repeat": dict(D=15.0, shots=[("p6", 0, 4.6, cam(1.45, 640, 600, 1.7, 700, 640), "المرة الأولى", "THE FIRST TIME"), ("p2", 4.6, 9.2, cam(1.5, 680, 650, 1.45, 560, 700), "المرة التانية", "THE SECOND TIME"), ("p7", 9.2, 15.0, cam(1.4, 540, 600, 1.65, 480, 700), "والمرة اللي بعدها", "AND THE NEXT")],
+    end=dict(t=10.6, ar=["كل زيارة", "بتبقى عادة."], en=["EVERY VISIT", "BECOMES A HABIT."], sub_ar="Reset. Recharge. Repeat.", sub_en="RESET. RECHARGE. REPEAT."), logo=12.8),
+ "wk12_tue_best_of": dict(D=20.0, shots=[("p4", 0, 3.0, cam(1.4, 540, 700, 1.65, 500, 800), None, None), ("p1", 3.0, 6.0, cam(1.45, 560, 700, 1.7, 540, 640), None, None), ("p7", 6.0, 9.0, cam(1.4, 540, 600, 1.65, 560, 700), None, None), ("p3", 9.0, 12.0, cam(1.45, 560, 700, 1.7, 500, 760), None, None), ("p5", 12.0, 15.0, cam(1.45, 540, 800, 1.7, 560, 780), None, None), ("p6", 15.0, 20.0, cam(1.4, 640, 600, 1.7, 700, 620), None, None)],
+    end=dict(t=15.8, ar=["الجزء ده", "استحقيته."], en=["YOU EARNED", "THIS PART."], sub_ar="من ١٠ ص لـ١٢ م", sub_en="10 AM TO 12 AM"), logo=17.8),
+}
