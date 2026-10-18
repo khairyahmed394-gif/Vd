@@ -61,15 +61,15 @@ function hookScene(lines,t0=0){const g=G(svg);const ys=[0,0,0];const n=lines.len
  const items=lines.map((l,i)=>{const gi=G(g);const t=fit(T(gi,l[0],540,y0+i*150+(l[3]||0),l[1]||94,700,l[2]||C.sand),940);return gi;});
  const bar=el("rect",{x:150,y:y0+n*150-60,width:780,height:7,rx:3,fill:"url(#glow)"},g);
  return{g,upd(t){items.forEach((gi,i)=>setIn(gi,P(t,.35+i*.6,.95+i*.6),30));bar.setAttribute("opacity",E.io(P(t,.35+n*.6,.95+n*.6)).toFixed(3));}};}
-function ctaScene(o,a){const g=G(svg);const k=[];
- const pre=G(g);fit(T(pre,o.pre,540,700,o.preSize||78,600,C.sand),900);
- const pill=G(g);const pw=o.kwLtr?Math.max(560,o.kw.length*84+120):760;el("rect",{x:540-pw/2,y:790,width:pw,height:176,rx:88,fill:C.gold,filter:"url(#sh)"},pill);
- fit(T(pill,o.kw,540,o.kwLtr?912:908,o.kwLtr?112:92,700,C.ink,{"letter-spacing":o.kwLtr?6:0}),pw-90);
- const mid=G(g);if(o.mid)fit(T(mid,o.mid,540,1062,54,500,C.sand),900);
- const oy=o.mid?1190:1120;const off=o.offer.map((s,i)=>{const gi=G(g);fit(T(gi,s,540,oy+i*100,68,700,i?C.goldL:C.sand),940);return gi;});
- const lg=lockup(g,false);place(lg,540,o.mid?1470:1410,1.12);
- return{g,upd(t){const l=t-a;setIn(pre,P(l,.15,.7),20);const pp=E.back(P(l,.55,1.15));pill.setAttribute("opacity",P(l,.55,.8).toFixed(3));pill.setAttribute("transform",`translate(540,878) scale(${pp.toFixed(3)}) translate(-540,-878)`);
-  setIn(mid,P(l,1.0,1.5),14);off.forEach((gi,i)=>setIn(gi,P(l,1.4+i*.35,1.9+i*.35),16));lg.setAttribute("opacity",E.out(P(l,2.2,2.9)).toFixed(3));}};}
+function ctaScene(o,a){const g=G(svg);
+ const lg=lockup(g,false);place(lg,540,520,1.25);
+ const rule=el("rect",{x:440,y:690,width:200,height:6,rx:3,fill:C.gold},g);
+ const pre=G(g);fit(T(pre,o.pre,540,840,o.preSize||70,600,C.sand),900);
+ const pill=G(g);const pw=o.kwLtr?Math.max(560,o.kw.length*84+120):760;el("rect",{x:540-pw/2,y:900,width:pw,height:176,rx:88,fill:C.gold,filter:"url(#sh)"},pill);
+ fit(T(pill,o.kw,540,o.kwLtr?1022:1018,o.kwLtr?112:92,700,C.ink,{"letter-spacing":o.kwLtr?6:0}),pw-90);
+ const off=o.offer.map((s,i)=>{const gi=G(g);fit(T(gi,s,540,1260+i*92,62,700,i?C.goldL:C.sand),940);return gi;});
+ return{g,upd(t){const l=t-a;lg.setAttribute("opacity",E.out(P(l,.1,.7)).toFixed(3));rule.setAttribute("opacity",E.out(P(l,.4,.9)).toFixed(3));setIn(pre,P(l,.6,1.1),20);const pp=E.back(P(l,.9,1.5));pill.setAttribute("opacity",P(l,.9,1.15).toFixed(3));pill.setAttribute("transform",`translate(540,988) scale(${pp.toFixed(3)}) translate(-540,-988)`);
+  off.forEach((gi,i)=>setIn(gi,P(l,1.6+i*.35,2.1+i*.35),16));}};}
 // ================================================================ REELS (generic: hook + 3 beats + CTA)
 const SC=[];
 function scene(a,b,o){o.a=a;o.b=b;SC.push(o);return o;}
@@ -123,99 +123,99 @@ const CFG={
   b1:{type:"list",kick:L("3 أسباب شائعة","Three common reasons"),title:L("مش بسبب العلم","Not the science"),items:[L("ثغرات في عرض الإحصاء","Gaps in the statistics"),L("وثائق الأخلاقيات ناقصة","Incomplete ethics documents"),L("النطاق مش مناسب للمجلة","Poor fit with the journal's scope")]},
   b2:{type:"compare",arrow:false,kick:L("المحرر بيشوف إيه؟","What the editor sees"),title:L("الدراسة ≠ الملف المقدّم","The study ≠ the submission"),cards:[{title:L("الدراسة","The study"),lines:[L("العلم سليم","Sound science")],verdict:L("سليمة","Sound"),ok:true},{title:L("الملف المقدّم","The submission"),lines:[L("إحصاء ناقص","Incomplete statistics"),L("أخلاقيات غير مكتملة","Unfinished ethics")],verdict:L("ناقص","Incomplete"),ok:false}]},
   b3:{type:"list",kick:L("الحل","The fix"),title:L("افحص قبل ما تقدّم","Check before you submit"),items:[L("تقرير الإحصاء كامل","Full statistical reporting"),L("وثائق الأخلاقيات مرفقة","Ethics documents attached"),L("النطاق مناسب للمجلة","Scope fits the journal")]},
-  cta:{pre:L("اكتب","Comment"),kw:"CHECKLIST",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("للحصول على الـchecklist","to get the free"),L("GCC المجاني","GCC Submission Checklist")]},
+  cta:{pre:L("اكتب","Comment"),kw:"CHECKLIST",kwLtr:true,mid:"",offer:[L("للحصول على الـchecklist","to get the"),L("GCC المجاني","GCC Submission Checklist")]},
   caps:[L("3 أسباب بتتكرر","Three reasons that keep coming up"),L("الدراسة سليمة والملف ناقص","The study is sound, the file isn't"),L("افحص قبل Submit","Check before you submit")]},
  r06:{key:"wk04_tue_outcome",
   hook:[[L("دراستك محتاجة","Your study needs"),84],[L("primary outcome واحد.","one primary outcome."),100,g_],[L("مش تلاتة.","Not three."),100]],
   b1:{type:"compare",kick:L("المقارنة","The comparison"),title:L("كام primary outcome؟","How many primary outcomes?"),cards:[{title:L("3 outcomes","3 outcomes"),lines:[L("أسئلة مش واضحة","Unclear questions"),L("احتمال صدفة أعلى","Higher chance of a fluke")],verdict:L("مشكلة","Problem"),ok:false},{title:L("1 primary","1 primary"),lines:[L("سؤال واضح","One clear question"),L("تحليل محدد مسبقًا","Pre-specified analysis")],verdict:L("أوضح","Clearer"),ok:true}]},
   b2:{type:"steps",kick:L("إزاي","How"),title:L("3 خطوات","Three steps"),items:[L("حدّده\nمسبقًا","Define\nit first"),L("سجّله في\nالبروتوكول","Register it\nin the protocol"),L("التزم بيه\nفي التحليل","Stick to it\nin the analysis")]},
   b3:{type:"list",kick:L("الباقي","Everything else"),title:L("outcomes تانية؟","Other outcomes?"),items:[L("سمّيها secondary","Call them secondary"),L("اذكرها بوضوح","Report them clearly"),L("متغيّرش الـprimary بعد النتيجة","Never swap the primary after the result")]},
-  cta:{pre:L("اكتب","Comment"),kw:"OUTCOME",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لفحص الـprimary outcome","for a free primary"),L("مجانًا","outcome check")]},
+  cta:{pre:L("اكتب","Comment"),kw:"OUTCOME",kwLtr:true,mid:"",offer:[L("لفحص الـprimary outcome","to discuss"),L("مجانًا","your primary outcome")]},
   caps:[L("سؤال رئيسي واحد لكل دراسة","One main question per study"),L("3 خطوات تثبّته","Three steps lock it in"),L("والباقي secondary","Everything else is secondary")]},
  r07:{key:"wk04_thu_missing",
   hook:[[L("حذف المرضى","Deleting patients"),96],[L("اللي عندهم missing data","with missing data"),72],[L("مش قرار محايد.","is not a neutral choice."),96,g_]],
   b1:{type:"list",kick:L("ليه ناقصة؟","Why is it missing?"),title:L("3 أنواع","Three types"),items:[L("MCAR: عشوائي تمامًا","MCAR: completely random"),L("MAR: مرتبط بمتغيرات مقاسة","MAR: linked to measured variables"),L("MNAR: مرتبط بالقيمة نفسها","MNAR: linked to the value itself")]},
   b2:{type:"compare",kick:L("الخيارات","The options"),title:L("حذف ولا معالجة؟","Delete or handle?"),cards:[{title:L("حذف الحالات","Complete cases only"),lines:[L("ممكن يعمل تحيّز","Can bias the result"),L("بيقلّل العينة","Shrinks the sample")],verdict:L("خطر","Risky"),ok:false},{title:L("معالجة مناسبة","Appropriate handling"),lines:[L("زي multiple imputation","e.g. multiple imputation"),L("حسب نوع النقص","chosen by type")],verdict:L("أحسن","Better"),ok:true}]},
   b3:{type:"list",kick:L("الحل","The fix"),title:L("في أي حال","Either way"),items:[L("وثّق نسبة النقص","Report how much is missing"),L("اعمل sensitivity analysis","Run a sensitivity analysis"),L("اشرح الطريقة في الـmethods","Explain it in the methods")]},
-  cta:{pre:L("اكتب","Comment"),kw:"MISSING",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review"),L("للـmissing data","of your missing data")]},
+  cta:{pre:L("اكتب","Comment"),kw:"MISSING",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("للـmissing data","your missing data")]},
   caps:[L("النقص مش دايمًا عشوائي","Missing isn't always random"),L("الحذف بيغيّر العينة","Deleting changes the sample"),L("وثّق وراجع","Document it and test it")]},
  r08:{key:"wk05_tue_reviewers",
   hook:[[L("تعليقات الـreviewers","Reviewer comments"),84],[L("مش رفض.","aren't a rejection."),100,g_],[L("دي checklist.","They're a checklist."),100]],
   b1:{type:"steps",kick:L("أول خطوة","First"),title:L("اقرأ وصنّف","Read and sort"),items:[L("اقرأ كل\nالتعليقات","Read every\ncomment"),L("صنّفها:\nmajor / minor","Sort them:\nmajor / minor"),L("جهّز خطة\nالرد","Plan the\nresponse")]},
   b2:{type:"list",kick:L("في الرد","In the response"),title:L("نقطة بنقطة","Point by point"),items:[L("ردّ على كل تعليق","Answer every comment"),L("حدّد مكان التعديل","Show where the paper changed"),L("اشكرهم حتى لو اختلفت","Thank them, even if you disagree")]},
   b3:{type:"compare",kick:L("نبرة الرد","The tone"),title:L("ردّ بالأدلة","Answer with evidence"),cards:[{title:L("ردّ دفاعي","A defensive reply"),lines:[L("من غير دليل","No evidence"),L("بنبرة متوترة","A tense tone")],verdict:L("يضر","Hurts"),ok:false},{title:L("ردّ بالأدلة","An evidence reply"),lines:[L("تحليل أو مرجع","An analysis or reference"),L("بنبرة محترمة","A respectful tone")],verdict:L("يقنع","Persuades"),ok:true}]},
-  cta:{pre:L("اكتب","Comment"),kw:"REVIEWERS",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review of"),L("لاستراتيجية الرد","your response strategy")]},
+  cta:{pre:L("اكتب","Comment"),kw:"REVIEWERS",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("لاستراتيجية الرد","your response strategy")]},
   caps:[L("كل تعليق = بند في قايمة","Each comment is a list item"),L("رد منظّم بيوفّر وقت","A structured reply saves time"),L("الأدلة بتقنع","Evidence persuades")]},
  r09:{key:"wk06_tue_triage",
   hook:[[L("اترفضت؟","Got rejected?"),100],[L("متقدّمش تاني","Don't resubmit"),96,g_],[L("دلوقتي.","just yet."),100]],
   b1:{type:"list",kick:L("افهم السبب","Understand why"),title:L("3 احتمالات","Three possibilities"),items:[L("النطاق مش مناسب","Wrong scope"),L("مشكلة منهجية","A methodological problem"),L("مشكلة في العرض","A presentation problem")]},
   b2:{type:"steps",kick:"Triage",title:L("فرز سريع","Quick triage"),items:[L("صنّف\nالسبب","Classify\nthe reason"),L("صلّح اللي\nيتصلّح","Fix what\ncan be fixed"),L("اختار المجلة\nالتالية","Choose the\nnext journal")]},
   b3:{type:"compare",kick:L("التقديم التالي","The next submission"),title:L("قبل ولا بعد التعديل؟","Before or after the fix?"),cards:[{title:L("فورًا","Straight away"),lines:[L("بنفس الملف","The same file"),L("نفس السبب هيتكرر","The same reason returns")],verdict:L("مخاطرة","Risky"),ok:false},{title:L("بعد التعديل","After the fix"),lines:[L("مشاكل اتعالجت","Problems addressed"),L("فرصة أحسن","A better chance")],verdict:L("أذكى","Smarter"),ok:true}]},
-  cta:{pre:L("اكتب","Comment"),kw:"TRIAGE",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لفرز مجاني","for a free triage"),L("لأسباب الرفض","of your rejection reasons")]},
+  cta:{pre:L("اكتب","Comment"),kw:"TRIAGE",kwLtr:true,mid:"",offer:[L("لفرز مجاني","to discuss"),L("لأسباب الرفض","your rejection reasons")]},
   caps:[L("الرفض معلومة","A rejection is information"),L("فرز قبل أي تقديم","Triage before any resubmission"),L("عدّل ثم قدّم","Fix first, then submit")]},
  r10:{key:"wk06_thu_methods",
   hook:[[L("نفس الداتا.","Same data."),100],[L("نفس السؤال.","Same question."),100],[L("قسم methods مختلف.","A different methods section."),80,g_]],
   b1:{type:"compare",note:L("مثال توضيحي","Illustrative example"),kick:L("قبل / بعد","Before / after"),title:L("جملة واحدة في الـmethods","One sentence in the methods"),cards:[{title:L("قبل","Before"),lines:[L("اتحللت البيانات","Data were analysed"),L("بطرق مناسبة","with suitable tests")],verdict:L("غامض","Vague"),ok:false},{title:L("بعد","After"),lines:[L("Shapiro–Wilk للتوزيع","Shapiro–Wilk for normality"),L("ثم t-test، α = 0.05","then t-test, α = 0.05")],verdict:L("قابل للتكرار","Repeatable"),ok:true}]},
   b2:{type:"list",kick:L("قسم methods كويس فيه","A good methods section has"),title:L("4 عناصر","Four elements"),items:[L("التصميم وحجم العينة","Design and sample size"),L("الـoutcome الرئيسي","The primary outcome"),L("الاختبارات وافتراضاتها","Tests and their assumptions"),L("معالجة البيانات الناقصة","Handling of missing data")]},
   b3:{type:"list",kick:L("النتيجة","The result"),title:L("reviewer يقدر يعيد التحليل","A reviewer can repeat it"),items:[L("شفافية","Transparency"),L("قابلية إعادة الإنتاج","Reproducibility"),L("ثقة أعلى","More trust")]},
-  cta:{pre:L("اكتب","Comment"),kw:"METHODS",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لفحص مجاني","for a free check"),L("لقسم الـmethods","of your methods section")]},
+  cta:{pre:L("اكتب","Comment"),kw:"METHODS",kwLtr:true,mid:"",offer:[L("لفحص مجاني","to discuss"),L("لقسم الـmethods","your methods section")]},
   caps:[L("الغموض بيفتح باب الشك","Vagueness invites doubt"),L("التفاصيل بتخلّي التحليل قابل للتكرار","Detail makes the analysis repeatable"),L("وده بيرفع الثقة","And that builds trust")]},
  r11:{key:"wk07_tue_desk_rejection",
   hook:[[L("ورقتك ممكن تترفض","Your paper can be rejected"),80],[L("قبل ما أي حد","before anyone"),96],[L("يقراها.","reads it."),110,g_]],
   b1:{type:"steps",mark:1,kick:L("رحلة الورقة","The paper's journey"),title:L("المحرر الأول","The editor comes first"),items:[L("تقديم","Submit"),L("فحص\nالمحرر","Editor's\ncheck"),L("مراجعون","Peer\nreviewers")]},
   b2:{type:"list",kick:L("المحرر بيبص على","The editor checks"),title:L("3 حاجات سريعة","Three quick things"),items:[L("النطاق مناسب؟","Is the scope right?"),L("العرض الأساسي سليم؟","Is the basic presentation sound?"),L("الأخلاقيات مذكورة؟","Are ethics stated?")]},
   b3:{type:"list",kick:L("جهّز ملفك","Prepare your file"),title:L("قبل Submit","Before you submit"),items:[L("الـmethods قابلة للتكرار","Reproducible methods"),L("الـchecklist مكتمل","A complete checklist"),L("وثائق الأخلاقيات مرفقة","Ethics documents attached")]},
-  cta:{pre:L("اكتب","Comment"),kw:"READY",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("للحصول على المجاني","to get the free Manuscript"),L("Manuscript Readiness Checklist","Readiness Checklist")]},
+  cta:{pre:L("اكتب","Comment"),kw:"READY",kwLtr:true,mid:"",offer:[L("للحصول على المجاني","to get the Manuscript"),L("Manuscript Readiness Checklist","Readiness Checklist")]},
   caps:[L("الرفض المبكر عند المحرر","Early rejection happens at the editor's desk"),L("3 فحوصات سريعة","Three quick checks"),L("جهّز ملفك قبل Submit","Prepare your file before Submit")]},
  r12:{key:"wk08_tue_predatory",
   hook:[[L("بعد تلات رفضات:","After three rejections:"),84],[L("\"قدّم دلوقتي.","\"Submit now."),100,g_],[L("القبول خلال 7 أيام.\"","Accepted within 7 days.\""),84]],
   b1:{type:"list",kick:L("علامات تحذير","Warning signs"),title:L("مجلة مفترسة؟","A predatory journal?"),items:[L("ضمان قبول سريع","Guaranteed fast acceptance"),L("رسوم قبل أي مراجعة","Fees before any review"),L("دعوات مفاجئة بمجاملات","Flattering unsolicited invitations"),L("اسم يشبه مجلة معروفة","A name close to a known journal")]},
   b2:{type:"compare",kick:L("المقارنة","The contrast"),title:L("مراجعة حقيقية؟","Real peer review?"),cards:[{title:L("\"قبول خلال 7 أيام\"","\"Accepted in 7 days\""),lines:[L("مفيش مراجعة فعلية","No real review"),L("سمعتك بتتأثر","Risks your reputation")],verdict:L("تجنّبها","Avoid"),ok:false},{title:L("peer review حقيقي","Real peer review"),lines:[L("مراجعون متخصصون","Expert reviewers"),L("أبطأ، وقيمته أعلى","Slower, worth more")],verdict:L("الأفضل","Better"),ok:true}]},
   b3:{type:"list",kick:L("تأكد من","Check"),title:L("قبل ما تقدّم","Before you submit"),items:[L("الفهرسة: Scopus / PubMed / DOAJ","Indexing: Scopus / PubMed / DOAJ"),L("اسأل زملاءك في المجال","Ask colleagues in your field"),"Think. Check. Submit."]},
-  cta:{pre:L("اكتب","Comment"),kw:"JOURNAL",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لقايمة مجلات مناسبة","for a free list of"),L("مجانًا","suitable journals")]},
+  cta:{pre:L("اكتب","Comment"),kw:"JOURNAL",kwLtr:true,mid:"",offer:[L("لقايمة مجلات مناسبة","to get a list of"),L("مجانًا","suitable journals")]},
   caps:[L("الإغراء بيجي بعد الرفض","The lure comes after a rejection"),L("الفرق في المراجعة الحقيقية","The difference is real review"),L("تحقق قبل ما تدفع أو تقدّم","Verify before you pay or submit")]},
  r13:{key:"wk08_thu_ethics",
   hook:[[L("الداتا اتجمعت.","The data is collected."),92],[L("موافقة الـethics؟","Ethics approval?"),96],[L("\"هناخدها بعدين.\"","\"We'll get it later.\""),100,g_]],
   b1:{type:"steps",kick:L("الترتيب الصح","The right order"),title:L("الأخلاقيات الأول","Ethics comes first"),items:[L("موافقة\nاللجنة","Committee\napproval"),L("جمع\nالداتا","Data\ncollection"),L("نشر\nالورقة","Publish\nthe paper")]},
   b2:{type:"list",kick:L("المجلات بتطلب","Journals ask for"),title:L("إثبات واضح","Clear proof"),items:[L("رقم الموافقة وتاريخها","The approval number and date"),L("بيان الموافقة المستنيرة","A statement of informed consent"),L("أو سبب الإعفاء","Or the reason for exemption")]},
   b3:{type:"compare",kick:L("التوقيت","The timing"),title:L("قبل ولا بعد؟","Before or after?"),cards:[{title:L("بعد جمع الداتا","After data collection"),lines:[L("غالبًا مش مقبولة","Often not accepted"),L("ممكن توقف النشر","Can block publication")],verdict:L("خطر","Risky"),ok:false},{title:L("قبل الجمع","Before collection"),lines:[L("الترتيب السليم","The right order"),L("وثائق جاهزة","Documents ready")],verdict:L("سليم","Sound"),ok:true}]},
-  cta:{pre:L("اكتب","Comment"),kw:"ETHICS",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لفحص مجاني للتوثيق","for a free check of"),L("المطلوب","the required documents")]},
+  cta:{pre:L("اكتب","Comment"),kw:"ETHICS",kwLtr:true,mid:"",offer:[L("لفحص مجاني للتوثيق","to discuss"),L("المطلوب","the required documents")]},
   caps:[L("الترتيب مهم","Order matters"),L("المجلات بتطلب إثبات","Journals ask for proof"),L("الأخلاقيات قبل الداتا","Ethics before data")]},
  r14:{key:"wk09_tue_fixed_random",
   hook:[[L("Fixed ولا random effects؟","Fixed or random effects?"),76],[L("متختارش","Don't pick the one"),92],[L("اللي نتيجته أحلى.","with the nicer result."),100,g_]],
   b1:{type:"compare",kick:L("الفرق","The difference"),title:L("إيه الافتراض؟","What's assumed?"),cards:[{title:"Fixed",lines:[L("تأثير حقيقي واحد","One true effect"),L("مشترك بين الدراسات","shared by all studies")],verdict:L("افتراض","An assumption"),neutral:true},{title:"Random",lines:[L("التأثير بيختلف","The effect varies"),L("من دراسة لدراسة","from study to study")],verdict:L("افتراض","An assumption"),neutral:true}]},
   b2:{type:"list",kick:L("اختار على أساس","Choose based on"),title:L("مش على أساس النتيجة","Not on the result"),items:[L("الاختلاف المتوقع بين الدراسات","Expected variation between studies"),L("تشابه الدراسات","How similar the studies are"),L("سؤال الدراسة","The research question")]},
   b3:{type:"steps",kick:L("نفّذ","Do it"),title:L("الترتيب","The order"),items:[L("حدّد الـmodel\nفي البروتوكول","Set the model\nin the protocol"),L("قارن\nللتحقق","Compare\nas a check"),L("اشرح\nاختيارك","Explain\nyour choice")]},
-  cta:{pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review"),L("15 دقيقة","15 minutes")]},
+  cta:{pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("15 دقيقة","your model")]},
   caps:[L("افتراضان مختلفان","Two different assumptions"),L("اختار قبل ما تشوف النتيجة","Choose before you see the result"),L("وثّق السبب","Document the reason")]},
  r15:{key:"wk10_tue_sensitivity",
   hook:[[L("نتيجتك المجمّعة معنوية.","Your pooled result is significant."),76],[L("هل هتفضل كده","Will it stay that way"),92],[L("لو شلت دراسة واحدة؟","if you drop one study?"),90,g_]],
   b1:{type:"steps",kick:"Leave-one-out",title:L("اختبار الحساسية","A sensitivity analysis"),items:[L("شيل دراسة\nواحدة","Drop one\nstudy"),L("أعد\nالتجميع","Re-run the\npooling"),L("قارن\nالنتيجة","Compare the\nresult")]},
   b2:{type:"list",kick:L("جرّب كمان","Also try"),title:L("أكتر من طريقة","More than one way"),items:[L("شيل الدراسات عالية الـbias","Drop high risk-of-bias studies"),L("غيّر الـmodel","Change the model"),L("غيّر معيار الإدراج","Change an inclusion rule")]},
   b3:{type:"compare",kick:L("القراءة","The reading"),title:L("النتيجة اتغيّرت؟","Did the result change?"),cards:[{title:L("اتغيّرت","It changed"),lines:[L("مش مستقرة","Not stable"),L("فسّر بحذر","Interpret with care")],verdict:L("حذر","Caution"),ok:false},{title:L("ثبتت","It held"),lines:[L("مستقرة","Stable"),L("ثقة أعلى","More confidence")],verdict:L("أقوى","Stronger"),ok:true}]},
-  cta:{pre:L("اكتب","Comment"),kw:"SENSITIVITY",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review"),L("للخطة","of your plan")]},
+  cta:{pre:L("اكتب","Comment"),kw:"SENSITIVITY",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("للخطة","your sensitivity plan")]},
   caps:[L("اختبر استقرار النتيجة","Test the result's stability"),L("جرّب أكتر من سيناريو","Try more than one scenario"),L("الثبات = ثقة","Stability builds trust")]},
  r16:{key:"wk10_thu_i2",
   hook:[[L("الـI² بـ80%.","I² is 80%."),110],[L("هل تعمل pooling","Do you still"),90,g_],[L("برضه؟","pool the studies?"),110]],
   b1:{type:"stat",kick:L("الاختلاف بين الدراسات","Heterogeneity"),title:"I²",num:"80%",label:L("اختلاف كبير بين الدراسات","Large variation between studies"),sub:L("مقياس تقريبي، مش حكم نهائي","A rough guide, not a verdict"),gauge:{value:80,ticks:[[0,"0"],[25,L("منخفض","low")],[50,L("متوسط","moderate")],[75,L("عالي","high")],[100,"100"]]}},
   b2:{type:"list",kick:L("ليه الاختلاف؟","Why the variation?"),title:L("ابحث عن السبب","Look for the cause"),items:[L("اختلاف المرضى","Different patients"),L("اختلاف التدخل","Different interventions"),L("اختلاف القياس أو التصميم","Different measurement or design")]},
   b3:{type:"compare",kick:L("القرار","The decision"),title:L("pooling أعمى ولا تفسير؟","Blind pooling or explanation?"),cards:[{title:L("pooling أعمى","Blind pooling"),lines:[L("متوسط واحد","One average"),L("بيخفي الاختلاف","hides the variation")],verdict:L("مضلل","Misleading"),ok:false},{title:L("تفسير الاختلاف","Explain it"),lines:[L("subgroups","Subgroups,"),L("meta-regression","meta-regression,"),L("أو عرض سردي","or narrative")],verdict:L("أسلم","Safer"),ok:true}]},
-  cta:{pre:L("اكتب","Comment"),kw:"I2",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لمراجعة مجانية","for a free review of"),L("لخطة الـmeta-analysis","your meta-analysis plan")]},
+  cta:{pre:L("اكتب","Comment"),kw:"I2",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("لخطة الـmeta-analysis","your meta-analysis plan")]},
   caps:[L("I² بيقيس الاختلاف بين الدراسات","I² measures variation between studies"),L("80% = اختلاف كبير","80% means large variation"),L("فسّر الاختلاف قبل التجميع","Explain it before you pool")]},
  r17:{key:"wk11_tue_three_results",
   hook:[[L("3 نتايج.","Three results."),110],[L("معيار واحد.","One standard."),110,g_]],
   b1:{type:"list",kick:L("3 طرق","Three routes"),title:"Scale · Rescue · Independence",items:[L("Scale: وسّع إنتاجك البحثي","Scale: grow your research output"),L("Rescue: أنقذ المخطوطة المرفوضة","Rescue: save a rejected manuscript"),L("Independence: استقلالك الإحصائي","Independence: your statistical independence")]},
   b2:{type:"list",kick:L("المعيار الواحد","The one standard"),title:L("في كل مشروع","In every project"),items:[L("دقة الداتا","Data integrity"),L("شفافية وإمكانية تكرار","Transparency and reproducibility"),L("أخلاقيات أولًا","Ethics first")]},
-  b3:{type:"stat",kick:L("ابدأ","Start"),title:L("بخطوة صغيرة","With one small step"),num:"15",label:L("دقيقة مجانية","free minutes"),sub:L("من غير أي التزام","no obligation")},
-  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("لحجز استشارة","to book a free"),L("مجانية 15 دقيقة","15-minute consultation")]},
+  b3:{type:"stat",kick:L("ابدأ","Start"),title:L("بخطوة صغيرة","With one small step"),num:"15",label:L("دقيقة مجانية","minutes"),sub:L("من غير أي التزام","a short conversation")},
+  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:"",offer:[L("لحجز استشارة","to book"),L("مجانية 15 دقيقة","a consultation")]},
   caps:[L("3 طرق لنفس الهدف","Three routes, one goal"),L("معيار واحد في كل مشروع","One standard in every project"),L("ابدأ بـ15 دقيقة","Start with 15 minutes")]},
  r18:{key:"wk12_thu_last_batch",
-  hook:[[L("آخر فرصة الشهر ده:","Last chance this month:"),84],[L("استشارتك البحثية","your free 15-minute"),96],[L("المجانية 15 دقيقة.","research consultation."),96,g_]],
+  hook:[[L("آخر فرصة الشهر ده:","Last chance this month:"),84],[L("استشارتك البحثية","your 15-minute"),96],[L("المجانية 15 دقيقة.","research consultation."),96,g_]],
   b1:{type:"list",kick:L("هتاخد","You get"),title:L("في 15 دقيقة","In 15 minutes"),items:[L("مراجعة تصميمك أو تحليلك","A review of your design or analysis"),L("أهم المخاطر الواضحة","The obvious risks flagged"),L("خطوات واضحة للجاية","Clear next steps")]},
-  b2:{type:"steps",kick:L("إزاي","How"),title:L("3 خطوات","Three steps"),items:[L("اكتب\nCONSULT","Comment\nCONSULT"),L("اختار\nمعاد","Pick\na time"),L("15 دقيقة\nمجانًا","15 minutes,\nfree")]},
-  b3:{type:"stat",kick:L("المدة","The time"),title:L("قصيرة وواضحة","Short and clear"),num:"15",label:L("دقيقة","minutes"),sub:L("من غير أي التزام","no obligation")},
-  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:L("في الكومنتات","below"),offer:[L("أو استخدم","or use the link"),L("اللينك في الكابشن","in the caption")]},
-  caps:[L("الفرصة الأخيرة لهذا الشهر","The last chance this month"),L("3 خطوات بسيطة","Three simple steps"),L("15 دقيقة، من غير التزام","15 minutes, no obligation")]},
+  b2:{type:"steps",kick:L("إزاي","How"),title:L("3 خطوات","Three steps"),items:[L("اكتب\nCONSULT","Comment\nCONSULT"),L("اختار\nمعاد","Pick\na time"),L("15 دقيقة\nمجانًا","A short\ncall")]},
+  b3:{type:"stat",kick:L("المدة","The time"),title:L("قصيرة وواضحة","Short and clear"),num:"15",label:L("دقيقة","minutes"),sub:L("من غير أي التزام","a short call")},
+  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:"",offer:[L("أو استخدم","or use the link"),L("اللينك في الكابشن","in the caption")]},
+  caps:[L("الفرصة الأخيرة لهذا الشهر","The last chance this month"),L("3 خطوات بسيطة","Three simple steps"),L("15 دقيقة، من غير التزام","A 15-minute call")]},
 };
 
 // ================================================================ timeline
