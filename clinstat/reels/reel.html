@@ -144,7 +144,7 @@ function r02(){
  {const g=G(svg);const h=header(g,L("الحل","The fix"),L("راجع التصميم الأول","Review the design first"));const items=[L("سؤال بحثي واضح","A clear research question"),L("primary outcome واحد","One primary outcome"),L("حجم عينة محسوب","A calculated sample size"),L("مجموعة مقارنة مناسبة","A suitable comparison group")];const rows=items.map((s,i)=>chipRow(g,s,770+i*165,{h:132}));
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.55,1.3+i*.55),22,50);draw(r.ck,E.out(P(l,1.2+i*.55,1.6+i*.55)));});}});
   ev(11.4,"whoosh",.5);[12.4,12.95,13.5,14.05].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});}
- const cta=ctaScene({pre:L("اكتب","Comment"),kw:"DESIGN",kwLtr:true,mid:"",offer:[L("لمراجعة تصميم مجانية","to discuss"),L("15 دقيقة","your study design")]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"DESIGN",kwLtr:true,mid:"",offer:[L("لمراجعة تصميم مجانية","or use the link"),L("15 دقيقة","in the caption")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
  captions([[L("التصميم بيحدد إيه اللي تقدر تجاوب عليه","Design decides what you can answer"),4.2,7.4],[L("الغلطة بتتنقل لكل المراحل","The mistake spreads to every stage"),8.2,11.2],[L("قبل ما تبدأ جمع الداتا","Before you start collecting data"),12.2,15.3]]);
 }
@@ -177,7 +177,7 @@ function r03(){
   el("rect",{x:EN?136:848,y:1297,width:56,height:42,rx:8,fill:C.goldL},lk);el("path",{d:`M${EN?148:860},1297 v-14 a16,16 0 0 1 32,0 v14`,fill:"none",stroke:C.goldL,"stroke-width":7},lk);if(EN)left(fit(T(lk,L("واكتبه في خطة التحليل الأول","Write it in the analysis plan first"),0,1332,44,600,C.sand),680),220);else right(fit(T(lk,L("واكتبه في خطة التحليل الأول","Write it in the analysis plan first"),0,1332,44,600,C.sand),680),820);
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.55,1.3+i*.55),22,50);draw(r.ck,E.out(P(l,1.2+i*.55,1.6+i*.55)));});setIn(lk,P(l,2.7,3.3),18);}});
   ev(11.4,"whoosh",.5);[12.4,12.95,13.5].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});ev(14.2,"lock",.8);}
- const cta=ctaScene({pre:L("اكتب","Comment"),kw:"TEST",kwLtr:true,mid:"",offer:[L("لمراجعة خطة التحليل","to discuss"),L("مجانًا","your analysis plan")]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"TEST",kwLtr:true,mid:"",offer:[L("لمراجعة خطة التحليل","or use the link"),L("مجانًا","in the caption")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
  captions([[L("نفس الداتا. اختبارات مختلفة.","Same data. Different tests."),4.8,8.0],[L("التجربة لحد ما تطلع p صغيرة = نتيجة مصنوعة","Trying until p is small = a made-up result"),8.8,11.2],[L("اختار الاختبار قبل ما تشوف النتيجة","Pick the test before you see the result"),12.2,15.3]]);
 }
@@ -201,7 +201,7 @@ function r04(){
  {const g=G(svg);const h=header(g,L("إزاي تتجنبه","How to avoid it"),L("قلّل واحسب","Reduce and count"));const rows=[L("قلّل عدد المتغيرات","Reduce the number of variables"),L("حدّدها قبل التحليل","Define them before the analysis"),L("اعمل validation للـmodel","Validate the model")].map((s,i)=>chipRow(g,s,830+i*190,{h:150}));
   scene(11.4,15.8,{g,upd(t){const l=t-11.4;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.6,1.3+i*.6),22,50);draw(r.ck,E.out(P(l,1.2+i*.6,1.6+i*.6)));});}});
   ev(11.4,"whoosh",.5);[12.4,13.0,13.6].forEach((t,i)=>{ev(t,"pop",.4,i);ev(t+.3,"check",.7,i);});}
- const cta=ctaScene({pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","to discuss"),L("لحجم الـmodel","your model size")]},15.6);scene(15.6,20.0,cta);
+ const cta=ctaScene({pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("لحجم الـmodel","in the caption")]},15.6);scene(15.6,20.0,cta);
  ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
  captions([[L("لكل متغير في الـmodel لازم أحداث كفاية","Every variable needs enough events"),1.0,3.3],[L("عدد الأحداث بيحدد عدد المتغيرات","Events limit the number of variables"),8.0,11.2],[L("الحل بيبدأ قبل التحليل","The fix starts before the analysis"),12.2,15.3]]);
 }
