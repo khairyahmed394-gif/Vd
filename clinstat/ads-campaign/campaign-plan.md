@@ -32,7 +32,7 @@
 | C. Sponsors | Pharma, device, CRO decision-makers | Trial analysis, data integrity | LinkedIn |
 | D. Journal authors | People with a rejection or revision in hand | Rescue / revision support | Facebook, Instagram, X |
 
-**Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. **Confirmed first markets: Saudi Arabia, UAE, Qatar.** Kuwait, Oman and Bahrain are excluded until these three show a workable cost per lead. Use separate ad sets per country so each can be judged on its own. Run **English and Arabic** variants. Exclude locations you cannot serve.
+**Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. **Confirmed first markets: Saudi Arabia, UAE, Qatar.** Kuwait, Oman and Bahrain are excluded until these three show a workable cost per lead. At this budget start with one ad set for all three countries (see section 4); split by country later. Run **English and Arabic** variants. Exclude locations you cannot serve.
 
 ---
 
@@ -49,25 +49,26 @@
 
 ---
 
-## 4. Budget (50,000 EGP **[CONFIRM: per month, or total?]**)
+## 4. Budget (15,000 EGP **[CONFIRM: per month, or total?]**)
 
-50,000 EGP is roughly USD 1,000 at recent rates **[CONFIRM current rate and that ads are billed in EGP or USD]**. That is a small budget for four platforms, so spreading it thin would leave every platform below the data needed to optimise. Recommendation: **concentrate on LinkedIn and Meta, and use X organically** (post the same content unpaid). Add paid X later if the first two work.
+15,000 EGP is roughly USD 300 at recent rates **[CONFIRM current rate and that ads are billed in EGP or USD]**, about USD 8 a day over a month. That is too little to run several platforms or several country ad sets and learn anything. Recommendation: **put all paid spend into Meta (Facebook + Instagram), and run LinkedIn and X organically.**
 
-| Platform | EGP / month | Approx. share | Role |
+| Channel | EGP | Share | Role |
 | --- | --- | --- | --- |
-| LinkedIn | 22,000 | 44% | Sponsors and academics; Lead Gen Forms for client acquisition |
-| Facebook + Instagram | 22,000 | 44% | Clinicians and authors; Reels reach + instant forms |
-| Testing reserve | 6,000 | 12% | Move to the winner after week 2, or trial paid X |
-| X (paid) | 0 | n/a | Organic only for now |
+| Meta (Facebook + Instagram), paid | 12,000 | 80% | Reels plus an instant lead form; clinicians, authors, researchers |
+| Reserve | 3,000 | 20% | After week 2, add to the best-performing ad; do not spread it |
+| LinkedIn, paid | 0 | n/a | Post the ads' content organically; contact sponsors directly |
+| X, paid | 0 | n/a | Organic only |
 
-**Country split inside each platform (starting guess, no data yet):** Saudi Arabia 45%, UAE 35%, Qatar 20%. Qatar's audience is small, so it will saturate quickly; keep it capped. Rebalance by cost per qualified lead after week 2.
+Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum daily budget, so about USD 300 would buy too few clicks to judge anything. Revisit if the budget grows.
 
-**Language by market (starting guess):** Saudi Arabia: Arabic first, English second. UAE: English first, Arabic second. Qatar: Arabic and English in equal measure. Test this rather than assuming it.
+**Structure to match the budget:**
+- One Meta campaign, objective **Leads** with an instant form (no landing page needed to start).
+- One ad set covering Saudi Arabia, UAE and Qatar together, with 3 ads: Arabic reel, English reel, and the free-consultation lead ad. Split by country only after there is data to justify it.
+- Language: serve both versions in the one ad set and let delivery show which works. Use Meta's language targeting for Arabic and English as a test arm if you want a cleaner read.
+- Rough budget per day is tiny, so change nothing for the first 7 days, then pause the weakest ad and keep the strongest.
 
-Notes:
-- LinkedIn clicks cost much more than Meta's, so expect fewer clicks there but higher-quality leads. Check LinkedIn's current minimum daily budget when setting up.
-- Judge ad sets only after about 7 days or about 50 clicks. Change budgets in small steps every 3 to 4 days.
-- Set a weekly cap, and keep a tracked cost per qualified lead from week 1.
+**Expectation setting:** at this spend the campaign will produce a small number of leads and some learning, not volume. Do not promise results. Track cost per qualified lead from day 1 and treat the first month as a test.
 
 ---
 
@@ -89,6 +90,8 @@ Notes:
 ## 6. Ad copy
 
 ### 6.1 LinkedIn (Sponsored Content: single image/video, carousel, Lead Gen Form)
+
+> At the current 15,000 EGP budget LinkedIn is **organic only** (post this copy as normal posts). Use it as paid copy if the budget grows.
 
 **Targeting:** Job titles: Researcher, Professor, Physician, Clinical Research Associate, Biostatistician, Principal Investigator, Medical Director; Industries: Hospitals and Health Care, Pharmaceuticals, Higher Education, Research; Seniority: Senior and above for sponsors. Location: Gulf countries. Exclude: existing customers and your own staff.
 
@@ -184,7 +187,7 @@ Notes:
 ---
 
 ## 11. Open questions for ClinStat
-1. Is 50,000 EGP monthly or total, and in which currency are ads billed?
+1. Is 15,000 EGP monthly or total, and in which currency are ads billed?
 2. ~~Which GCC countries first?~~ Answered: Saudi Arabia, UAE, Qatar.
 3. Exact services and any pricing to mention?
 4. Target countries, and Arabic dialect?
