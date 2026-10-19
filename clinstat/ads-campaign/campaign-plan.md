@@ -1,6 +1,6 @@
 # ClinStat Research – Paid Social Campaign Plan
 **Platforms:** LinkedIn · Facebook · Instagram · X (Twitter)
-**Status:** Draft v1. Built from the brand files in this repo. Items marked **[CONFIRM]** are assumptions to check before launch.
+**Status:** Draft v2 (revised after review against the marketing skills; see `plan-review.md`). Built from the brand files in this repo. Items marked **[CONFIRM]** are assumptions to check before launch.
 
 ---
 
@@ -29,7 +29,7 @@
 | --- | --- | --- | --- |
 | A. Clinician-researchers | Physicians, residents, fellows writing papers | Pre-submission review | Instagram, Facebook, LinkedIn |
 | B. Academic researchers | PhD students, faculty, postdocs | Stats review, survival analysis | LinkedIn, X |
-| C. Sponsors | Pharma, device, CRO decision-makers | Trial analysis, data integrity | LinkedIn |
+| C. Sponsors | Pharma, device, CRO decision-makers | Trial analysis, data integrity | Cold email + named-account outreach (small audience; not broad paid LinkedIn) |
 | D. Journal authors | People with a rejection or revision in hand | Rescue / revision support | Facebook, Instagram, X |
 
 **Geography:** GCC: Saudi Arabia, UAE, Qatar, Kuwait, Oman, Bahrain. **Confirmed first markets: Saudi Arabia, UAE, Qatar.** Kuwait, Oman and Bahrain are excluded until these three show a workable cost per lead. At this budget start with one ad set for all three countries (see section 4); split by country later. Run **English and Arabic** variants. Exclude locations you cannot serve.
@@ -40,9 +40,11 @@
 
 | Stage | Goal | Content | Metric |
 | --- | --- | --- | --- |
-| Awareness (30%) | Be known as the "reliable research" brand | Reels/videos from this repo (5 questions, reliable finding, Gulf reel) | Video views (ThruPlay / 50%+), reach |
-| Consideration (30%) | Educate and capture interest | Carousels, explainers, survival-analysis post, desk-rejection post | CTR, engaged visits, followers |
-| Conversion (40%) | Get enquiries | Lead form: free 15-minute consult or study checklist | Cost per lead, qualified leads |
+| Awareness (organic first, about 10% paid) | Be known as the "reliable research" brand; fill the retargeting pool | Reels/videos from this repo (5 questions, reliable finding, Gulf reel), posted organically; cheap video-view ads only to build audiences | Video views (ThruPlay / 50%+), reach |
+| Consideration (about 20%) | Educate and capture interest | Carousels, explainers, survival-analysis post, desk-rejection post | CTR, engaged visits, followers |
+| Conversion (about 70%) | Get enquiries | Lead form with a qualifying question: free 15-minute consult or study checklist; retargeting of video viewers and site visitors | Cost per qualified lead, consultations booked |
+
+At this budget, top-of-funnel is the slowest and costliest to pay back, so the money goes to conversion and retargeting first. Awareness comes mainly from organic posting.
 
 **Primary goal: client acquisition.** Conversion = a qualified enquiry that books a free 15-minute consultation.
 **Lead magnet idea:** "Pre-submission statistics checklist" (PDF, 1 page), based on the three desk-rejection reasons.
@@ -96,7 +98,7 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 **Targeting:** Job titles: Researcher, Professor, Physician, Clinical Research Associate, Biostatistician, Principal Investigator, Medical Director; Industries: Hospitals and Health Care, Pharmaceuticals, Higher Education, Research; Seniority: Senior and above for sponsors. Location: Gulf countries. Exclude: existing customers and your own staff.
 
 **Ad 1: Desk rejection (image/carousel)**
-- Intro text: *Editors screen manuscripts in minutes, before anyone reads your results. Three things get papers desk-rejected: statistical reporting gaps, incomplete ethics documentation, and scope mismatch. All three are avoidable with one review before submission.*
+- Intro text: *Editors screen manuscripts in minutes, before anyone reads your results. Three things get papers desk-rejected: statistical reporting gaps, incomplete ethics documentation, and scope mismatch. All three are avoidable, and one expert review before submission helps catch them.*
 - Headline: *Review before you submit, not after rejection*
 - CTA button: Learn more / Request consultation
 
@@ -113,7 +115,8 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 
 ### 6.2 Facebook and Instagram (Meta)
 
-**Targeting:** Interests such as Medical research, Biostatistics, Clinical trials, PubMed, Medical education, plus job titles (physician, researcher, resident). Use Advantage+ audience as a test arm against this manual one. Placements: Reels, Stories, Feed (use video 9:16 where possible).
+**Targeting:** Main arm: broad (country only), letting the creative do the targeting. Control arm: interests such as Medical research, Biostatistics, Clinical trials, PubMed, Medical education. Compare cost per qualified lead over about 7 days.
+**Creative:** make identity-trigger variants of the best ad ("for residents", "for oncology researchers", "for PhD students", "for clinical trial teams"). Use long-form primary text. Add 2 to 3 static images or carousels (from the infographic and icons) alongside the videos, and keep the style native, not polished-ad. Placements: Reels, Stories, Feed (use video 9:16 where possible).
 
 **Ad 1: 5 questions (Reel, 20 s)**
 - Primary text: *Thinking of bringing a biostatistician onto your project? Ask these 5 questions first. Save this for later.*
@@ -136,7 +139,7 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 
 **Targeting:** Keyword and follower targeting (accounts and hashtags like #AcademicTwitter, #Biostatistics, #ClinicalTrials, #PhDLife, #MedTwitter), Gulf locations. Keep posts under 280 characters.
 
-1. *Editors decide in minutes. 3 avoidable reasons papers get desk-rejected: stats reporting gaps, incomplete ethics docs, scope mismatch. One pre-submission review fixes all three.*
+1. *Editors decide in minutes. 3 avoidable reasons papers get desk-rejected: stats reporting gaps, incomplete ethics docs, scope mismatch. One pre-submission review helps catch all three.*
 2. *Survival analysis isn't just life and death. It models time until relapse, discharge, device failure. Standard stats can't. We specialise. #Biostatistics*
 3. *What makes a finding reliable? Many consistent studies, pooled properly. Watch (20 s) ↓* [attach `reliable` video]
 4. *5 questions to ask before hiring a biostatistician. Thread ↓*
@@ -157,6 +160,9 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 - **X:** Pixel/conversion tracking for form submit.
 - UTM format: `utm_source={platform}&utm_medium=paid_social&utm_campaign=clinstat_2026q4&utm_content={ad_name}`
 - Log leads in one sheet or CRM with source. Score leads weekly (qualified vs not).
+- **Lead quality score:** whoever runs the consultation scores each lead on Urgency, Budget and Fit (0 to 3 each, max 9) and logs it against the ad. After about 20 scored calls, rank ads by average quality score rather than CPL or CTR.
+- **Qualifying question:** add one to every lead form (study stage or manuscript status).
+- **Feed quality back:** send "consultation booked" (and later "qualified") to Meta Conversions API and the LinkedIn conversion API. Reconcile platform numbers against your own lead sheet monthly; the sheet wins.
 
 **KPIs (set targets once you have a budget and baseline [CONFIRM]):** CTR, cost per qualified lead, consultations booked, video 50%+ views. Do not copy benchmark numbers from the internet without matching your industry, region and objective.
 
@@ -176,11 +182,11 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 
 | Week | Action |
 | --- | --- |
-| 0 | Confirm items marked **[CONFIRM]**, build landing pages, install tracking, make crops and Arabic versions |
-| 1 | Launch awareness and consideration; 2 to 3 ads per ad set |
-| 2 | First read: pause clear losers, keep winners |
-| 3 | Launch conversion ads to engaged audiences and retarget video viewers / site visitors |
-| 4 | Review cost per lead by platform, move the 10% reserve, plan month 2 |
+| 0 | Confirm items marked **[CONFIRM]**, set TCPL, build landing pages, install tracking, create all LinkedIn retargeting audiences, make crops, statics and Arabic versions |
+| 1 | Launch one campaign per platform within the ad-count ceiling; start retargeting audience collection |
+| 2 | First read against TCPL kill rules: pause clear losers, keep winners; switch LinkedIn to manual CPC |
+| 3 | Retarget video viewers / site visitors with the free-consult offer (audiences already collecting since week 0) |
+| 4 | Review cost per lead by platform, move the 8% testing reserve, plan month 2 |
 
 **Testing plan (one variable at a time):** hook (question vs statement), format (video vs carousel), language (EN vs AR), offer (free consult vs checklist).
 
@@ -194,3 +200,9 @@ Why not LinkedIn paid: its clicks cost several times Meta's and it has a minimum
 5. Landing page URL, privacy policy, and a form/CRM to receive leads?
 6. Which brand pages and ad accounts exist (LinkedIn Page, Facebook Page, Instagram, X)?
 7. Any testimonials or credentials that can be shown truthfully?
+8. Average project price, gross margin and consultation-to-client rate (needed to set the target cost per qualified lead).
+9. Is month 1 acceptable as a learning month given the lead volume this budget allows?
+10. Who will score consultation leads and log their source?
+11. Can ClinStat provide a named list of target sponsor accounts (Gulf CROs, pharma, devices)?
+12. Which expert's profile can be used for thought leader ads?
+13. Written Arabic ads: Modern Standard Arabic with light local phrasing is suggested over Egyptian dialect for the Gulf; have a Gulf native speaker approve.

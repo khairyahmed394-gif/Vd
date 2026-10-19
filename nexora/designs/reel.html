@@ -1,0 +1,37 @@
+<!doctype html><meta charset="utf-8"><style>
+@font-face{font-family:M;src:url(fonts/Manrope.ttf);font-weight:200 800}@font-face{font-family:P;src:url(fonts/PlexAr-Bold.ttf);font-weight:700}@font-face{font-family:P;src:url(fonts/PlexAr-Regular.ttf);font-weight:400}
+*{margin:0;box-sizing:border-box}html,body{width:1080px;height:1920px;overflow:hidden;background:#101C2C;font-family:M,sans-serif;color:#fff}body.ar{font-family:P,sans-serif;direction:rtl}
+#s{position:absolute;inset:0}svg{position:absolute;inset:0}.t{position:absolute;inset-inline:80px;text-align:center;font-weight:800;line-height:1.18;letter-spacing:-1px;will-change:transform,opacity}body.ar .t{font-weight:700;line-height:1.4;letter-spacing:0}
+.top{position:absolute;top:90px;inset-inline:80px;display:flex;justify-content:space-between;align-items:center;direction:ltr}.top div{display:flex;gap:14px;align-items:center;font-weight:700;letter-spacing:7px;font-size:30px}.top img{height:60px}.k{color:#19C6B4;font-weight:700;letter-spacing:6px;font-size:28px}body.ar .k{letter-spacing:0;font-size:34px}
+#end{position:absolute;inset:0;opacity:0;background:#101C2C}#end img{position:absolute;left:230px;top:620px;width:620px}#end .tg{position:absolute;inset-inline:0;top:1130px;text-align:center;color:#19C6B4;font-weight:700;letter-spacing:8px;font-size:38px}body.ar #end .tg{letter-spacing:0;font-size:50px}
+</style>
+<body><div id="s"><svg id="g" width="1080" height="1920"></svg><div class="top"><div><img src="img/mark.png">NEXORA</div><span class="k" id="kick"></span></div><div id="txt"></div><div id="end"><img src="img/logo_full.png"><div class="tg" id="tg"></div></div></div>
+<script>
+const AR=location.hash.includes("ar"); if(AR)document.body.classList.add("ar");
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),P=(t,a,b)=>cl((t-a)/(b-a)),sm=x=>x*x*(3-2*x),eo=x=>1-Math.pow(1-x,3),back=x=>{const c=1.7;return 1+(c+1)*Math.pow(x-1,3)+c*Math.pow(x-1,2)};
+const TEAL="#19C6B4",NS="http://www.w3.org/2000/svg",G=document.getElementById("g");
+function el(t,a,p=G){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+let CFG=null;
+function setup(cfg){CFG=cfg;document.getElementById("kick").textContent=cfg.kick;document.getElementById("tg").textContent=AR?"ابنِ أفضل. انمُ بذكاء.":"BUILD BETTER. GROW SMARTER.";
+  const T=document.getElementById("txt");T.innerHTML="";cfg.scenes.forEach((s,i)=>{const d=document.createElement("div");d.className="t";d.style.top=(s.y||760)+"px";d.style.fontSize=(s.size||(AR?104:112))+"px";d.style.color=s.teal?TEAL:"#fff";d.textContent=s.t;d.id="sc"+i;T.appendChild(d)});
+  G.innerHTML="";cfg.motif(G)}
+const MOT={
+ nodes(g){const r=(n)=>{let x=n*9301+49297;x=(x*233280)%233280;return x/233280};window.N=[...Array(14)].map((_,i)=>({x:120+r(i+1)*840,y:300+r(i+40)*1300,r:5+r(i+9)*7,a:r(i+3)*6,s:.3+r(i+7)*.7}));window.L=[];N.forEach((a,i)=>N.forEach((b,j)=>{if(j>i&&Math.hypot(a.x-b.x,a.y-b.y)<330)L.push([i,j,el("line",{stroke:TEAL,"stroke-opacity":.22,"stroke-width":2},g)])}));window.C=N.map(n=>el("circle",{r:n.r,fill:TEAL,opacity:.8},g))},
+ cycle(g){el("circle",{cx:540,cy:1010,r:330,fill:"none",stroke:TEAL,"stroke-width":3,"stroke-dasharray":"12 14",opacity:.55},g);window.C=[0,1,2,3,4,5].map(i=>{const a=-Math.PI/2+i*Math.PI/3;return el("circle",{cx:540+330*Math.cos(a),cy:1010+330*Math.sin(a),r:30,fill:"#101C2C",stroke:TEAL,"stroke-width":4},g)})},
+ funnel(g){el("path",{d:"M140,520 L940,520 L640,1250 L440,1250 Z",fill:"none",stroke:TEAL,"stroke-width":4,opacity:.6},g);window.C=[...Array(10)].map((_,i)=>el("circle",{r:12,fill:TEAL},g))},
+ timer(g){el("circle",{cx:540,cy:1010,r:320,fill:"none",stroke:"#2A4358","stroke-width":16},g);window.C=[el("circle",{cx:540,cy:1010,r:320,fill:"none",stroke:TEAL,"stroke-width":16,"stroke-linecap":"round","stroke-dasharray":2010,transform:"rotate(-90 540 1010)"},g)]},
+ grid(g){window.C=[...Array(12)].map((_,i)=>el("rect",{x:150+(i%4)*200,y:640+Math.floor(i/4)*200,width:150,height:150,rx:22,fill:"none",stroke:TEAL,"stroke-width":4},g))}
+};
+function frame(t){if(!CFG)return;const D=CFG.D,sc=CFG.scenes,endT=D-3.0;
+  // motif animation
+  const m=CFG.motifName;
+  if(m=="nodes"){N.forEach((n,i)=>{const x=n.x+Math.sin(t*n.s+n.a)*26,y=n.y+Math.cos(t*n.s*1.3+n.a)*26;C[i].setAttribute("cx",x);C[i].setAttribute("cy",y);n.cx=x;n.cy=y;C[i].setAttribute("opacity",.35+.45*Math.abs(Math.sin(t*.8+i)))});L.forEach(([i,j,l])=>{l.setAttribute("x1",N[i].cx);l.setAttribute("y1",N[i].cy);l.setAttribute("x2",N[j].cx);l.setAttribute("y2",N[j].cy)})}
+  if(m=="cycle"){const k=(t*1.0)%6;C.forEach((c,i)=>{c.setAttribute("fill",i<=Math.floor(k)?TEAL:"#101C2C");c.setAttribute("r",30+(i==Math.floor(k)?8*Math.sin(t*8):0))})}
+  if(m=="funnel"){C.forEach((c,i)=>{const u=((t*.35+i*.1)%1);const x=540+(i%2?-1:1)*(300-u*220)*(.6+.4*Math.sin(i*2));c.setAttribute("cx",x);c.setAttribute("cy",540+u*700);c.setAttribute("opacity",u>.85?0:1)})}
+  if(m=="timer"){const u=P(t,.3,D-3.2);C[0].setAttribute("stroke-dashoffset",2010*u)}
+  if(m=="grid"){C.forEach((c,i)=>{const p=P(t,.6+i*.55,1.0+i*.55);c.setAttribute("fill",p>=1?"rgba(25,198,180,.25)":"none");c.setAttribute("opacity",.2+.8*sm(p))})}
+  // scenes
+  const n=sc.length,span=(endT-.4)/n;sc.forEach((s,i)=>{const a=.4+i*span,b=a+span,e=document.getElementById("sc"+i);const pin=P(t,a,a+.5),pout=P(t,b-.35,b);const o=pin*(1-sm(pout)),yy=(1-back(pin))*70-(sm(pout))*50;e.style.opacity=t<a?0:o;e.style.transform=`translateY(${yy}px) scale(${.92+.08*eo(pin)})`});
+  const E=document.getElementById("end");E.style.opacity=sm(P(t,endT,endT+.6));document.body.style.opacity=P(t,0,.12)*(1-sm(P(t,D-.25,D)));return 1}
+window.frame=frame;window.setup=setup;window.MOT=MOT;
+</script>

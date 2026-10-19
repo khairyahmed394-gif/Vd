@@ -1,0 +1,67 @@
+[
+ {
+  "id": "d01",
+  "prompt": "iced coffee with milk marbling being poured, espresso stream, ice, condensation, dark green backdrop, rim light, cup right of centre, empty upper-left.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d02",
+  "prompt": "clear cup with three layers (matcha green, milk white, berry pink), strawberries around the base on a pale stone slab, hard sunlight, dappled shadows, empty upper-left.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d03",
+  "prompt": "top-down plate with croissant and avocado toast, iced coffee beside it, directional window light, crumbs, linen, empty upper-right.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d04",
+  "prompt": "a single new drink on a rough stone slab, soft window light, cream backdrop, empty upper third.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d06",
+  "prompt": "candid lifestyle: a woman in sunglasses laughing with an iced drink, golden hour, film grain, empty lower-left. **Use a different person from the other images.**",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d08",
+  "prompt": "top-down trio of cups (coffee, pale green drink, pink drink) on a stone surface, bright light, hand-drawn-friendly empty space around.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d09",
+  "prompt": "left: iced coffee on dark green; right: a hot coffee mug on blush. Two separate images, same angle.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d12",
+  "prompt": "two brunch plates, top-down, bold colours, warm light, empty upper third.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d13",
+  "prompt": "hand holding a plain takeaway-style clear cup in a dimly lit gym corner, dumbbells blurred, moody, empty left side.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d14",
+  "prompt": "signature drink on cream stone, hero shot at eye level, rim light, empty lower third.",
+  "ratio": "4:5"
+ },
+ {
+  "id": "d07_1",
+  "prompt": "two friends laughing over cups at a terrace table, direct-flash analog look, film grain",
+  "ratio": "3:4"
+ },
+ {
+  "id": "d07_2",
+  "prompt": "hands cheering two clear cups together, direct-flash analog look, film grain",
+  "ratio": "3:4"
+ },
+ {
+  "id": "d07_3",
+  "prompt": "a laptop and a latte on a white table, soft window light, film grain",
+  "ratio": "3:4"
+ }
+]

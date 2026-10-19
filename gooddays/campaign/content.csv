@@ -1,0 +1,93 @@
+﻿week,day,item,AR,EN,extra_AR,extra_EN
+1,الأحد,text,"في مكان بيهدّيك، وفي قهوة تستاهله.
+جود دايز وصل Trio Fitness Hub.
+بنفتح من ١٠ الصبح لحد ١٢ منتصف الليل.","A place that slows you down. Coffee worth the stop.
+GOOD DAYS is now at Trio Fitness Hub.
+Open 10 AM to 12 AM.",,
+1,الأربعاء,text,أول حاجة بتعملها لما تدخل مكان هادي؟,The first thing you do when you walk into a calm place?,قهوة / كتاب / صمت,Coffee / A book / Silence
+2,الأحد,text,"قعدة هادية، ترابيزة بيضا، شمس وخضرة.
+مش لازم تعمل حاجة غير إنك تقعد.","A calm seat, a white table, sun and greenery.
+You don't have to do anything except sit.",,
+2,الأربعاء,text,"تحدّي النهارده: ٢٠ دقيقة من غير شاشة.
+جرّبت؟ قول لنا حصل إيه.","Today's challenge: 20 minutes without a screen.
+Did you try? Tell us how it went.",عملتها / لسه,Did it / Not yet
+3,الأحد,text,"تمرين وبعده قهوة؟ اتفقنا.
+أنت بتشتهي إيه بعد التمرين؟","A workout, then a coffee? Deal.
+What do you crave after training?",,
+3,الأربعاء,text,بعد التمرين: مشروب بارد ولا سخن؟,After training: a cold drink or a hot one?,بارد / سخن,Cold / Hot
+4,الأحد,text,"الشمس بعد الضهر بتخلّي القعدة برّه أحلى.
+الترابيزة مستنياك.","The afternoon sun makes sitting outside better.
+Your table is waiting.",,
+4,الأربعاء,text,"مين بيحب القعدة برّه؟
+ابعتلنا صورة قعدتك المفضلة.","Who loves sitting outside?
+Send us a picture of your favourite spot.",,
+5,الأحد,text,"المنيو عندنا كبير وبيتغيّر.
+قهوتك المعتادة موجودة، ومعاها مشروبات صحية.
+اسأل عن مشروب النهارده.","Our menu is big and keeps changing.
+Your usual coffee is there, with healthy drinks beside it.
+Ask about today's drink.",,
+5,الأربعاء,text,مشروب نفسك تلاقيه في المنيو؟ اكتبه في الكومنت.,A drink you wish was on the menu? Drop it in the comments.,,
+6,الأحد,text,أول قهوة في يومك؟ بنفتح ١٠ الصبح.,Your first coffee of the day? We open at 10 AM.,,
+6,الأربعاء,text,مين أول زبون عندنا الصبح؟ اكتب «أنا».,Who is our first customer of the morning? Type “me”.,,
+7,الأحد,text,"مش لازم تروّح بدري.
+بنسهر معاك لحد ١٢ منتصف الليل.","No need to head home early.
+We stay up with you until 12 AM.",,
+7,الأربعاء,text,أنت من ناس الصبح ولا الليل؟,Are you a morning person or a night person?,الصبح / الليل,Morning / Night
+8,الأحد,text,"يوم كامل في Trio Fitness Hub:
+تمرين، قهوة، وقعدة تفصل بيها.","A full day at Trio Fitness Hub:
+train, coffee, and a seat to switch off.",,
+8,الأربعاء,text,مين بيتمرن هنا ويعدّي علينا؟ ابعتلنا مشروبك المفضل بعد التمرين.,Who trains here and stops by? Tell us your favourite post-workout drink.,,
+9,الأحد,text,"مشروباتك المعتادة ومشروبات صحية في نفس المنيو.
+اختار على مزاجك النهارده.","Your usual drinks and healthy ones, on the same menu.
+Pick what suits your mood today.",,
+9,الأربعاء,text,لو هتجرّب مشروب صحي النهارده: بارد ولا سخن؟,If you try a healthy drink today: cold or hot?,بارد / سخن,Cold / Hot
+10,الأحد,text,"القعدة الحلوة بتتحسب من الناس اللي معاك.
+جيبهم وتعالى.","A good seat is judged by who sits with you.
+Bring them along.",,
+10,الأربعاء,text,اذكر الصاحب اللي لازم ييجي معاك المرة الجاية.,Tag the friend who has to come with you next time.,,
+11,الأحد,text,"الحاجة الحلوة بتتعاد.
+Reset. Recharge. Repeat.","Good things get repeated.
+Reset. Recharge. Repeat.",,
+11,الأربعاء,text,أكتر مشروب بتكرره عندنا؟,The drink you order again and again?,,
+12,الأحد,text,"١٢ أسبوع من القعدات الحلوة.
+شكراً إنك كنت جزء منها.","12 weeks of good sittings.
+Thank you for being part of them.",,
+12,الأربعاء,text,"جود دايز مفتوح من ١٠ الصبح لـ١٢ منتصف الليل.
+الجاي أحلى.","GOOD DAYS is open from 10 AM to 12 AM.
+The best is next.",,
+01,,static:w01_mon_reset,"اهدا. اشحن. كرّر.
+جود دايز في Trio Fitness Hub، من ١٠ الصبح لـ١٢ منتصف الليل.","Reset. Recharge. Repeat.
+GOOD DAYS at Trio Fitness Hub, 10 AM to 12 AM.",,
+02,,static:w02_mon_quiet_corner,مكان تقعد فيه وتنسى الساعة.,A place to sit and lose track of time.,,
+02,,static:w02_thu_hour_here,ساعة عندنا: اقعد، اتنفس، واطلب.,"An hour with us: sit, breathe, order.",,
+03,,static:w03_mon_earned_it,بعد التمرين، مشروبك مستنيك.,"After the workout, your drink is waiting.",,
+04,,static:w04_mon_sun,ضوء طبيعي وخضرة وترابيزة مستنياك.,"Natural light, greenery, and a table waiting.",,
+04,,static:w04_thu_outside,٣ أسباب تقعد برّه: ضوء طبيعي، قعدة في الهوا، وخضرة حواليك.,"3 reasons to sit outside: natural light, open air, green all around.",,
+05,,static:w05_mon_menu,"منيو كبير وبيتغيّر: قهوتك المعتادة ومشروبات صحية.
+اسأل عن مشروب النهارده.","A big, changing menu: your usual coffee and healthy drinks.
+Ask about today's.",,
+06,,static:w06_mon_first_coffee,أول قهوة في يومك؟ بنفتح ١٠ الصبح.,Your first coffee of the day? We open at 10 AM.,,
+06,,static:w06_thu_hours,"مواعيدنا: من ١٠ الصبح لـ١٢ منتصف الليل.
+مفتوح لكل الناس، مش لازم تكون عضو في Trio Fitness Hub.","Open hours: 10 AM to 12 AM.
+Open to everyone, no Trio Fitness Hub membership needed.",,
+07,,static:w07_mon_late,بنسهر معاك لحد ١٢. القهوة مستنياك.,We stay up with you until 12 AM. Your coffee is waiting.,,
+08,,static:w08_mon_whole_day,يوم كامل في Trio Fitness Hub: تمرين، قهوة، وقعدة.,"A full day at Trio Fitness Hub: train, coffee, and a seat to switch off.",,
+08,,static:w08_thu_no_membership,مش لازم تكون عضو. الكافيه مفتوح لكل الناس.,No membership needed. The cafe is open to everyone.,,
+09,,static:w09_mon_healthy,الصحي جنب المعتاد في نفس المنيو.,"Healthy, right next to your usual, on the same menu.",,
+10,,static:w10_mon_company,القعدة الحلوة من الناس.,Good company makes it good.,,
+10,,static:w10_thu_bring,جيب صحابك، وخلّي القعدة أحلى.,Bring your people and make the table better.,,
+11,,static:w11_mon_habit,كل زيارة بتبقى عادة. Reset. Recharge. Repeat.,Every visit becomes a habit. Reset. Recharge. Repeat.,,
+12,,static:w12_mon_earned_part,"الجزء ده استحقيته.
+YOU EARNED THIS PART.","You earned this part.
+YOU EARNED THIS PART.",,
+12,,static:w12_thu_thanks,"شكراً. الجاي أحلى.
+من ١٠ الصبح لـ١٢ منتصف الليل.","Thank you. The best is next.
+10 AM to 12 AM.",,
+1,الثلاثاء,reel:wk01_tue_gym_to_cafe,ريل جاهز: gooddays/reel/gooddays_reel_20s_delivery.mp4,Ready: gooddays/reel/gooddays_reel_20s_delivery.mp4,YOU EARNED THIS PART.,YOU EARNED THIS PART.
+2,الثلاثاء,reel:wk02_tue_listen,٤ لقطات بطيئة: كباية بتتحط على الترابيزة، الشمس على الحيطة، الخضرة، ابتسامة. صوت: أوراق شجر وتلج. كابشن واحد في الآخر.,"4 slow shots: cup set on the table, sun on the wall, foliage, a smile. Sound: leaves and ice. One caption at the end.",اسمع المكان قبل ما تشوفه.,Hear the place before you see it.
+4,الثلاثاء,reel:wk04_tue_sun,لقطتين نفس الزاوية: الترابيزة في الضل ثم في الشمس. نص: «مفيش وقت أحلى من دلوقتي.»,"Same angle twice: the table in shade, then in sun. Text: “No better time than now.”",مفيش وقت أحلى من دلوقتي.,No better time than now.
+6,الثلاثاء,reel:wk06_tue_first_hour,تصوير ١٠ الصبح: فتح الباب، أول كباية، أول زبون. ٣ لقطات. ينتهي بـ«بنفتح ١٠ الصبح».,"Shoot at 10 AM: door opens, first cup, first guest. 3 shots. Ends “We open at 10 AM”.",بنفتح ١٠ الصبح.,We open at 10 AM.
+8,الثلاثاء,reel:wk08_tue_full_day,٨ لقطات سريعة: تمرين، ممر، الكافيه، كباية، قعدة، الغروب، إضاءة الليل، ١٢. صوت أصلي.,"8 fast shots: training, walkway, the cafe, a cup, seating, sunset, night lights, 12 AM. Original sound.",يوم كامل في ٢٠ ثانية.,A full day in 20 seconds.
+9,الثلاثاء,reel:wk09_tue_pour,كلوز-أب لتحضير مشروب من منيو الأسبوع (الخطوات الفعلية بيحددها الباريستا)، من غير أي ادعاء صحي.,"Close-up of a drink from the week's menu being made (steps set by the barista), no health claims.",من المنيو: مشروب النهارده.,From the menu: today's drink.
+11,الثلاثاء,reel:wk11_tue_repeat,نفس الزبون في ٣ زيارات (يوم/وقت مختلف) بنفس الكرسي. تصريح استخدام الصورة مطلوب.,"The same guest across 3 visits on different days/times, same chair. Written image consent needed.",كل زيارة بتبقى عادة.,Every visit becomes a habit.
+12,الثلاثاء,reel:wk12_tue_best_of,مونتاج من أفضل لقطات الحملة، ينتهي بـ YOU EARNED THIS PART. ومواعيد الشغل.,"Montage of the campaign's best shots, ending on YOU EARNED THIS PART. and opening hours.",شكراً. الجاي أحلى.,Thank you. The best is next.

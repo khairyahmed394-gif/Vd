@@ -1,0 +1,232 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><title>ClinStat Reels</title>
+<style>
+@font-face{font-family:PX;src:url(PlexAr-Regular.ttf);font-weight:400}
+@font-face{font-family:PX;src:url(PlexAr-Medium.ttf);font-weight:500}
+@font-face{font-family:PX;src:url(PlexAr-SemiBold.ttf);font-weight:600}
+@font-face{font-family:PX;src:url(PlexAr-Bold.ttf);font-weight:700}
+html,body{margin:0;padding:0;background:#F9F5EF;width:1080px;height:1920px;overflow:hidden}
+svg{display:block} text{font-family:PX,sans-serif}
+</style></head><body>
+<svg id="s" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+const LG=__LOGO__;
+const REEL=new URLSearchParams(location.search).get("reel")||"r01";
+const W=1080,H=1920,NS="http://www.w3.org/2000/svg",TOTAL=20.0;
+const C={navy:"#F9F5EF",deep:"#F1ECE2",green:"#025130",gold:"#B19063",goldL:"#9A7A49",sand:"#003520",ink:"#003520",ivory:"#F9F5EF",red:"#B4402E",redD:"#F2D6CF",ok:"#1F7A4F",card:"rgba(0,53,32,.05)",line:"rgba(177,144,99,.65)"};
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,x)=>a+(b-a)*x,P=(t,a,b)=>clamp((t-a)/(b-a));
+const E={out:x=>1-Math.pow(1-x,3),io:x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,back:x=>{const c=1.6,d=c+1;return 1+d*Math.pow(x-1,3)+c*Math.pow(x-1,2);}};
+function el(tag,at,par){const e=document.createElementNS(NS,tag);for(const k in at)e.setAttribute(k,at[k]);if(par)par.appendChild(e);return e;}
+const EVENTS=[];const ev=(t,k,v=1,n=0)=>EVENTS.push({t,k,v,n});window.EVENTS=EVENTS;
+const svg=document.getElementById("s"),defs=el("defs",{},svg);
+const EN=new URLSearchParams(location.search).get("lang")==="en";const L=(x,y)=>EN?y:x;
+const AR=s=>/[؀-ۿ]/.test(s);
+function T(par,str,x,y,size,weight,fill,ex={}){const at=Object.assign({x,y,"font-size":size,"font-weight":weight,fill,"text-anchor":"middle"},ex);if(AR(str))at.direction="rtl";else{at.direction="ltr";}const t=el("text",at,par);t.textContent=str;return t;}
+function fit(t,max){const w=t.getBBox().width;if(w>max)t.setAttribute("font-size",parseFloat(t.getAttribute("font-size"))*max/w);return t;}
+function right(t,xr){const b=t.getBBox();t.setAttribute("transform",`translate(${(xr-(b.x+b.width)).toFixed(2)},0)`);return t;}   // right-align a measured text
+function left(t,xl){const b=t.getBBox();t.setAttribute("transform",`translate(${(xl-b.x).toFixed(2)},0)`);return t;}
+const mx=x=>EN?1080-x:x;
+function setIn(g,p,dy=16,dx=0){const e=E.out(clamp(p));g.setAttribute("opacity",clamp(p).toFixed(3));g.setAttribute("transform",`translate(${((1-e)*dx).toFixed(2)},${((1-e)*dy).toFixed(2)})`);}
+function pl(s){s.setAttribute("pathLength","1");s.setAttribute("stroke-dasharray","1");s.setAttribute("stroke-dashoffset","1");return s;}
+function draw(s,p){s.setAttribute("stroke-dashoffset",(1-clamp(p)).toFixed(4));}
+const win=(t,a,b,c,d)=>E.io(P(t,a,b))*(1-E.io(P(t,c,d)));
+const G=(par,at={})=>el("g",at,par);
+// filters / gradients
+const f1=el("filter",{id:"sh",x:"-30%",y:"-30%",width:"160%",height:"170%"},defs);el("feDropShadow",{dx:0,dy:8,stdDeviation:10,"flood-color":"#003520","flood-opacity":.16},f1);
+const rg=el("radialGradient",{id:"bg",cx:"50%",cy:"38%",r:"75%"},defs);el("stop",{offset:0,"stop-color":"#FFFFFF"},rg);el("stop",{offset:1,"stop-color":C.navy},rg);
+const gg=el("linearGradient",{id:"glow",x1:0,y1:0,x2:1,y2:0},defs);el("stop",{offset:0,"stop-color":C.gold,"stop-opacity":0},gg);el("stop",{offset:.5,"stop-color":C.goldL,"stop-opacity":.9},gg);el("stop",{offset:1,"stop-color":C.gold,"stop-opacity":0},gg);
+// ---------------------------------------------------------------- logo (traced vector; light variant for the dark background)
+function lockup(parent,light=true){const g=G(parent),inner=G(g);
+ const col=c=>{const r=parseInt(c.slice(1,3),16),gr=parseInt(c.slice(3,5),16),b=parseInt(c.slice(5,7),16);return light&&(.299*r+.587*gr+.114*b)<90?C.sand:c;};
+ LG.dots.forEach(d=>el("circle",{cx:d.cx,cy:d.cy,r:d.r,fill:col(d.color)},inner));LG.chev.forEach(c=>el("path",{d:c.d,fill:col(c.color),"fill-rule":"evenodd"},inner));
+ el("path",{d:LG.divider.d,fill:col(LG.divider.color)},inner);["clin","stat","res"].forEach(k=>LG[k].forEach(l=>el("path",{d:l.d,fill:col(l.color),"fill-rule":"evenodd"},inner)));return g;}
+const LCX=(LG.mark.x0+LG.word.x1)/2,LCY=(LG.mark.y0+LG.mark.y1)/2;
+function place(g,cx,cy,k){g.firstChild.setAttribute("transform",`translate(${cx},${cy}) scale(${k}) translate(${-LCX},${-LCY})`);}
+// ---------------------------------------------------------------- shared pieces
+const R={};
+function chipRow(par,str,y,{h=150,x0=110,x1=970,box=true}={}){const g=G(par);el("rect",{x:x0,y:y-h/2,width:x1-x0,height:h,rx:32,fill:C.card,stroke:C.line,"stroke-width":3},g);
+ const b=G(g);let sq=null,ck=null,xr=x1-34,xl=x0+34;
+ if(box){const cx=EN?x0+34+34:x1-34-34;sq=el("rect",{x:cx-34,y:y-34,width:68,height:68,rx:16,fill:"none",stroke:C.goldL,"stroke-width":5},b);
+  ck=pl(el("path",{d:`M${cx-18},${y+2} L${cx-5},${y+17} L${cx+20},${y-16}`,fill:"none",stroke:C.ok,"stroke-width":10,"stroke-linecap":"round","stroke-linejoin":"round"},b));
+  xr=cx-34-30;xl=cx+34+30;}
+ const t=T(g,str,0,y+18,AR(str)?56:52,600,C.sand);if(EN){fit(t,x1-xl-30);left(t,xl);}else{fit(t,xr-x0-30);right(t,xr);}
+ return{g,sq,ck,t,cx:x1-68,cy:y};}
+function header(par,kicker,l1,l2){const g=G(par);T(g,kicker,540,372,40,600,C.goldL,{"letter-spacing":AR(kicker)?0:4});
+ const a=fit(T(g,l1,540,480,l2?76:(EN?72:88),700,C.sand),940);if(l2)fit(T(g,l2,540,566,76,700,C.goldL),940);
+ el("rect",{x:486,y:l2?616:526,width:108,height:7,rx:3,fill:C.gold},g);return g;}
+function xmark(par,cx,cy,s=16,c=C.red,w=9){return el("path",{d:`M${cx-s},${cy-s} L${cx+s},${cy+s} M${cx+s},${cy-s} L${cx-s},${cy+s}`,stroke:c,"stroke-width":w,"stroke-linecap":"round",fill:"none"},par);}
+// caption (burned-in)
+function captions(list){R.caps=list.map(([s,a,b])=>{const g=G(svg);const t=T(g,s,540,1530,AR(s)?50:46,600,C.ivory);fit(t,880);const bb=t.getBBox();el("rect",{x:540-bb.width/2-34,y:1530-62,width:bb.width+68,height:100,rx:26,fill:"rgba(2,81,48,.95)",stroke:C.gold,"stroke-width":2},g);g.appendChild(t);return{g,a,b};});}
+// ---------------------------------------------------------------- hook + CTA scenes
+function hookScene(lines,t0=0){const g=G(svg);const ys=[0,0,0];const n=lines.length;const y0=n==3?700:780;
+ const items=lines.map((l,i)=>{const gi=G(g);const t=fit(T(gi,l[0],540,y0+i*150+(l[3]||0),l[1]||94,700,l[2]||C.sand),940);return gi;});
+ const bar=el("rect",{x:150,y:y0+n*150-60,width:780,height:7,rx:3,fill:"url(#glow)"},g);
+ return{g,upd(t){items.forEach((gi,i)=>setIn(gi,P(t,.35+i*.6,.95+i*.6),30));bar.setAttribute("opacity",E.io(P(t,.35+n*.6,.95+n*.6)).toFixed(3));}};}
+function ctaScene(o,a){const g=G(svg);
+ const lg=lockup(g,false);place(lg,540,520,1.25);
+ const rule=el("rect",{x:440,y:690,width:200,height:6,rx:3,fill:C.gold},g);
+ const pre=G(g);fit(T(pre,o.pre,540,840,o.preSize||70,600,C.sand),900);
+ const pill=G(g);const pw=o.kwLtr?Math.max(560,o.kw.length*84+120):760;el("rect",{x:540-pw/2,y:900,width:pw,height:176,rx:88,fill:C.gold,filter:"url(#sh)"},pill);
+ fit(T(pill,o.kw,540,o.kwLtr?1022:1018,o.kwLtr?112:92,700,C.ink,{"letter-spacing":o.kwLtr?6:0}),pw-90);
+ const off=o.offer.map((s,i)=>{const gi=G(g);fit(T(gi,s,540,1260+i*92,62,700,i?C.goldL:C.sand),940);return gi;});
+ return{g,upd(t){const l=t-a;lg.setAttribute("opacity",E.out(P(l,.1,.7)).toFixed(3));rule.setAttribute("opacity",E.out(P(l,.4,.9)).toFixed(3));setIn(pre,P(l,.6,1.1),20);const pp=E.back(P(l,.9,1.5));pill.setAttribute("opacity",P(l,.9,1.15).toFixed(3));pill.setAttribute("transform",`translate(540,988) scale(${pp.toFixed(3)}) translate(-540,-988)`);
+  off.forEach((gi,i)=>setIn(gi,P(l,1.6+i*.35,2.1+i*.35),16));}};}
+// ================================================================ REELS (generic: hook + 3 beats + CTA)
+const SC=[];
+function scene(a,b,o){o.a=a;o.b=b;SC.push(o);return o;}
+// ---- beat builders -------------------------------------------------
+function bList(c,t0){const g=G(svg);const h=header(g,c.kick,c.title);const n=c.items.length;
+ const rows=c.items.map((s,i)=>n==3?chipRow(g,s,792+i*205):chipRow(g,s,770+i*165,{h:132}));
+ const o=scene(t0,t0+4.4,{g,upd(t){const l=t-t0;setIn(h,P(l,.3,.8),16);rows.forEach((r,i)=>{setIn(r.g,P(l,.8+i*.55,1.3+i*.55),22,EN?-50:50);draw(r.ck,E.out(P(l,1.2+i*.55,1.6+i*.55)));});}});
+ ev(t0,"whoosh",.5);rows.forEach((r,i)=>{ev(t0+1.0+i*.55,"pop",.45,i);ev(t0+1.3+i*.55,"check",.7,i);});return o;}
+function bSteps(c,t0){const g=G(svg);const h=header(g,c.kick,c.title);const xs=[840,540,240].map(mx);const y0=700;
+ const boxes=c.items.map((lab,i)=>{const b=G(g);const x=xs[i];el("rect",{x:x-135,y:y0,width:270,height:330,rx:34,fill:C.card,stroke:(c.mark===i)?C.red:C.line,"stroke-width":(c.mark===i)?6:3},b);
+  el("circle",{cx:x,cy:y0,r:42,fill:(c.mark===i)?C.red:C.gold,stroke:C.navy,"stroke-width":6},b);T(b,String(i+1),x,y0+15,44,700,(c.mark===i)?C.ivory:C.ink);
+  lab.split("\n").forEach((ln,k,arr)=>fit(T(b,ln,x,y0+165+(k-(arr.length-1)/2)*70+12,44,700,C.sand),240));
+  if(c.mark===i)xmark(b,x+95,y0+295,14,C.red,8);return b;});
+ const arrows=[0,1].map(i=>T(g,EN?"→":"←",(xs[i]+xs[i+1])/2,y0+190,54,700,C.goldL));
+ const o=scene(t0,t0+4.4,{g,upd(t){const l=t-t0;setIn(h,P(l,.3,.8),16);boxes.forEach((b,i)=>{const p=E.back(P(l,.8+i*.65,1.4+i*.65));b.setAttribute("opacity",P(l,.8+i*.65,1.0+i*.65).toFixed(3));b.setAttribute("transform",`translate(${xs[i]},${y0+165}) scale(${p.toFixed(3)}) translate(${-xs[i]},${-(y0+165)})`);});arrows.forEach((a,i)=>a.setAttribute("opacity",E.io(P(l,1.5+i*.65,2.0+i*.65)).toFixed(3)));}});
+ ev(t0,"whoosh",.5);boxes.forEach((b,i)=>ev(t0+1.0+i*.65,"pop",.55,i));return o;}
+function bCompare(c,t0){const g=G(svg);const h=header(g,c.kick,c.title);const xs=EN?[110,580]:[580,110];
+ const cards=c.cards.map((cd,i)=>{const x=xs[i],k=G(g);const col=cd.neutral?C.gold:(cd.ok?C.ok:C.red);el("rect",{x,y:700,width:390,height:520,rx:36,fill:C.card,stroke:col,"stroke-width":5},k);
+  fit(T(k,cd.title,x+195,790,44,700,C.sand),340);cd.lines.forEach((ln,j)=>fit(T(k,ln,x+195,900+j*62,36,500,C.sand),340));
+  if(!cd.neutral){const iy=1150;if(cd.ok)el("path",{d:`M${x+60},${iy} L${x+74},${iy+14} L${x+100},${iy-16}`,fill:"none",stroke:C.ok,"stroke-width":8,"stroke-linecap":"round","stroke-linejoin":"round"},k);else xmark(k,x+76,iy,14,C.red,8);
+   const tt=T(k,cd.verdict,0,iy+14,38,600,C.sand);fit(tt,200);if(EN)left(tt,x+125);else right(tt,x+335);}
+  else{fit(T(k,cd.verdict,x+195,1150,36,600,C.goldL),330);}
+  return k;});
+ const arrow=c.arrow===false?null:T(g,EN?"→":"←",540,982,54,700,C.goldL);const note=c.note?fit(T(g,c.note,540,1300,30,400,C.sand,{opacity:.65}),900):null;
+ const o=scene(t0,t0+4.4,{g,upd(t){const l=t-t0;setIn(h,P(l,.3,.8),16);cards.forEach((k,i)=>setIn(k,P(l,.9+i*1.2,1.5+i*1.2),24,(i==0?(EN?-50:50):(EN?50:-50))));if(arrow)arrow.setAttribute("opacity",E.io(P(l,1.8,2.3)).toFixed(3));if(note)note.setAttribute("opacity",(.65*P(l,2.9,3.4)).toFixed(3));}});
+ ev(t0,"whoosh",.5);ev(t0+1.2,"pop",.7);ev(t0+2.4,"pop",.7);ev(t0+2.9,c.cards[1].ok?"check":"cross",.8);return o;}
+function bStat(c,t0){const g=G(svg);const h=header(g,c.kick,c.title);
+ const big=T(g,c.num,540,980,220,700,C.goldL,{"letter-spacing":0});const lab=fit(T(g,c.label,540,1070,58,700,C.sand),900);const sub=c.sub?fit(T(g,c.sub,540,1140,42,500,C.sand,{opacity:.8}),900):null;
+ let gg=null,mk=null;if(c.gauge){gg=G(g);const x0=140,x1=940,y=1230;const zs=[[0,25,C.ok],[25,50,C.goldL],[50,75,"#C9783B"],[75,100,C.red]];zs.forEach(([a,b,col])=>el("rect",{x:x0+a*8,y:y-18,width:(b-a)*8,height:36,fill:col,opacity:.9},gg));
+  c.gauge.ticks.forEach(([v,lb])=>{el("line",{x1:x0+v*8,x2:x0+v*8,y1:y+18,y2:y+32,stroke:C.sand,"stroke-width":3},gg);fit(T(gg,lb,x0+v*8,y+70,30,500,C.sand),200);});
+  mk=G(gg);el("path",{d:`M0,${y-26} L-18,${y-62} L18,${y-62} Z`,fill:C.sand},mk);mk._x=x0+c.gauge.value*8;mk._y=y;}
+ const o=scene(t0,t0+4.4,{g,upd(t){const l=t-t0;setIn(h,P(l,.3,.8),16);setIn(big,P(l,.8,1.4),24);setIn(lab,P(l,1.3,1.8),16);if(sub)setIn(sub,P(l,1.7,2.2),14);if(gg){gg.setAttribute("opacity",P(l,2.0,2.5).toFixed(3));const p=E.io(P(l,2.3,3.4));mk.setAttribute("transform",`translate(${(140+(mk._x-140)*p).toFixed(1)},0)`);}}});
+ ev(t0,"whoosh",.5);ev(t0+1.0,"hit",.6);if(gg){ev(t0+2.4,"tick",.5);ev(t0+3.3,"cross",.7);}else ev(t0+1.9,"chime",.6,3);return o;}
+const BEAT={list:bList,steps:bSteps,compare:bCompare,stat:bStat};
+function genReel(cfg){
+ const hk=hookScene(cfg.hook);if(cfg.motif){const m=G(hk.g);const bx=540,by=1262;el("rect",{x:bx-250,y:by-90,width:500,height:180,rx:36,fill:C.card,stroke:C.line,"stroke-width":3},m);T(m,cfg.motif,bx,by+30,86,700,C.sand,{"letter-spacing":0});const hu=hk.upd;hk.upd=t=>{hu(t);setIn(m,P(t,2.0,2.6),20);};}
+ scene(0,3.5,hk);ev(.4,"hit",.7);ev(1.0,"hit",.7);ev(1.6,"hit",.9);ev(.05,"swell",.35);
+ BEAT[cfg.b1.type](cfg.b1,3.2);BEAT[cfg.b2.type](cfg.b2,7.4);BEAT[cfg.b3.type](cfg.b3,11.4);
+ scene(15.6,20.0,ctaScene(cfg.cta,15.6));ev(15.6,"whoosh",.5);ev(16.3,"cta",.9);ev(17.5,"chime",.5,2);
+ captions([[cfg.caps[0],3.8,7.2],[cfg.caps[1],8.2,11.2],[cfg.caps[2],12.2,15.3]]);}
+function buildReel(){
+ el("rect",{width:W,height:H,fill:"url(#bg)"},svg);
+ {const wm=G(svg,{opacity:.045,transform:"translate(520,1010) scale(2.7)"});LG.chev.forEach(c=>el("path",{d:c.d,fill:C.sand,"fill-rule":"evenodd",transform:`translate(${-LG.mark.x0},${-LG.mark.y0})`},wm));}
+ R.logo=lockup(svg,false);place(R.logo,540,150,.62);
+ genReel(CFG[REEL]);
+}
+const g_=C.goldL;
+const CFG={
+ r05:{key:"wk03_tue_rejected",
+  hook:[[L("علم كويس.","Good paper."),100],[L("ومترفض برضه.","Rejected anyway."),100,g_],[L("ده السبب.","Here's why."),92]],
+  b1:{type:"list",kick:L("3 أسباب شائعة","Three common reasons"),title:L("مش بسبب العلم","Not the research question"),items:[L("ثغرات في عرض الإحصاء","Gaps in the statistics"),L("وثائق الأخلاقيات ناقصة","Incomplete ethics documents"),L("النطاق مش مناسب للمجلة","Poor fit with the journal's scope")]},
+  b2:{type:"compare",arrow:false,kick:L("المحرر بيشوف إيه؟","What the editor sees"),title:L("الدراسة ≠ الملف المقدّم","The study ≠ the submission"),cards:[{title:L("الدراسة","The study"),lines:[L("العلم سليم","Sound science")],verdict:L("سليمة","Sound"),ok:true},{title:L("الملف المقدّم","The submission"),lines:[L("إحصاء ناقص","Incomplete statistics"),L("أخلاقيات غير مكتملة","Unfinished ethics")],verdict:L("ناقص","Incomplete"),ok:false}]},
+  b3:{type:"list",kick:L("الحل","The fix"),title:L("افحص قبل ما تقدّم","Check before you submit"),items:[L("تقرير الإحصاء كامل","Full statistical reporting"),L("وثائق الأخلاقيات مرفقة","Ethics documents attached"),L("النطاق مناسب للمجلة","Scope fits the journal")]},
+  cta:{pre:L("اكتب","Comment"),kw:"CHECKLIST",kwLtr:true,mid:"",offer:[L("للحصول على الـchecklist","or use the link"),L("GCC المجاني","in the caption")]},
+  caps:[L("3 أسباب بتتكرر","Three reasons that keep coming up"),L("الدراسة سليمة والملف ناقص","The study is sound, the file isn't"),L("افحص قبل Submit","Check before you submit")]},
+ r06:{key:"wk04_tue_outcome",
+  hook:[[L("دراستك محتاجة","Your study needs"),84],[L("primary outcome واحد.","one primary outcome."),100,g_],[L("مش تلاتة.","Not three."),100]],
+  b1:{type:"compare",kick:L("المقارنة","The comparison"),title:L("كام primary outcome؟","How many primary outcomes?"),cards:[{title:L("3 outcomes","3 outcomes"),lines:[L("أسئلة مش واضحة","Unclear questions"),L("احتمال صدفة أعلى","Higher chance of a fluke")],verdict:L("مشكلة","Problem"),ok:false},{title:L("1 primary","1 primary"),lines:[L("سؤال واضح","One clear question"),L("تحليل محدد مسبقًا","Pre-specified analysis")],verdict:L("أوضح","Clearer"),ok:true}]},
+  b2:{type:"steps",kick:L("إزاي","How"),title:L("3 خطوات","Three steps"),items:[L("حدّده\nمسبقًا","Define\nit first"),L("سجّله في\nالبروتوكول","Register it\nin the protocol"),L("التزم بيه\nفي التحليل","Stick to it\nin the analysis")]},
+  b3:{type:"list",kick:L("الباقي","Everything else"),title:L("outcomes تانية؟","Other outcomes?"),items:[L("سمّيها secondary","Call them secondary"),L("اذكرها بوضوح","Report them clearly"),L("متغيّرش الـprimary بعد النتيجة","Never swap the primary after the result")]},
+  cta:{pre:L("اكتب","Comment"),kw:"OUTCOME",kwLtr:true,mid:"",offer:[L("لفحص الـprimary outcome","or use the link"),L("مجانًا","in the caption")]},
+  caps:[L("سؤال رئيسي واحد لكل دراسة","One main question per study"),L("3 خطوات تثبّته","Three steps lock it in"),L("والباقي secondary","Everything else is secondary")]},
+ r07:{key:"wk04_thu_missing",
+  hook:[[L("حذف المرضى","Deleting patients"),96],[L("اللي عندهم missing data","with missing data"),72],[L("مش قرار محايد.","is not a neutral choice."),96,g_]],
+  b1:{type:"list",kick:L("ليه ناقصة؟","Why is it missing?"),title:L("3 أنواع","Three types"),items:[L("MCAR: عشوائي تمامًا","MCAR: completely random"),L("MAR: مرتبط بمتغيرات مقاسة","MAR: linked to measured variables"),L("MNAR: مرتبط بالقيمة نفسها","MNAR: linked to the value itself")]},
+  b2:{type:"compare",kick:L("الخيارات","The options"),title:L("حذف ولا معالجة؟","Delete or handle?"),cards:[{title:L("حذف الحالات","Complete cases only"),lines:[L("ممكن يعمل تحيّز","Can bias the result"),L("بيقلّل العينة","Shrinks the sample")],verdict:L("خطر","Risky"),ok:false},{title:L("معالجة مناسبة","Appropriate handling"),lines:[L("زي multiple imputation","e.g. multiple imputation"),L("حسب نوع النقص","chosen by type")],verdict:L("أحسن","Better"),ok:true}]},
+  b3:{type:"list",kick:L("الحل","The fix"),title:L("في أي حال","Either way"),items:[L("وثّق نسبة النقص","Report how much is missing"),L("اعمل sensitivity analysis","Run a sensitivity analysis"),L("اشرح الطريقة في الـmethods","Explain it in the methods")]},
+  cta:{pre:L("اكتب","Comment"),kw:"MISSING",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("للـmissing data","in the caption")]},
+  caps:[L("النقص مش دايمًا عشوائي","Missing isn't always random"),L("الحذف بيغيّر العينة","Deleting changes the sample"),L("وثّق وراجع","Document it and test it")]},
+ r08:{key:"wk05_tue_reviewers",
+  hook:[[L("تعليقات الـreviewers","Reviewer comments"),84],[L("مش رفض.","aren't a rejection."),100,g_],[L("دي checklist.","They're a checklist."),100]],
+  b1:{type:"steps",kick:L("أول خطوة","First"),title:L("اقرأ وصنّف","Read and sort"),items:[L("اقرأ كل\nالتعليقات","Read every\ncomment"),L("صنّفها:\nmajor / minor","Sort them:\nmajor / minor"),L("جهّز خطة\nالرد","Plan the\nresponse")]},
+  b2:{type:"list",kick:L("في الرد","In the response"),title:L("نقطة بنقطة","Point by point"),items:[L("ردّ على كل تعليق","Answer every comment"),L("حدّد مكان التعديل","Show where the paper changed"),L("اشكرهم حتى لو اختلفت","Thank them, even if you disagree")]},
+  b3:{type:"compare",kick:L("نبرة الرد","The tone"),title:L("ردّ بالأدلة","Answer with evidence"),cards:[{title:L("ردّ دفاعي","A defensive reply"),lines:[L("من غير دليل","No evidence"),L("بنبرة متوترة","A tense tone")],verdict:L("يضر","Hurts"),ok:false},{title:L("ردّ بالأدلة","An evidence reply"),lines:[L("تحليل أو مرجع","An analysis or reference"),L("بنبرة محترمة","A respectful tone")],verdict:L("يقنع","Persuades"),ok:true}]},
+  cta:{pre:L("اكتب","Comment"),kw:"REVIEWERS",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("لاستراتيجية الرد","in the caption")]},
+  caps:[L("كل تعليق = بند في قايمة","Each comment is a list item"),L("رد منظّم بيوفّر وقت","A structured reply saves time"),L("الأدلة بتقنع","Evidence persuades")]},
+ r09:{key:"wk06_tue_triage",
+  hook:[[L("اترفضت؟","Got rejected?"),100],[L("متقدّمش تاني","Don't resubmit"),96,g_],[L("دلوقتي.","just yet."),100]],
+  b1:{type:"list",kick:L("افهم السبب","Understand why"),title:L("3 احتمالات","Three possibilities"),items:[L("النطاق مش مناسب","Wrong scope"),L("مشكلة منهجية","A methodological problem"),L("مشكلة في العرض","A presentation problem")]},
+  b2:{type:"steps",kick:"Triage",title:L("فرز سريع","Quick triage"),items:[L("صنّف\nالسبب","Classify\nthe reason"),L("صلّح اللي\nيتصلّح","Fix what\ncan be fixed"),L("اختار المجلة\nالتالية","Choose the\nnext journal")]},
+  b3:{type:"compare",kick:L("التقديم التالي","The next submission"),title:L("قبل ولا بعد التعديل؟","Before or after the fix?"),cards:[{title:L("فورًا","Straight away"),lines:[L("بنفس الملف","The same file"),L("نفس السبب هيتكرر","The same reason returns")],verdict:L("مخاطرة","Risky"),ok:false},{title:L("بعد التعديل","After the fix"),lines:[L("مشاكل اتعالجت","Problems addressed"),L("فرصة أحسن","A better chance")],verdict:L("أذكى","Smarter"),ok:true}]},
+  cta:{pre:L("اكتب","Comment"),kw:"TRIAGE",kwLtr:true,mid:"",offer:[L("لفرز مجاني","or use the link"),L("لأسباب الرفض","in the caption")]},
+  caps:[L("الرفض معلومة","A rejection is information"),L("فرز قبل أي تقديم","Triage before any resubmission"),L("عدّل ثم قدّم","Fix first, then submit")]},
+ r10:{key:"wk06_thu_methods",
+  hook:[[L("نفس الداتا.","Same data."),100],[L("نفس السؤال.","Same question."),100],[L("قسم methods مختلف.","A different methods section."),80,g_]],
+  b1:{type:"compare",note:L("مثال توضيحي","Illustrative example"),kick:L("قبل / بعد","Before / after"),title:L("جملة واحدة في الـmethods","One sentence in the methods"),cards:[{title:L("قبل","Before"),lines:[L("اتحللت البيانات","Data were analysed"),L("بطرق مناسبة","with suitable tests")],verdict:L("غامض","Vague"),ok:false},{title:L("بعد","After"),lines:[L("Shapiro–Wilk للتوزيع","Shapiro–Wilk for normality"),L("ثم t-test، α = 0.05","then t-test, α = 0.05")],verdict:L("قابل للتكرار","Repeatable"),ok:true}]},
+  b2:{type:"list",kick:L("قسم methods كويس فيه","A good methods section has"),title:L("4 عناصر","Four elements"),items:[L("التصميم وحجم العينة","Design and sample size"),L("الـoutcome الرئيسي","The primary outcome"),L("الاختبارات وافتراضاتها","Tests and their assumptions"),L("معالجة البيانات الناقصة","Handling of missing data")]},
+  b3:{type:"list",kick:L("النتيجة","The result"),title:L("reviewer يقدر يعيد التحليل","A reviewer can repeat it"),items:[L("شفافية","Transparency"),L("قابلية إعادة الإنتاج","Reproducibility"),L("ثقة أعلى","More trust")]},
+  cta:{pre:L("اكتب","Comment"),kw:"METHODS",kwLtr:true,mid:"",offer:[L("لفحص مجاني","or use the link"),L("لقسم الـmethods","in the caption")]},
+  caps:[L("الغموض بيفتح باب الشك","Vagueness invites doubt"),L("التفاصيل بتخلّي التحليل قابل للتكرار","Detail makes the analysis repeatable"),L("وده بيرفع الثقة","And that builds trust")]},
+ r11:{key:"wk07_tue_desk_rejection",
+  hook:[[L("ورقتك ممكن تترفض","Your paper can be rejected"),80],[L("قبل ما أي حد","before anyone"),96],[L("يقراها.","reads it."),110,g_]],
+  b1:{type:"steps",mark:1,kick:L("رحلة الورقة","The paper's journey"),title:L("المحرر الأول","The editor comes first"),items:[L("تقديم","Submit"),L("فحص\nالمحرر","Editor's\ncheck"),L("مراجعون","Peer\nreviewers")]},
+  b2:{type:"list",kick:L("المحرر بيبص على","The editor checks"),title:L("3 حاجات سريعة","Three quick things"),items:[L("النطاق مناسب؟","Is the scope right?"),L("العرض الأساسي سليم؟","Is the basic presentation sound?"),L("الأخلاقيات مذكورة؟","Are ethics stated?")]},
+  b3:{type:"list",kick:L("جهّز ملفك","Prepare your file"),title:L("قبل Submit","Before you submit"),items:[L("الـmethods قابلة للتكرار","Reproducible methods"),L("الـchecklist مكتمل","A complete checklist"),L("وثائق الأخلاقيات مرفقة","Ethics documents attached")]},
+  cta:{pre:L("اكتب","Comment"),kw:"READY",kwLtr:true,mid:"",offer:[L("للحصول على المجاني","or use the link"),L("Manuscript Readiness Checklist","in the caption")]},
+  caps:[L("الرفض المبكر عند المحرر","Early rejection happens at the editor's desk"),L("3 فحوصات سريعة","Three quick checks"),L("جهّز ملفك قبل Submit","Prepare your file before Submit")]},
+ r12:{key:"wk08_tue_predatory",
+  hook:[[L("بعد تلات رفضات:","After three rejections:"),84],[L("\"قدّم دلوقتي.","\"Submit now."),100,g_],[L("القبول خلال 7 أيام.\"","Accepted within 7 days.\""),84]],
+  b1:{type:"list",kick:L("علامات تحذير","Warning signs"),title:L("مجلة مفترسة؟","A predatory journal?"),items:[L("ضمان قبول سريع","Guaranteed fast acceptance"),L("رسوم قبل أي مراجعة","Fees before any review"),L("دعوات مفاجئة بمجاملات","Flattering unsolicited invitations"),L("اسم يشبه مجلة معروفة","A name close to a known journal")]},
+  b2:{type:"compare",kick:L("المقارنة","The contrast"),title:L("مراجعة حقيقية؟","Real peer review?"),cards:[{title:L("\"قبول خلال 7 أيام\"","\"Accepted in 7 days\""),lines:[L("مفيش مراجعة فعلية","No real review"),L("سمعتك بتتأثر","Risks your reputation")],verdict:L("تجنّبها","Avoid"),ok:false},{title:L("peer review حقيقي","Real peer review"),lines:[L("مراجعون متخصصون","Expert reviewers"),L("أبطأ، وقيمته أعلى","Slower, worth more")],verdict:L("الأفضل","Better"),ok:true}]},
+  b3:{type:"list",kick:L("تأكد من","Check"),title:L("قبل ما تقدّم","Before you submit"),items:[L("الفهرسة: Scopus / PubMed / DOAJ","Indexing: Scopus / PubMed / DOAJ"),L("اسأل زملاءك في المجال","Ask colleagues in your field"),"Think. Check. Submit."]},
+  cta:{pre:L("اكتب","Comment"),kw:"JOURNAL",kwLtr:true,mid:"",offer:[L("لقايمة مجلات مناسبة","or use the link"),L("مجانًا","in the caption")]},
+  caps:[L("الإغراء بيجي بعد الرفض","The lure comes after a rejection"),L("الفرق في المراجعة الحقيقية","The difference is real review"),L("تحقق قبل ما تدفع أو تقدّم","Verify before you pay or submit")]},
+ r13:{key:"wk08_thu_ethics",
+  hook:[[L("الداتا اتجمعت.","The data is collected."),92],[L("موافقة الـethics؟","Ethics approval?"),96],[L("\"هناخدها بعدين.\"","\"We'll get it later.\""),100,g_]],
+  b1:{type:"steps",kick:L("الترتيب الصح","The right order"),title:L("الأخلاقيات الأول","Ethics comes first"),items:[L("موافقة\nاللجنة","Committee\napproval"),L("جمع\nالداتا","Data\ncollection"),L("نشر\nالورقة","Publish\nthe paper")]},
+  b2:{type:"list",kick:L("المجلات بتطلب","Journals ask for"),title:L("إثبات واضح","Clear proof"),items:[L("رقم الموافقة وتاريخها","The approval number and date"),L("بيان الموافقة المستنيرة","A statement of informed consent"),L("أو سبب الإعفاء","Or a waived consent")]},
+  b3:{type:"compare",kick:L("التوقيت","The timing"),title:L("قبل ولا بعد؟","Before or after?"),cards:[{title:L("بعد جمع الداتا","After data collection"),lines:[L("غالبًا مش مقبولة","Often not accepted"),L("ممكن توقف النشر","Can block publication")],verdict:L("خطر","Risky"),ok:false},{title:L("قبل الجمع","Before collection"),lines:[L("الترتيب السليم","The right order"),L("وثائق جاهزة","Documents ready")],verdict:L("سليم","Sound"),ok:true}]},
+  cta:{pre:L("اكتب","Comment"),kw:"ETHICS",kwLtr:true,mid:"",offer:[L("لفحص مجاني للتوثيق","or use the link"),L("المطلوب","in the caption")]},
+  caps:[L("الترتيب مهم","Order matters"),L("المجلات بتطلب إثبات","Journals ask for proof"),L("الأخلاقيات قبل الداتا","Ethics before data")]},
+ r14:{key:"wk09_tue_fixed_random",
+  hook:[[L("Fixed ولا random effects؟","Fixed or random effects?"),76],[L("متختارش","Don't pick the one"),92],[L("اللي نتيجته أحلى.","with the nicer result."),100,g_]],
+  b1:{type:"compare",kick:L("الفرق","The difference"),title:L("إيه الافتراض؟","What's assumed?"),cards:[{title:"Fixed",lines:[L("تأثير حقيقي واحد","One true effect"),L("مشترك بين الدراسات","shared by all studies")],verdict:L("افتراض","An assumption"),neutral:true},{title:"Random",lines:[L("التأثير بيختلف","The effect varies"),L("من دراسة لدراسة","from study to study")],verdict:L("افتراض","An assumption"),neutral:true}]},
+  b2:{type:"list",kick:L("اختار على أساس","Choose based on"),title:L("مش على أساس النتيجة","Not on the result"),items:[L("الاختلاف المتوقع بين الدراسات","Expected variation between studies"),L("تشابه الدراسات","How similar the studies are"),L("سؤال الدراسة","The research question")]},
+  b3:{type:"steps",kick:L("نفّذ","Do it"),title:L("الترتيب","The order"),items:[L("حدّد الـmodel\nفي البروتوكول","Set the model\nin the protocol"),L("قارن\nللتحقق","Compare\nas a check"),L("اشرح\nاختيارك","Explain\nyour choice")]},
+  cta:{pre:L("اكتب","Comment"),kw:"MODEL",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("15 دقيقة","in the caption")]},
+  caps:[L("افتراضان مختلفان","Two different assumptions"),L("اختار قبل ما تشوف النتيجة","Choose before you see the result"),L("وثّق السبب","Document the reason")]},
+ r15:{key:"wk10_tue_sensitivity",
+  hook:[[L("نتيجتك المجمّعة معنوية.","Your pooled result is significant."),76],[L("هل هتفضل كده","Will it stay that way"),92],[L("لو شلت دراسة واحدة؟","if you drop one study?"),90,g_]],
+  b1:{type:"steps",kick:"Leave-one-out",title:L("اختبار الحساسية","A sensitivity analysis"),items:[L("شيل دراسة\nواحدة","Drop one\nstudy"),L("أعد\nالتجميع","Re-run the\npooling"),L("قارن\nالنتيجة","Compare the\nresult")]},
+  b2:{type:"list",kick:L("جرّب كمان","Also try"),title:L("أكتر من طريقة","More than one way"),items:[L("شيل الدراسات عالية الـbias","Drop high risk-of-bias studies"),L("غيّر الـmodel","Change the model"),L("غيّر معيار الإدراج","Change an inclusion rule")]},
+  b3:{type:"compare",kick:L("القراءة","The reading"),title:L("النتيجة اتغيّرت؟","Did the result change?"),cards:[{title:L("اتغيّرت","It changed"),lines:[L("مش مستقرة","Not stable"),L("فسّر بحذر","Interpret with care")],verdict:L("حذر","Caution"),ok:false},{title:L("ثبتت","It held"),lines:[L("مستقرة","Stable"),L("ثقة أعلى","More confidence")],verdict:L("أقوى","Stronger"),ok:true}]},
+  cta:{pre:L("اكتب","Comment"),kw:"SENSITIVITY",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("للخطة","in the caption")]},
+  caps:[L("اختبر استقرار النتيجة","Test the result's stability"),L("جرّب أكتر من سيناريو","Try more than one scenario"),L("الثبات = ثقة","Stability builds trust")]},
+ r16:{key:"wk10_thu_i2",
+  hook:[[L("الـI² بـ80%.","I² is 80%."),110],[L("هل تعمل pooling","Do you still"),90,g_],[L("برضه؟","pool the studies?"),110]],
+  b1:{type:"stat",kick:L("الاختلاف بين الدراسات","Heterogeneity"),title:"I²",num:"80%",label:L("اختلاف كبير بين الدراسات","Large variation between studies"),sub:L("مقياس تقريبي، مش حكم نهائي","A rough guide, not a verdict"),gauge:{value:80,ticks:[[0,"0"],[25,L("منخفض","low")],[50,L("متوسط","moderate")],[75,L("عالي","high")],[100,"100"]]}},
+  b2:{type:"list",kick:L("ليه الاختلاف؟","Why the variation?"),title:L("ابحث عن السبب","Look for the cause"),items:[L("اختلاف المرضى","Different patients"),L("اختلاف التدخل","Different interventions"),L("اختلاف القياس أو التصميم","Different measurement or design")]},
+  b3:{type:"compare",kick:L("القرار","The decision"),title:L("pooling أعمى ولا تفسير؟","Blind pooling or explanation?"),cards:[{title:L("pooling أعمى","Blind pooling"),lines:[L("متوسط واحد","One average"),L("بيخفي الاختلاف","hides the variation")],verdict:L("مضلل","Misleading"),ok:false},{title:L("تفسير الاختلاف","Explain it"),lines:[L("subgroups","Subgroups,"),L("meta-regression","meta-regression,"),L("أو عرض سردي","or narrative")],verdict:L("أسلم","Safer"),ok:true}]},
+  cta:{pre:L("اكتب","Comment"),kw:"I2",kwLtr:true,mid:"",offer:[L("لمراجعة مجانية","or use the link"),L("لخطة الـmeta-analysis","in the caption")]},
+  caps:[L("I² بيقيس الاختلاف بين الدراسات","I² measures variation between studies"),L("80% = اختلاف كبير","80% means large variation"),L("فسّر الاختلاف قبل التجميع","Explain it before you pool")]},
+ r17:{key:"wk11_tue_three_results",
+  hook:[[L("3 نتايج.","Three results."),110],[L("معيار واحد.","One standard."),110,g_]],
+  b1:{type:"list",kick:L("3 طرق","Three routes"),title:"Scale · Rescue · Independence",items:[L("Scale: وسّع إنتاجك البحثي","Scale: grow your research output"),L("Rescue: أنقذ المخطوطة المرفوضة","Rescue: save a rejected manuscript"),L("Independence: استقلالك الإحصائي","Independence: your statistical independence")]},
+  b2:{type:"list",kick:L("المعيار الواحد","The one standard"),title:L("في كل مشروع","In every project"),items:[L("دقة الداتا","Data integrity"),L("شفافية وإمكانية تكرار","Transparency and reproducibility"),L("أخلاقيات أولًا","Ethics first")]},
+  b3:{type:"stat",kick:L("ابدأ","Start"),title:L("بخطوة صغيرة","With one small step"),num:"15",label:L("دقيقة مجانية","minutes"),sub:L("من غير أي التزام","a short conversation")},
+  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:"",offer:[L("لحجز استشارة","or use the link"),L("مجانية 15 دقيقة","in the caption")]},
+  caps:[L("3 طرق لنفس الهدف","Three routes, one goal"),L("معيار واحد في كل مشروع","One standard in every project"),L("ابدأ بـ15 دقيقة","Start with 15 minutes")]},
+ r18:{key:"wk12_thu_last_batch",
+  hook:[[L("آخر فرصة الشهر ده:","Last chance this month:"),84],[L("استشارتك البحثية","your 15-minute"),96],[L("المجانية 15 دقيقة.","research consultation."),96,g_]],
+  b1:{type:"list",kick:L("هتاخد","You get"),title:L("في 15 دقيقة","In 15 minutes"),items:[L("مراجعة تصميمك أو تحليلك","A review of your design or analysis"),L("أهم المخاطر الواضحة","The obvious risks flagged"),L("خطوات واضحة للجاية","Clear next steps")]},
+  b2:{type:"steps",kick:L("إزاي","How"),title:L("3 خطوات","Three steps"),items:[L("اكتب\nCONSULT","Comment\nCONSULT"),L("اختار\nمعاد","Pick\na time"),L("15 دقيقة\nمجانًا","A short\ncall")]},
+  b3:{type:"stat",kick:L("المدة","The time"),title:L("قصيرة وواضحة","Short and clear"),num:"15",label:L("دقيقة","minutes"),sub:L("من غير أي التزام","a short call")},
+  cta:{pre:L("اكتب","Comment"),kw:"CONSULT",kwLtr:true,mid:"",offer:[L("أو استخدم","or use the link"),L("اللينك في الكابشن","in the caption")]},
+  caps:[L("الفرصة الأخيرة لهذا الشهر","The last chance this month"),L("3 خطوات بسيطة","Three simple steps"),L("15 دقيقة، من غير التزام","A 15-minute call")]},
+};
+
+// ================================================================ timeline
+function render(t){if(!window.READY)return;
+ const li=E.out(P(t,.1,.8));R.logo.setAttribute("opacity",(li*(1-E.io(P(t,15.5,16.0))*1)).toFixed(3));
+ SC.forEach(s=>{const p=win(t,s.a,s.a+.35,s.b-.35,s.b);const first=s.a===0;const op=first?(1-E.io(P(t,s.b-.35,s.b))):p;
+   s.g.setAttribute("opacity",op.toFixed(3));s.g.setAttribute("display",op<=0.001?"none":"inline");if(op>0.001)s.upd(t);});
+ (R.caps||[]).forEach(c=>{const o=win(t,c.a,c.a+.35,c.b-.3,c.b);c.g.setAttribute("opacity",o.toFixed(3));c.g.setAttribute("display",o<=.001?"none":"inline");c.g.setAttribute("transform",`translate(0,${((1-o)*14).toFixed(1)})`);});
+ // fade in / out of the whole reel
+ svg.style.opacity=(clamp(t/.25)*clamp((TOTAL-t)/.35)).toFixed(3);
+}
+window.render=render;window.TOTAL=TOTAL;
+Promise.all(["700 100px PX","600 100px PX","500 100px PX","400 100px PX"].map(f=>document.fonts.load(f,"abc أبج"))).then(()=>document.fonts.ready).then(()=>{buildReel();window.READY=true;render(0);});
+</script></body></html>

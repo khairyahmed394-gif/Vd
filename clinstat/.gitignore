@@ -1,0 +1,6 @@
+posts/out/*/2x/
+*.zip
+reels/frames/
+reels/log_*.txt
+reels/index_gen.html
+reels/index.html
