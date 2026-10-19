@@ -1,0 +1,105 @@
+<!doctype html><html><head><meta charset="utf-8"><title>AL KAHKI CLINIC – A Different Feeling</title>
+<style>
+@font-face{font-family:CG;src:url(Cormorant.ttf);font-weight:300 700}
+@font-face{font-family:LX;src:url(Lexend.ttf);font-weight:100 900}
+html,body{margin:0;padding:0;background:#292824;width:1080px;height:1920px;overflow:hidden}
+#st{position:relative;width:1080px;height:1920px;overflow:hidden;background:#292824}
+.shot{position:absolute;left:0;top:0;width:1080px;height:1920px;overflow:hidden;will-change:transform}
+.shot img{position:absolute;left:0;top:0;transform-origin:0 0;image-rendering:auto}
+.ov{position:absolute;left:0;top:0;width:1080px;height:1920px;pointer-events:none}
+.tx{position:absolute;left:0;width:1080px;text-align:center;opacity:0;color:#292824;white-space:nowrap}
+.serif{font-family:CG,serif;font-weight:500;letter-spacing:.01em}
+.sans{font-family:LX,sans-serif;font-weight:400;letter-spacing:.34em;text-transform:uppercase}
+</style></head><body>
+<div id="st">
+ <div id="shots"></div>
+ <div class="ov" id="scT" style="background:linear-gradient(#FFF7E9 0%,rgba(255,247,233,.78) 22%,rgba(255,247,233,0) 46%);opacity:0"></div>
+ <div class="ov" id="scB" style="background:linear-gradient(0deg,#FFF7E9 0%,rgba(255,247,233,.88) 20%,rgba(255,247,233,0) 40%);opacity:0"></div>
+ <div class="ov" id="sweep" style="mix-blend-mode:soft-light;opacity:0;background:linear-gradient(105deg,rgba(255,236,196,0) 30%,rgba(255,236,196,.95) 50%,rgba(255,236,196,0) 70%)"></div>
+ <div class="ov" id="warm" style="mix-blend-mode:soft-light;background:linear-gradient(180deg,rgba(255,206,140,.34),rgba(183,170,157,.10))"></div>
+ <div class="ov" id="flash" style="mix-blend-mode:screen;opacity:0;background:radial-gradient(ellipse at 50% 55%,rgba(255,226,170,.95),rgba(255,226,170,0) 70%)"></div>
+ <div class="ov" style="background:radial-gradient(ellipse at 50% 50%,rgba(0,0,0,0) 58%,rgba(41,40,36,.34) 100%)"></div>
+ <div id="txt"></div>
+ <svg class="ov" id="ln" width="1080" height="1920" viewBox="0 0 1080 1920"></svg>
+ <svg class="ov" width="1080" height="1920" style="mix-blend-mode:overlay;opacity:.32"><filter id="gr" x="0" y="0" width="100%" height="100%"><feTurbulence id="tb" type="fractalNoise" baseFrequency=".8" numOctaves="2" seed="1"/><feColorMatrix type="saturate" values="0"/></filter><rect width="1080" height="1920" filter="url(#gr)"/></svg>
+ <div class="ov" id="fade" style="background:#292824;opacity:1"></div>
+</div>
+<script>
+const TOTAL=28.0;
+const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x)),lerp=(a,b,x)=>a+(b-a)*x,P=(t,a,b)=>clamp((t-a)/(b-a));
+const io=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2,out=x=>1-Math.pow(1-x,3),sm=x=>x*x*(3-2*x);
+const EVENTS=[];const ev=(t,k,v=1,n=0)=>EVENTS.push({t:+t.toFixed(3),k,v,n});window.EVENTS=EVENTS;
+// ---------------------------------------------------------------- shots: image, window [a,b], dissolve-in, camera keyframes (source-px centre + output scale)
+const SH=[
+ {img:"i1.jpg",a:0,b:2.3,fd:.01,c0:[975,385,2.6],c1:[985,400,2.4],blur:[7,0,1.3]},
+ {img:"i10.jpg",a:1.7,b:3.6,fd:.7,c0:[650,720,1.5],c1:[790,900,1.12]},
+ {img:"i2.jpg",a:3.2,b:6.2,fd:.7,c0:[1000,1000,.97],c1:[1015,1000,1.08],blur:[5,0,.9]},
+ {img:"i6.jpg",a:5.7,b:7.5,fd:.6,c0:[1280,1350,1.0],c1:[1340,1400,1.22]},
+ {img:"i1.jpg",a:7.0,b:9.8,fd:.55,c0:[1560,1380,1.3],c1:[1330,1230,1.12],blur:[4,0,.8]},
+ {img:"i8.jpg",a:9.3,b:12.5,fd:.8,c0:[1000,1020,.98],c1:[1000,1150,1.12]},
+ {img:"i7.jpg",a:11.9,b:17.4,fd:.9,c0:[1010,1050,.96],c1:[790,1260,1.24]},
+ {img:"i8.jpg",a:16.8,b:19.0,fd:.5,c0:[1150,1340,2.0],c1:[1170,1330,2.25]},
+ {img:"i5.jpg",a:18.5,b:20.7,fd:.5,c0:[860,1265,2.7],c1:[925,1240,2.95]},
+ {img:"i7.jpg",a:20.2,b:22.6,fd:.5,c0:[1660,1060,1.42],c1:[1640,900,1.22]},
+ {img:"i10y.jpg",a:22.0,b:28.2,fd:1.0,c0:[790,1900,1.1],c1:[760,1865,1.0],ease:"out",dur:3.4}
+];
+// ---------------------------------------------------------------- text
+const TX=[
+ {t0:1.25,t1:3.25,cls:"serif",size:116,y:340,lines:["A Different","Feeling."],lh:118,top:true},
+ {t0:3.75,t1:6.0,cls:"serif",size:98,y:318,lines:["AL KAHKI CLINIC"],top:true,ls:".06em"},
+ {t0:4.15,t1:6.0,cls:"sans",size:25,y:446,lines:["Designed Around Your Comfort."],top:true,small:true},
+ {t0:8.0,t1:11.9,cls:"serif",size:92,y:288,lines:["Precision in","Every Detail."],lh:96,top:true},
+ {t0:12.7,t1:16.6,cls:"serif",size:92,y:318,lines:["Care That Puts","You First."],lh:96,top:true},
+ {t0:17.2,t1:21.7,cls:"serif",size:96,y:1400,lines:["Every Detail Matters."],bottom:true},
+ {t0:23.1,t1:99,cls:"serif",size:94,y:1290,lines:["AL KAHKI CLINIC"],ls:".06em",bottom:true},
+ {t0:23.9,t1:99,cls:"serif",size:50,y:1395,lines:["Your Smile. Our Priority."],italic:true,bottom:true},
+];
+let R={shots:[],tx:[]};
+function build(){
+ const sc=document.getElementById("shots");
+ SH.forEach(s=>{const d=document.createElement("div");d.className="shot";const im=document.createElement("img");im.src=s.img;d.appendChild(im);sc.appendChild(d);s.d=d;s.im=im;});
+ const T=document.getElementById("txt");
+ TX.forEach(o=>{const d=document.createElement("div");d.className="tx "+o.cls;d.style.top=o.y+"px";d.style.fontSize=o.size+"px";if(o.ls)d.style.letterSpacing=o.ls;if(o.italic)d.style.fontStyle="italic";if(o.small)d.style.fontSize="26px";
+  d.innerHTML=o.lines.map((l,i)=>`<div style="line-height:${o.lh||Math.round(o.size*1.1)}px;height:${o.lh||Math.round(o.size*1.1)}px">${l}</div>`).join("");T.appendChild(d);o.d=d;});
+ // CTA button + hairlines
+ const ln=document.getElementById("ln"),NS="http://www.w3.org/2000/svg";
+ R.cta=document.createElementNS(NS,"rect");[["x",245],["y",1478],["width",590],["height",76],["rx",39],["fill","none"],["stroke","#788747"],["stroke-width",2.5]].forEach(([k,v])=>R.cta.setAttribute(k,v));R.cta.setAttribute("pathLength","1");R.cta.setAttribute("stroke-dasharray","1");R.cta.setAttribute("stroke-dashoffset","1");ln.appendChild(R.cta);
+ R.ctaT=document.createElement("div");R.ctaT.className="tx sans";R.ctaT.style.top="1500px";R.ctaT.style.fontSize="24px";R.ctaT.style.letterSpacing=".28em";R.ctaT.style.fontWeight="500";R.ctaT.textContent="Book Your Consultation";T.appendChild(R.ctaT);
+ R.rules=[];[[418,1,3.0],[330,1,2.2]].forEach(()=>{});
+ const mk=(x1,x2,y)=>{const l=document.createElementNS(NS,"line");[["x1",x1],["x2",x2],["y1",y],["y2",y],["stroke","#788747"],["stroke-width",2.5]].forEach(([k,v])=>l.setAttribute(k,v));l.setAttribute("pathLength","1");l.setAttribute("stroke-dasharray","1");l.setAttribute("stroke-dashoffset","1");ln.appendChild(l);return l;};
+ R.r1=mk(440,640,500);   // under A Different Feeling
+ R.r2=mk(440,640,455);   // under brand name block
+ R.r3=mk(440,640,1286);  // above the final tagline block
+}
+const dr=(l,p)=>l.setAttribute("stroke-dashoffset",(1-clamp(p)).toFixed(4));
+function cam(s,t){const u=s.ease=="out"?out(P(t,s.a,s.a+s.dur)):io(P(t,s.a,s.b));const c=[0,1,2].map(i=>lerp(s.c0[i],s.c1[i],u));const W=s.im.naturalWidth||2000,H=s.im.naturalHeight||2000;c[0]=Math.min(W-540/c[2],Math.max(540/c[2],c[0]));c[1]=Math.min(H-960/c[2],Math.max(960/c[2],c[1]));return c;}
+function render(t){if(!window.READY)return;
+ SH.forEach((s,i)=>{const vis=t>=s.a&&t<s.b+(i==SH.length-1?9:1.2);s.d.style.display=vis?"block":"none";if(!vis)return;
+  const c=cam(s,Math.min(t,s.b));s.im.style.transform=`translate(${(540-c[0]*c[2]).toFixed(2)}px,${(960-c[1]*c[2]).toFixed(2)}px) scale(${c[2].toFixed(5)})`;
+  s.d.style.opacity=(s.fd<.05?1:sm(P(t,s.a,s.a+s.fd))).toFixed(3);
+  let bl=0;if(s.blur){const [b0,b1,dd]=s.blur;bl=lerp(b0,b1,out(P(t,s.a,s.a+dd)));}s.d.style.filter=`blur(${bl.toFixed(2)}px) contrast(1.04) saturate(1.04)${i==SH.length-1?' brightness(1.07)':''}`;});
+ // text
+ TX.forEach(o=>{const a=out(P(t,o.t0,o.t0+.9)),b=1-io(P(t,o.t1-.6,o.t1));const op=a*b;o.d.style.opacity=op.toFixed(3);o.d.style.transform=`translateY(${((1-a)*22).toFixed(1)}px)`;o.d.style.filter=`blur(${((1-a)*5).toFixed(1)}px)`;});
+ // scrims follow text
+ const sT=Math.max(...TX.filter(o=>o.top).map(o=>out(P(t,o.t0,o.t0+.7))*(1-io(P(t,o.t1-.6,o.t1)))));
+ document.getElementById("scT").style.opacity=(sT*.9).toFixed(3);
+ const bT=[0].concat(TX.filter(o=>o.bottom)).map(o=>typeof o=="number"?0:out(P(t,o.t0,o.t0+.9))*(1-io(P(t,o.t1-.6,o.t1))));document.getElementById("scB").style.opacity=(Math.max(...bT)*.92).toFixed(3);
+ // CTA + rules
+ dr(R.cta,io(P(t,24.9,26.0)));R.ctaT.style.opacity=out(P(t,25.2,26.1)).toFixed(3);R.ctaT.style.transform=`translateY(${((1-out(P(t,25.2,26.1)))*14).toFixed(1)}px)`;
+ dr(R.r1,io(P(t,2.0,2.9))*(1-io(P(t,2.9,3.4))));dr(R.r2,io(P(t,4.6,5.4))*(1-io(P(t,5.6,6.1))));dr(R.r3,io(P(t,23.6,24.6)));
+ // light sweeps + warm transition + fade
+ const sw1=P(t,.3,2.4),sw2=P(t,22.3,24.2);const sp=(sw1>0&&sw1<1)?sw1:((sw2>0&&sw2<1)?sw2:-1);const sd=document.getElementById("sweep");
+ if(sp>=0){sd.style.opacity=(Math.sin(Math.PI*sp)*.9).toFixed(3);sd.style.transform=`translateX(${(lerp(-1100,1100,io(sp))).toFixed(0)}px)`;}else sd.style.opacity=0;
+ const fl=Math.sin(Math.PI*P(t,21.9,23.0));document.getElementById("flash").style.opacity=(Math.max(0,fl)*.8).toFixed(3);
+ document.getElementById("fade").style.opacity=(1-io(P(t,0,1.0))+io(P(t,27.4,28))*0).toFixed(3);
+ document.getElementById("tb").setAttribute("seed",String(1+Math.floor(t*24)%97));
+}
+window.render=render;window.TOTAL=TOTAL;
+// sound cues
+ev(.3,"swell",.4);ev(1.3,"soft",.5);ev(1.7,"tick",.4);ev(3.1,"swell",.45);ev(3.9,"chime",.6,0);ev(4.3,"soft",.5);ev(5.65,"tick",.4);
+ev(6.7,"pulse2",.5);for(let i=0;i<5;i++)ev(7.0+i*1.0,"pulse2",.55+i*.06);ev(6.95,"swell",.45);ev(8.1,"chime",.55,2);ev(9.25,"tick",.4);
+ev(11.85,"swell",.4);ev(12.8,"soft",.5);ev(16.7,"swell",.35);ev(17.3,"chime",.5,3);ev(18.4,"tick",.35);ev(20.1,"tick",.35);
+ev(21.9,"swell",.5);ev(22.6,"chime",.7,4);ev(23.2,"chime",.6,2);ev(24.0,"soft",.5);ev(25.0,"chime",.5,5);ev(25.3,"shimmer",.5);ev(26.0,"chime",.6,1);
+// ---------------------------------------------------------------- go
+Promise.all(["600 100px CG","500 100px CG","400 100px LX","500 100px LX"].map(f=>document.fonts.load(f,"AL KAHKI CLINIC"))).then(()=>document.fonts.ready).then(async()=>{build();await Promise.all(SH.map(s=>s.im.decode().catch(()=>{})));window.READY=true;render(0);});
+</script></body></html>
