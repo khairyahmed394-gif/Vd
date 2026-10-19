@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Critical inline styles for instant FCP/LCP -->
+    <style>
+      body{margin:0;background:#0a0f1a;color:#e5e7eb}
+      #root{min-height:100vh}
+      .prerender-hero{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:0 1rem}
+      .prerender-hero h1{font-family:system-ui,sans-serif;font-size:clamp(2rem,5vw,4.5rem);font-weight:800;line-height:1.1;margin:0 0 1.5rem;color:#e5e7eb}
+      .prerender-hero h1 span{color:#3b82f6}
+      .prerender-hero p{font-family:system-ui,sans-serif;font-size:clamp(1rem,2.5vw,1.5rem);color:#6b7280;margin:0;max-width:40rem}
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="https://fonts.gstatic.com/s/orbitron/v31/yMJRMIlzdpvBhQQL_Qq7dy0.woff2" crossorigin />
+    <!-- Load Google Fonts asynchronously to avoid render-blocking -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" /></noscript>
+    <title>AI Marketing Solutions | Professional AI Automation Agency</title>
+    <meta name="description" content="Transforming e-commerce with AI-driven marketing automation, replacing traditional media buying with intelligent n8n workflows.">
+    <meta name="keywords" content="AI Marketing Automation, E-commerce Scaling, Automated Dashboards, n8n Automation, AI Agents">
+    <meta name="author" content="AI Solutions" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/7f4w0QFV8yQL73pXTCYCw1V97Vv2/social-images/social-1773106174741-Ai_Marketing_agent.webp">
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://storage.googleapis.com/gpt-engineer-file-uploads/7f4w0QFV8yQL73pXTCYCw1V97Vv2/social-images/social-1773106174741-Ai_Marketing_agent.webp">
+    <meta property="og:title" content="AI Marketing Solutions | Professional AI Automation Agency">
+    <meta name="twitter:title" content="AI Marketing Solutions | Professional AI Automation Agency">
+    <meta property="og:description" content="Transforming e-commerce with AI-driven marketing automation, replacing traditional media buying with intelligent n8n workflows.">
+    <meta name="twitter:description" content="Transforming e-commerce with AI-driven marketing automation, replacing traditional media buying with intelligent n8n workflows.">
+    <meta property="og:url" content="https://ai-marketing-solutions.lovable.app/" />
+    <link rel="canonical" href="https://ai-marketing-solutions.lovable.app/" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Ai Solutions",
+        "url": "https://ai-marketing-solutions.lovable.app/",
+        "logo": "https://ai-marketing-solutions.lovable.app/favicon.ico",
+        "description": "AI marketing automation agency engineering revenue systems for e-commerce with n8n workflows and autonomous AI agents."
+      }
+    </script>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "Ai Solutions",
+        "url": "https://ai-marketing-solutions.lovable.app/",
+        "description": "AI Marketing Automation & E-commerce Scaling Engine."
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <!-- Pre-render skeleton for instant FCP/LCP — replaced by React on mount -->
+      <div class="prerender-hero">
+        <h1>AI Marketing Automation<br><span>E-commerce Scaling Engine</span></h1>
+        <p style="font-size:clamp(1.25rem,2.5vw,1.5rem);color:#9ca3af;margin:0 auto;max-width:42rem">We don't manage ads. We engineer revenue systems.</p>
+      </div>
+    </div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
