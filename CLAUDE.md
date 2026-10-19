@@ -4,8 +4,8 @@
 
 **Current engagement:** paid social campaign for client acquisition.
 - Markets: Saudi Arabia, UAE, Qatar (first wave).
-- Budget: 50,000 EGP (confirm whether monthly or total, and the billing currency).
-- Platforms: LinkedIn and Facebook/Instagram paid; X organic only at this budget.
+- Budget: 15,000 EGP, about USD 300 (confirm whether monthly or total, and the billing currency). Earlier drafts said 50,000; that was wrong.
+- Platforms: Facebook/Instagram paid only (one campaign, one ad set for all three countries); LinkedIn and X organic at this budget.
 - Arabic: Modern Standard Arabic, written for the Gulf (not Egyptian). Needs native-speaker review.
 
 **Where things are**

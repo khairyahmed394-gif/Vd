@@ -3,8 +3,8 @@
 **Client:** ClinStat Research (clinical research and biostatistics consultancy)
 **Goal:** client acquisition
 **Markets:** Saudi Arabia, UAE, Qatar (GCC, first wave)
-**Budget:** 50,000 EGP **[CONFIRM: monthly or total; billing currency]**
-**Platforms:** LinkedIn, Facebook, Instagram (paid); X (organic for now)
+**Budget:** 15,000 EGP (about USD 300) **[CONFIRM: monthly or total; billing currency]**
+**Platforms:** Facebook + Instagram (paid); LinkedIn and X (organic for now)
 
 ---
 
@@ -28,18 +28,16 @@ Both Arabic videos are 20 s, 1080×1920, 30 fps, right-to-left, with the origina
 
 **Funnel:** awareness 30% (reels), consideration 30% (education), conversion 40% (free 15-minute consultation).
 
-**Budget (50,000 EGP):**
+**Budget (15,000 EGP):**
 
-| Platform | EGP | Share |
+| Channel | EGP | Share |
 | --- | --- | --- |
-| LinkedIn | 22,000 | 44% |
-| Facebook + Instagram | 22,000 | 44% |
-| Testing reserve | 6,000 | 12% |
-| X (paid) | 0 | organic only |
+| Meta (Facebook + Instagram), paid | 12,000 | 80% |
+| Reserve | 3,000 | 20% |
+| LinkedIn, paid | 0 | organic only |
+| X, paid | 0 | organic only |
 
-Why X is unpaid: about USD 1,000 is too thin to learn anything from four paid platforms. Add paid X later if the first two work.
-
-**Within each platform:** Saudi Arabia 45%, UAE 35%, Qatar 20% (starting guess). Language: Arabic first in Saudi Arabia, English first in the UAE, both in Qatar.
+Why only Meta: about USD 300 is too thin to learn anything from more than one paid platform, and LinkedIn clicks cost several times more. Structure: one Meta campaign (Leads objective with an instant form), one ad set for all three countries, three ads. Split by country only once there is data. Expect a small number of leads and learning, not volume.
 
 **Timeline:** week 0 setup, week 1 launch, week 2 first read, week 3 retargeting, week 4 review and plan month 2.
 
@@ -55,7 +53,7 @@ Not yet made: Arabic versions of the "3 factors" and Gulf videos, and 1:1 or 4:5
 
 ## 4. Open items before launch
 
-1. **Budget:** confirm whether 50,000 EGP is monthly or total, and the billing currency. The USD figure is approximate.
+1. **Budget:** confirm whether 15,000 EGP is monthly or total, and the billing currency. The USD figure is approximate.
 2. **Arabic review:** have a native Gulf Arabic speaker check the ad copy, the technical terms and the on-screen video text.
 3. **Team claim:** the "5 questions" video says every team member has "50+ papers and an h-index of 5+". It comes from the English video. Confirm it is true before running it.
 4. **Landing page:** one page per offer, Arabic and English, a consultation form and a privacy notice. Not built.
@@ -75,6 +73,6 @@ Not yet made: Arabic versions of the "3 factors" and Gulf videos, and 1:1 or 4:5
 1. Answer the open items above (budget, accounts, claim check).
 2. Get the Arabic copy and videos reviewed.
 3. Build the landing page and tracking.
-4. Launch LinkedIn and Meta with 2 to 3 ads per ad set, one ad set per country.
+4. Launch Meta only: one campaign, one ad set for the three countries, 3 ads. Post the same content organically on LinkedIn and X.
 5. Review after week 2 on cost per qualified lead. Move the reserve to the winner.
 6. Once ads have spend, run the plugin's Google/Meta/LinkedIn audits on exported data to find waste and gaps.
