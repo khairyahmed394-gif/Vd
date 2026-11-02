@@ -1,6 +1,8 @@
 import base64,io,glob,html
 from PIL import Image
-import data as D
+import data as D0
+import data2 as D2
+class D: CONTENT=D2.ALL
 src=open("../build_strategy.py").read()
 exec(src.split("N='<span")[0])
 def esc(s): return html.escape(str(s),quote=False)
@@ -33,17 +35,17 @@ for i,c in enumerate(D.CONTENT,1):
         body+="<h3>نسخة LinkedIn المكيّفة</h3>"+box(c["li"])
     if "fb" in c:
         body+="<h3>نسخة فيسبوك المكيّفة</h3>"+box(c["fb"])
-    key={"CS-001":"cs001","CS-002":"cs002","CS-003":"cs003","CS-004":"cs004","CS-005":"cs005","CS-006":"cs006","CS-007":"cs007"}[c["id"]]
+    key="cs"+c["id"][3:]
     body+="<h3>التصاميم (معاينة مصغّرة، الملفات كاملة في الـzip)</h3>"+imgs(key)
     S.append(sec(i,f"{c['id']} · {c['hook']}",body,f"{c['platform']} · {c['date']}"))
 CSS2=CSS+"\n.copy{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px 20px;font-size:16px;line-height:1.9;margin:8px 0}.gal{display:flex;gap:14px;flex-wrap:wrap}.gal figure{margin:0;width:150px}.gal img{width:150px;border:1px solid var(--line);border-radius:8px;display:block}.gal figcaption{font-size:11px;color:var(--mut);direction:ltr;text-align:center}\n"
 toc="".join(f'<a href="#d{i}"><b>{i}</b>{c["id"]}</a>' for i,c in enumerate(D.CONTENT,1))
-html_=f'''<title>حزمة محتوى ClinStat الأسبوع 1</title>
+html_=f'''<title>حزمة محتوى ClinStat 30 يومًا</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>{CSS2.replace("Amiri,serif","'IBM Plex Sans Arabic',sans-serif").replace("Cairo,","'IBM Plex Sans Arabic',")}</style>
 <div dir="rtl" lang="ar" class="layout"><nav class="rail" aria-label="المحتويات"><small>المحتوى</small>{toc}</nav>
-<main><div class="hero"><h1>حزمة محتوى ClinStat: الأسبوع 1</h1><p>دفعة تجريبية من 7 مواد (8 إلى 14 نوفمبر 2026). نصوص كاملة وسكريبت وستوري بورد وتصاميم بصيغها. كل مادة مسودة بانتظار المراجعة العلمية والإبداعية، وكل رابط أو عرض بين [ ] لا ينشر قبل تأكيده.</p><span class="tag">الجولة 3 · دفعة تجريبية · مسودة</span></div>
+<main><div class="hero"><h1>حزمة محتوى ClinStat: 30 يومًا</h1><p>30 مادة من 8 نوفمبر إلى 7 ديسمبر 2026. نصوص كاملة وسكريبت وستوري بورد وتصاميم بصيغها. كل مادة مسودة بانتظار المراجعة العلمية والإبداعية، وكل رابط أو عرض بين [ ] لا ينشر قبل تأكيده.</p><span class="tag">الجولة 3 · الحزمة الكاملة · مسودة</span></div>
 {"".join(S)}</main></div>'''
-open("week1_package_ar.html","w").write(html_);print(len(html_))
+open("content_package_ar.html","w").write(html_);print(len(html_))

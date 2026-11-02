@@ -74,6 +74,27 @@ def build():
     for i,(a,b_,c_) in enumerate(C["CS-007"]["slides"],1):
         k="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c");R[f"cs007_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,vis_ci() if i==3 else None)
     return R
+
+def reelcover_g(hook,series):
+    W,H=1080,1920
+    parts=hook.split("؟")[0] if "؟" in hook else hook
+    b=f'<div class="top" style="margin-top:250px">{svg_logo(True,280)}<span class="kick" style="font-size:34px">{t(series)}</span></div><div style="margin:auto 0"><h1 style="font-size:104px;color:{SAND}">{t(hook)}</h1></div>'
+    return page(W,H,b,GREEN,SAND,100)
+def build_rest():
+    import data2
+    R={}
+    for c in data2.ALL[7:]:
+        n=int(c["id"][3:]);k=f"cs{n:03d}";typ=c["typ"]
+        if typ=="carousel":
+            for i,(a,b_,c_) in enumerate(c["slides"],1):
+                kk="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c");R[f"{k}_carousel_{i:02d}_1080x1350"]=slide(kk,i,7,b_,c_)
+        elif typ=="reel": R[f"{k}_reel_cover_1080x1920"]=reelcover_g(c["hook"],c["series"])
+        elif typ=="x": R[f"{k}_x_1600x900"]=single(1600,900,c["hook"],c["core"],None,90,92,42)
+        elif typ=="li": R[f"{k}_linkedin_1200x627"]=single(1200,627,c["hook"],c["core"],None,44,54,28)
+        elif typ=="fb": R[f"{k}_facebook_1080x1350"]=single(1080,1350,c["hook"],c["core"],None,90,92,44)
+        elif typ=="story":
+            for i,(a,b_,c_) in enumerate(c["frames"],1): R[f"{k}_story_{i}_1080x1920"]=story(a,b_,c_,dark=(i==3))
+    return R
 async def render(R):
     from playwright.async_api import async_playwright
     async with async_playwright() as p:
@@ -84,4 +105,4 @@ async def render(R):
             await pg.goto("file://"+os.path.abspath("_t.html"));await pg.wait_for_timeout(250)
             await pg.screenshot(path=f"out/{name}.png");await pg.close()
         await b.close();os.remove("_t.html")
-if __name__=="__main__": asyncio.run(render(build()))
+if __name__=="__main__": R=build();R.update(build_rest());asyncio.run(render(R))
