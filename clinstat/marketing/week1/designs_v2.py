@@ -12,9 +12,9 @@ def wave(w,h):
 # ---- props: soft shaded illustrations (stand-ins for product photos)
 def _sh(i,s=14):return f'<filter id="s{i}" x="-30%" y="-30%" width="160%" height="170%"><feDropShadow dx="0" dy="14" stdDeviation="{s}" flood-color="#6b5a3a" flood-opacity=".28"/></filter>'
 PROPS={
-"mug":lambda:f'''<g filter="url(#sh)"><path d="M70 40 h230 v170 a115 70 0 0 1 -230 0z" fill="url(#mg)"/><ellipse cx="185" cy="40" rx="115" ry="30" fill="#fff"/><ellipse cx="185" cy="42" rx="98" ry="22" fill="#3a2418"/><ellipse cx="170" cy="38" rx="50" ry="8" fill="#5b3a28" opacity=".7"/><path d="M298 70 c70 -10 78 90 0 98" fill="none" stroke="url(#mg)" stroke-width="26" stroke-linecap="round"/></g>''',
-"notebook":lambda:f'''<g filter="url(#sh)"><path d="M0 120 L320 40 L420 150 L100 250z" fill="#E9E5DC"/><path d="M0 120 L320 40 L322 62 L4 142z" fill="#D8D3C7"/><path d="M0 142 L100 270 L420 168 L420 150 L100 250 L4 142z" fill="#fff" opacity=".7"/></g>''',
-"glasses":lambda:f'''<g filter="url(#sh)" fill="none" stroke="#1a1a1a" stroke-width="12"><ellipse cx="70" cy="80" rx="62" ry="52"/><ellipse cx="228" cy="70" rx="62" ry="52"/><path d="M130 72 q15 -14 38 -4" stroke-width="9"/><path d="M8 78 L-30 60" stroke-width="9"/></g>''',
+"mug":lambda:f'''<ellipse cx="190" cy="268" rx="190" ry="34" fill="#cfc6b2" opacity=".55"/><g filter="url(#sh)"><path d="M70 40 h230 v170 a115 70 0 0 1 -230 0z" fill="url(#mg)"/><ellipse cx="185" cy="40" rx="115" ry="30" fill="#fff"/><ellipse cx="185" cy="42" rx="98" ry="22" fill="#3a2418"/><ellipse cx="170" cy="38" rx="50" ry="8" fill="#5b3a28" opacity=".7"/><path d="M92 70 v120" stroke="#fff" stroke-width="10" stroke-linecap="round" opacity=".7"/><path d="M298 70 c70 -10 78 90 0 98" fill="none" stroke="url(#mg)" stroke-width="26" stroke-linecap="round"/></g>''',
+"notebook":lambda:f'''<g filter="url(#sh)"><path d="M0 120 L320 40 L420 150 L100 250z" fill="#E9E5DC"/><path d="M0 120 L320 40 L322 62 L4 142z" fill="#D8D3C7"/><g stroke="#bdb6a6" stroke-width="3" opacity=".7"><path d="M40 110 L330 38"/><path d="M60 138 L340 66"/></g><path d="M0 142 L100 270 L420 168 L420 150 L100 250 L4 142z" fill="#fff" opacity=".7"/></g>''',
+"glasses":lambda:f'''<g filter="url(#sh)" fill="none" stroke="#1a1a1a" stroke-width="12"><ellipse cx="70" cy="80" rx="62" ry="52"/><ellipse cx="228" cy="70" rx="62" ry="52"/><path d="M130 72 q15 -14 38 -4" stroke-width="9"/><path d="M30 60 q20 -24 48 -16" stroke="#fff" stroke-width="6" opacity=".6"/><path d="M190 50 q20 -22 48 -14" stroke="#fff" stroke-width="6" opacity=".6"/><path d="M8 78 L-30 60" stroke-width="9"/></g>''',
 "chart":lambda:f'''<g filter="url(#sh)"><rect x="0" y="0" width="300" height="220" rx="14" fill="#fff"/><rect x="26" y="26" width="120" height="14" rx="7" fill="{GREEN}"/><rect x="26" y="58" width="190" height="8" rx="4" fill="#E3DDCF"/><line x1="40" y1="190" x2="270" y2="190" stroke="#C9C3B5" stroke-width="3"/><rect x="60" y="120" width="34" height="70" rx="4" fill="{GREEN}"/><rect x="112" y="92" width="34" height="98" rx="4" fill="{G2}"/><rect x="164" y="136" width="34" height="54" rx="4" fill="{GOLD}"/><rect x="216" y="104" width="34" height="86" rx="4" fill="{GOLD}" opacity=".7"/></g>''',
 "clipboard":lambda:f'''<g filter="url(#sh)"><rect x="0" y="20" width="250" height="330" rx="18" fill="#C9AE84"/><rect x="18" y="52" width="214" height="280" rx="8" fill="#fff"/><rect x="80" y="0" width="90" height="44" rx="12" fill="#6b6b66"/><g fill="{GREEN}"><rect x="40" y="90" width="22" height="22" rx="4"/><rect x="40" y="140" width="22" height="22" rx="4"/><rect x="40" y="190" width="22" height="22" rx="4"/><rect x="40" y="240" width="22" height="22" rx="4"/></g><g fill="#D9D3C4"><rect x="80" y="96" width="130" height="10" rx="5"/><rect x="80" y="146" width="110" height="10" rx="5"/><rect x="80" y="196" width="130" height="10" rx="5"/><rect x="80" y="246" width="90" height="10" rx="5"/></g></g>''',
 "calc":lambda:f'''<g filter="url(#sh)"><rect x="0" y="0" width="190" height="270" rx="22" fill="#2b2b2b"/><rect x="18" y="20" width="154" height="56" rx="8" fill="#cfe3d6"/>{"".join(f'<rect x="{18+c*52}" y="{98+r*44}" width="42" height="34" rx="8" fill="{GOLD if c==3 else "#555"}"/>' for r in range(4) for c in range(3+1))}</g>''',
@@ -29,7 +29,7 @@ def props(names,x,y,scale=1.0,rot=0):
     return f'<svg style="position:absolute;left:{x}px;bottom:{y}px;transform:scale({scale}) rotate({rot}deg);transform-origin:left bottom;overflow:visible" width="520" height="440" viewBox="0 0 520 440">{shs}{g}</svg>'
 def page(w,h,body,pad=80,wh=None):
     wh=wh or int(h*.07)
-    return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}html,body{{width:{w}px;height:{h}px;background:radial-gradient(120% 90% at 70% 40%,#fff 0%,{CREAM} 55%,#F1EBDD 100%);color:{INK};--p:{pad}px;overflow:hidden}}.c{{padding:{pad}px {pad}px 0}}.h{{font-weight:700;color:{GREEN};line-height:1.3;text-wrap:balance}}.sub{{font-weight:400;color:{G2};line-height:1.6}}.bar{{position:absolute;right:0;width:{int(w*.048)}px;background:{GOLD}}}.hl{{display:inline-block;background:{GREEN};color:{GOLD};font-weight:700;padding:0 .28em;border-radius:6px;line-height:1.25}}.tag{{position:absolute;right:{pad}px;font-weight:400;color:{G2}}}</style></head><body><div class="c" style="position:relative;width:100%;height:100%">{body}{wave(w,wh)}</div></body></html>'
+    return f'<!doctype html><html><head><meta charset="utf-8"><style>{CSS}html,body{{width:{w}px;height:{h}px;background:radial-gradient(120% 90% at 70% 40%,#fff 0%,{CREAM} 55%,#F1EBDD 100%);color:{INK};--p:{pad}px;overflow:hidden}}.c{{padding:{pad}px {pad}px 0}}.h{{font-weight:700;color:{GREEN};line-height:1.3;text-wrap:balance}}.sub{{font-weight:400;color:{G2};line-height:1.6}}.bar{{position:absolute;right:0;width:{int(w*.048)}px;background:{GOLD}}}.hl{{display:inline-block;background:{GREEN};color:{GOLD};font-weight:700;padding:0 .28em;border-radius:6px;line-height:1.25}}.tag{{position:absolute;right:{pad}px;font-weight:400;color:{G2}}}</style></head><body><div class="c" style="position:relative;width:100%;height:100%">{body}<div style="position:absolute;right:{pad}px;bottom:{wh+16}px;font-weight:500;font-size:{max(26,int(w*.024))}px;color:{G2};letter-spacing:.02em;direction:ltr">Research that survives peer review</div>{wave(w,wh)}</div></body></html>'
 def head(w,lw,top=0):
     return f'<div style="display:flex;justify-content:center;margin-top:{top}px">{logo(light=False,w=lw)}</div>'
 def block(w,y,h,inner,left=None):
@@ -50,10 +50,10 @@ def single(w,h,title,sub,vis,pr,tsz,ssz,note=None):
     return page(w,h,b,pad)
 def slide(kind,n,total,title,body,vis=None,pr=None):
     W,H=1080,1350
-    cnt=f'<div style="position:absolute;right:80px;bottom:120px;font-weight:600;font-size:28px;color:{G2}">{n}/{total}</div>'
+    cnt=f'<div style="position:absolute;right:80px;bottom:175px;font-weight:600;font-size:28px;color:{G2}">{n}/{total}</div>'
     if kind=="cover":
-        b=head(W,420)+block(W,300,360,f'<div style="font-weight:500;font-size:34px;color:{GOLD};margin-bottom:18px">ClinStat Research</div><h1 class="h" style="font-size:84px">{t(title)}</h1>')
-        b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:700px"><p class="sub" style="font-size:40px">{t(body)}</p></div>'
+        b=head(W,420)+block(W,300,360,f'<div style="font-weight:500;font-size:34px;color:{GOLD};margin-bottom:18px">ClinStat Research</div><h1 class="h" style="font-size:92px">{t(title)}</h1>')
+        b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:730px"><p class="sub" style="font-size:44px">{t(body)}</p></div>'
         if pr: b+=pr
         return page(W,H,b+cnt,80)
     if kind=="cta":
@@ -62,38 +62,38 @@ def slide(kind,n,total,title,body,vis=None,pr=None):
         if pr: b+=pr
         return page(W,H,b+cnt,80)
     v=f'<div style="margin-top:34px">{vis}</div>' if vis else ""
-    b=head(W,330)+block(W,230,300,f'<div style="margin-bottom:16px"><span class="hl" style="font-size:54px;padding:2px 22px">{n-1}</span></div><h2 class="h" style="font-size:66px">{t(title)}</h2>')
-    b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:570px"><p class="sub" style="font-size:42px">{t(body)}</p>{v}</div>'
+    b=head(W,330)+block(W,230,300,f'<div style="margin-bottom:16px"><span class="hl" style="font-size:54px;padding:2px 22px">{n-1}</span></div><h2 class="h" style="font-size:78px">{t(title)}</h2>')
+    b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:570px"><p class="sub" style="font-size:48px">{t(body)}</p>{v}</div>'
     if pr: b+=pr
     return page(W,H,b+cnt,80)
 def story(title,sub,note,pr=None,sticker=False):
     W,H=1080,1920
     st=f'<div style="margin-top:46px;width:760px;border-radius:36px;background:#fff;color:{INK};padding:38px;text-align:center;font-size:44px;font-weight:600;box-shadow:0 10px 30px #0002">اكتب سؤالك هنا</div>' if sticker else ""
-    b=head(W,440,250)+block(W,520,420,f'<h1 class="h" style="font-size:92px">{t(title)}</h1>')
+    b=head(W,440,250)+block(W,520,420,f'<h1 class="h" style="font-size:104px">{t(title)}</h1>')
     b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:980px"><p class="sub" style="font-size:46px">{t(sub)}</p>{st}<p style="font-size:32px;color:{GOLD};font-weight:500;margin-top:30px">{t(note)}</p></div>'
     if pr: b+=pr
     return page(W,H,b,80,wh=130)
 def reelcover(hook,series="Research Red Flags",pr=None):
     W,H=1080,1920
-    b=head(W,460,250)+block(W,560,620,f'<div style="font-weight:500;font-size:34px;color:{GOLD};margin-bottom:18px">{t(series)}</div><h1 class="h" style="font-size:108px">{t(hook)}</h1>')
+    b=head(W,460,250)+block(W,560,620,f'<div style="font-weight:500;font-size:34px;color:{GOLD};margin-bottom:18px">{t(series)}</div><h1 class="h" style="font-size:118px">{t(hook)}</h1>')
     if pr: b+=pr
     return page(W,H,b,80,wh=130)
 def build():
     C={c["id"]:c for c in D.CONTENT};R={}
     P=lambda n,x,y,s=1,r=0:props(n,x,y,s,r)
-    R["cs001_linkedin_1200x627"]=single(1200,627,"p-value صغيرة؟ ده مش معناه إن الأثر كبير.","الدلالة الإحصائية وحجم الأثر سؤالان مختلفان",None,P(["chart","pen"],50,50,.8),50,28)
+    R["cs001_linkedin_1200x627"]=single(1200,627,"p-value صغيرة؟ ده مش معناه إن الأثر كبير.","الدلالة الإحصائية وحجم الأثر سؤالان مختلفان",None,P(["chart","pen"],10,45,.85),56,30)
     for i,(a,b_,c_) in enumerate(C["CS-003"]["slides"],1):
         k="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c")
-        pr=P(["mug","notebook","glasses"],20,70,.9) if k=="cover" else (P(["clipboard","pen"],30,90,.8) if k=="cta" else None)
+        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else None)
         R[f"cs003_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,pr=pr)
-    R["cs004_x_1600x900"]=single(1600,900,"دلالة إحصائية ≠ أهمية سريرية","الأولى تقول إن البيانات متوافقة أو لا مع فرضية العدم. الثانية تسأل: هل الأثر يغيّر قرارًا يخص المريض؟",None,P(["chart","pen"],60,80,1.1),70,38)
-    R["cs005_facebook_1080x1350"]=single(1080,1350,"قبل ما تجمع أول بيان، راجع تصميم دراستك.","سؤال محدد · تصميم ونتيجة أساسية · حجم عينة · خطة تحليل",'<span class="hl" style="font-size:40px;padding:14px 46px;border-radius:60px">احجز استشارة تصميم دراسة</span>',P(["notebook","mug","glasses"],10,110,.85),70,40)
+    R["cs004_x_1600x900"]=single(1600,900,"دلالة إحصائية ≠ أهمية سريرية","الأولى تقول إن البيانات متوافقة أو لا مع فرضية العدم. الثانية تسأل: هل الأثر يغيّر قرارًا يخص المريض؟",None,P(["chart","pen"],30,70,1.15),82,42)
+    R["cs005_facebook_1080x1350"]=single(1080,1350,"قبل ما تجمع أول بيان، راجع تصميم دراستك.","سؤال محدد · تصميم ونتيجة أساسية · حجم عينة · خطة تحليل",'<span class="hl" style="font-size:40px;padding:14px 46px;border-radius:60px">احجز استشارة تصميم دراسة</span>',P(["notebook","mug","glasses"],-30,100,1.0),70,40)
     for i,(a,b_,c_) in enumerate(C["CS-006"]["frames"],1):
-        R[f"cs006_story_{i}_1080x1920"]=story(a if i>1 else "اسألنا",b_,c_,pr=P(["mug","notebook"],20,170,.95) if i==3 else None,sticker=(i==1))
-    R["cs002_reel_cover_1080x1920"]=reelcover("حذف المرضى اللي بياناتهم ناقصة؟ مش قرار محايد.",pr=P(["clipboard","pen"],40,200,1.0))
+        R[f"cs006_story_{i}_1080x1920"]=story(a if i>1 else "اسألنا",b_,c_,pr=P(["mug","notebook"],-20,200,.95) if i==3 else None,sticker=(i==1))
+    R["cs002_reel_cover_1080x1920"]=reelcover("حذف المرضى اللي بياناتهم ناقصة؟ مش قرار محايد.",pr=P(["clipboard","pen"],20,200,1.0))
     for i,(a,b_,c_) in enumerate(C["CS-007"]["slides"],1):
         k="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c")
-        pr=P(["mug","notebook","glasses"],20,70,.9) if k=="cover" else (P(["clipboard","pen"],30,90,.8) if k=="cta" else None)
+        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else None)
         R[f"cs007_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,O.vis_ci() if i==3 else None,pr=pr)
     return R
 async def render(R,outd="out_v2"):
