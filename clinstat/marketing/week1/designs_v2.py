@@ -84,17 +84,17 @@ def build():
     R["cs001_linkedin_1200x627"]=single(1200,627,"p-value صغيرة؟ ده مش معناه إن الأثر كبير.","الدلالة الإحصائية وحجم الأثر سؤالان مختلفان",None,P(["chart","pen"],10,45,.85),56,30)
     for i,(a,b_,c_) in enumerate(C["CS-003"]["slides"],1):
         k="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c")
-        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else None)
+        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else P(["mug","notebook"],-10,108,.68))
         R[f"cs003_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,pr=pr)
     R["cs004_x_1600x900"]=single(1600,900,"دلالة إحصائية ≠ أهمية سريرية","الأولى تقول إن البيانات متوافقة أو لا مع فرضية العدم. الثانية تسأل: هل الأثر يغيّر قرارًا يخص المريض؟",None,P(["chart","pen"],30,70,1.15),82,42)
     R["cs005_facebook_1080x1350"]=single(1080,1350,"قبل ما تجمع أول بيان، راجع تصميم دراستك.","سؤال محدد · تصميم ونتيجة أساسية · حجم عينة · خطة تحليل",'<span class="hl" style="font-size:40px;padding:14px 46px;border-radius:60px">احجز استشارة تصميم دراسة</span>',P(["notebook","mug","glasses"],-30,100,1.0),70,40)
     for i,(a,b_,c_) in enumerate(C["CS-006"]["frames"],1):
-        R[f"cs006_story_{i}_1080x1920"]=story(a if i>1 else "اسألنا",b_,c_,pr=P(["mug","notebook"],-20,200,.95) if i==3 else None,sticker=(i==1))
+        R[f"cs006_story_{i}_1080x1920"]=story(a if i>1 else "اسألنا",b_,c_,pr=P(["mug","notebook"],-20,200,.9),sticker=(i==1))
     R["cs002_reel_cover_1080x1920"]=reelcover("حذف المرضى اللي بياناتهم ناقصة؟ مش قرار محايد.",pr=P(["clipboard","pen"],20,200,1.0))
     for i,(a,b_,c_) in enumerate(C["CS-007"]["slides"],1):
         k="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c")
-        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else None)
-        R[f"cs007_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,O.vis_ci() if i==3 else None,pr=pr)
+        pr=P(["mug","notebook","glasses"],-30,100,1.0) if k=="cover" else (P(["clipboard","pen"],20,105,.95) if k=="cta" else P(["mug","notebook"],-10,108,.68))
+        R[f"cs007_carousel_{i:02d}_1080x1350"]=slide(k,i,7,b_,c_,O.vis_ci() if i==3 else None,pr=None if i==3 else pr)
     return R
 async def render(R,outd="out_v2"):
     from playwright.async_api import async_playwright
@@ -107,4 +107,42 @@ async def render(R,outd="out_v2"):
             await pg.goto("file://"+os.path.abspath("_t2.html"));await pg.wait_for_timeout(250)
             await pg.screenshot(path=f"{outd}/{name}.png");await pg.close()
         await b.close();os.remove("_t2.html")
-if __name__=="__main__": asyncio.run(render(build()))
+
+SETS=[(["mug","notebook","glasses"],1.0),(["clipboard","pen"],.95),(["chart","pen"],.95),(["calc","notebook"],1.0)]
+def auto(title,base):
+    n=len(title);return base if n<=38 else int(base*.86) if n<=60 else int(base*.74)
+def build_rest():
+    import data2
+    R={};P=props
+    for j,c in enumerate(data2.ALL[7:]):
+        n=int(c["id"][3:]);k=f"cs{n:03d}";typ=c["typ"];names,sc=SETS[j%4]
+        if typ=="carousel":
+            for i,(a,b_,c_) in enumerate(c["slides"],1):
+                kk="cover" if a=="غلاف" else ("cta" if a=="CTA" else "c")
+                pr=P(names,-30 if kk=="cover" else 20,100,sc*(1.0 if kk=="cover" else .95)) if kk!="c" else P(names,-10,108,.68)
+                R[f"{k}_carousel_{i:02d}_1080x1350"]=slide(kk,i,7,b_,c_,pr=pr)
+        elif typ=="reel": R[f"{k}_reel_cover_1080x1920"]=reelcover(c["hook"],c["series"],pr=P(names,20,200,sc))
+        elif typ=="x": R[f"{k}_x_1600x900"]=single(1600,900,c["hook"],c["core"],None,P(names,30,70,1.15*sc),auto(c["hook"],82),42)
+        elif typ=="li": R[f"{k}_linkedin_1200x627"]=single(1200,627,c["hook"],c["core"],None,P(names,10,45,.85*sc),auto(c["hook"],56),30)
+        elif typ=="fb": R[f"{k}_facebook_1080x1350"]=single(1080,1350,c["hook"],c["core"],None,P(names,-30,100,sc),auto(c["hook"],70),40)
+        elif typ=="story":
+            for i,(a,b_,c_) in enumerate(c["frames"],1): R[f"{k}_story_{i}_1080x1920"]=story(a,b_,c_,pr=P(names,-20,200,.9*sc))
+    return R
+def btn(label,fs):return f'<span class="hl" style="font-size:{fs}px;padding:{int(fs*.3)}px {int(fs*.9)}px;border-radius:60px">{t(label)}</span>'
+def build_ads():
+    sys.path.insert(0,"/home/user/Vd/clinstat/marketing/round4");import camp
+    R={};P=props
+    for j,c in enumerate(camp.CAMPS):
+        names,sc=SETS[j%3]
+        for v in ("A","B"):
+            d=c[v];k=f"c{c['id']}_{v}"
+            R[f"{k}_feed_1080x1350"]=single(1080,1350,d["h"],d["sub"],btn(c["cta_label"],44),P(names,-30,100,sc),auto(d["h"],70),42)
+            W,H=1080,1920
+            b=head(W,440,250)+block(W,520,430,f'<h1 class="h" style="font-size:{auto(d["h"],104)}px">{t(d["h"])}</h1>')
+            b+=f'<div style="position:absolute;right:{int(W*.048)+43}px;left:86px;top:990px"><p class="sub" style="font-size:46px">{t(d["sub"])}</p><div style="margin-top:44px">{btn(c["cta_label"],46)}</div></div>'+P(names,-20,200,.9*sc)
+            R[f"{k}_story_1080x1920"]=page(W,H,b,80,wh=130)
+            R[f"{k}_linkedin_1200x627"]=single(1200,627,d["h"],d["sub"],btn(c["cta_label"],28),P(names,10,45,.85*sc),auto(d["h"],56),28)
+    return R
+if __name__=="__main__":
+    asyncio.run(render(build()));asyncio.run(render(build_rest()))
+    asyncio.run(render(build_ads(),"../round4/ads_v2"))
